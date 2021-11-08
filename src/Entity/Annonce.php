@@ -74,10 +74,6 @@ class Annonce
      */
     private $commentaires;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="annonces")
-     */
-    private $user;
 
     public function __construct()
     {
@@ -241,17 +237,7 @@ class Annonce
         return $this;
     }
 
-    public function getUser(): ?user
-    {
-        return $this->user;
-    }
 
-    public function setUser(?user $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
 
 }

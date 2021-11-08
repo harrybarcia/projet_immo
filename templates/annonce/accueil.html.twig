@@ -1,0 +1,137 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} | Accueil{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/admin/accueil_style.css") }}">
+{% endblock %}
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" >
+                                Annonces
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                
+                                    <a class="dropdown-item" href="{{ path('annonce') }}">Consulter</a>
+                                </li>
+                                {% if not app.user %} {# non connecté #}
+                                <li>
+                                    <a class="dropdown-item" href="{# {{ path('ajouter_annonce') }} #}">Déposer annonce</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="">Rechercher</a>
+                                </li>
+                                {% else %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                <li>									<li>
+                                    <a class="dropdown-item" href="{# {{ path('ajouter_annonce') }} #}">Déposer annonce</a>
+                                </li>
+
+                                    {% elseif is_granted('ROLE_USER')  %}
+                                <li>									<li>
+                                    <a class="dropdown-item" href="{# {{ path('ajouter_annonce') }} #}">Déposer annonce</a>
+                                </li>
+
+                                    {% endif %}
+                                {% endif %}
+                                
+                            </ul>
+                        </div>
+                    </li>
+
+                            {% if not app.user %} {# non connecté #}
+                                <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('annonce') }}">Inscription</a>
+                                </li>
+
+                                <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('annonce') }}">Connexion</a>
+                                </li>
+                            {% else %}
+                                {% if is_granted('ROLE_ADMIN') %}
+
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('annonce') }}">back_office</a>
+                                            </li>
+                                            
+                                                                <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ app.user.email }}
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="{{path('annonce')}}">Profil</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="{{ path('app_logout')}}">Déconnexion</a></li>
+                                            </ul>	
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('annonce' ) }}">Consulter mes annonces</a>
+                                            </li>
+                                
+                                {% elseif is_granted('ROLE_USER')  %}
+                                                                <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ app.user.pseudo }}
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="{{path('annonce')}}">Profil</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" href="{{ path('annonce')}}">Déconnexion</a></li>
+                                            </ul>	
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ path('annonce' ) }}">Consulter mes annonces</a>
+                                            </li>
+
+                                {% endif %}
+                            {% endif %}
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="left col-2" style="height:90%">
+            <div class="annonce" id="annonce-1">
+
+            </div>
+
+            <div class="annonce" id="annonce-2">
+
+            </div>
+
+            <div class="annonce" id="annonce-3">
+
+            </div>
+        
+        </div>
+        <div class="right col-9" style="height:90%">
+
+        
+        </div>
+        
+    
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

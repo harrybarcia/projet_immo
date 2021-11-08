@@ -1,0 +1,59 @@
+
+.main{
+    height: 80vh;
+        margin: 30 auto;
+        
+        border: 1px solid black;
+        display:flex;
+        padding:2px;
+        min-height: 660px;
+}
+
+
+.left {
+        height: 80%;
+        
+        border: 1px solid black;
+        margin:10px auto;
+           
+}
+
+
+.right {
+        height: 80%;
+        
+        border: 1px solid black;
+        margin:10px auto;
+           
+}
+
+#annonce-1{
+
+        height: 60%;
+        
+        border: 1px solid black;
+        margin:10px 10px;
+        border-radius: 3%;
+}
+#annonce-2{
+
+        height: 15%;
+        
+        border: 1px solid black;
+        margin:5px 10px;
+        border-radius: 3%;
+        z-index:100;
+}
+#annonce-3{
+
+        height: 15%;
+        
+        border: 1px solid black;
+        margin:5px 10px;
+        border-radius: 3%;
+        z-index:100;
+}
+
+.annonce{
+    margin:auto 5%  ;
+}

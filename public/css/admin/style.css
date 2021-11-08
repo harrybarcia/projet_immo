@@ -1,0 +1,49 @@
+/* css */
+
+.titre{
+    text-align: center;
+    color:blue;
+    text-decoration: underline;
+}
+
+
+.bg-info{
+    background-color: #b8b9f1!important;
+}
+
+.form-error-icon{
+
+    display:none;
+}
+
+.form-error-message{
+    color:blue;
+    font: size 1.2em}
+
+
+    /* label  .form-error-message{
+        display: none;
+    } */
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+    
+    #carouselExemple {
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 120px;
+    }
+    
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+    }
+
+.main{
+    width: 80%;
+        margin: 0 auto;
+        margin-top: 60px;
+        border: 1px solid black
+}

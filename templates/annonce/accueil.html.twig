@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset("css/admin/accueil_style.css") }}">
 {% endblock %}
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,23 +107,27 @@
         </div>
     </nav>
 
-    <div class="main">
-        <div class="left col-2" style="height:90%">
+    <div class="main row" >
+        <div class="left col-2" >
             <div class="annonce" id="annonce-1">
-
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem illum, tempora nemo architecto possimus excepturi maiores repellendus.</p>
             </div>
 
             <div class="annonce" id="annonce-2">
-
+                <button type="button" class="btn btn-primary">Voir les annonces</button>
             </div>
 
             <div class="annonce" id="annonce-3">
-
+                <button type="button" class="btn btn-primary">Vous êtes promoteur?</button>
             </div>
         
         </div>
-        <div class="right col-9" style="height:90%">
-
+        <div class="right col-lg-9 col-sm-12" >
+            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
+                <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                    style="border:0"    >
+                </iframe>
+            </div>
         
         </div>
         

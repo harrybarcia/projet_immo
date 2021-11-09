@@ -1,18 +1,22 @@
-
+body {
+        margin:0;
+        padding:0;
+        text-align: center;
+        background-color: rgba(245, 241, 237, 0.973);
+    }
 .main{
-    height: 80vh;
+    height: 90vh;
         margin: 30 auto;
-        
         border: 1px solid black;
         display:flex;
-        padding:2px;
         min-height: 660px;
+        
 }
 
 
 .left {
-        height: 80%;
-        
+        height: 90%;
+        min-width: 300px;
         border: 1px solid black;
         margin:10px auto;
            
@@ -20,7 +24,7 @@
 
 
 .right {
-        height: 80%;
+        height: 90%;
         
         border: 1px solid black;
         margin:10px auto;
@@ -57,3 +61,35 @@
 .annonce{
     margin:auto 5%  ;
 }
+
+.map-container{
+        overflow:hidden;
+        
+        position:relative;
+        height:100%;
+        }
+        .map-container iframe{
+        left:0;
+        top:0;
+        height:100%;
+        width:100%;
+        position:absolute;
+        }
+
+.row {
+        --bs-gutter-x: 0rem;
+        --bs-gutter-y: 0;
+
+        }
+
+        .annonce button{
+                text-align: justify;
+                margin:15% 5%;
+                justify-content: space-around;
+        }
+@media screen and (max-width: 500px) {
+        .col-sm-12{
+                height:45%;
+        }
+}
+

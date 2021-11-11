@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	| Catalogue
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/catalogue.css') }}">
+{% endblock %}
+
+{% block h1 %}Catalogue
+{% endblock %}
+
+
+{% block body %}
+{# 
+	<form action="{{ path('test') }}">
+		<div class="row">
+			<select name="categorie" class="form-control col-3" id="">
+				<option selected disabled>Sélectionnez la catégorie</option>
+				{% for i in categories %}
+					<option value="{{i.id}}">{{i.titre}}</option>
+				{% endfor %}
+
+
+			</select>
+			<button type="submit">
+				Filtrer</button>
+
+		</div>
+	</form> #}
+
+	{# si le tableau annonces n'est pas vide #}
+	{% if annonces %}{# {% if annonces is not empty %} #}<div class="row justify-content-around ">
+			{% for annonce in annonces %}
+				<div class="col-md-3 col-sm-5 cardCatalogue p-3 m-2 text-center">
+
+					
+					<h5>{{ annonce.titre|capitalize }}</h5>
+					<h5>{{ annonce.prix }}
+						€</h5>
+					<a class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">Voir la fiche</a>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}{# si le tableau annonces est vide #}<h4 class="text-center text-danger mt-3 fst-italic">Il n'y a aucun annonce pour le moment</h4>
+	{% endif %}
+    <a class="btn btn-success" href="{{ path('accueil') }}">Retour à l'accueil</a>
+{% endblock %}

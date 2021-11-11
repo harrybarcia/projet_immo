@@ -1,8 +1,9 @@
 body {
-        margin:0;
+        margin:10px;
         padding:0;
         text-align: center;
         background-color: rgba(245, 241, 237, 0.973);
+        
     }
 .main{
     height: 90vh;
@@ -11,12 +12,13 @@ body {
         display:flex;
         min-height: 660px;
         
+        
 }
 
 
 .left {
         height: 90%;
-        min-width: 300px;
+        min-width: 200px;
         border: 1px solid black;
         margin:10px auto;
            
@@ -25,7 +27,6 @@ body {
 
 .right {
         height: 90%;
-        
         border: 1px solid black;
         margin:10px auto;
            
@@ -79,17 +80,28 @@ body {
 .row {
         --bs-gutter-x: 0rem;
         --bs-gutter-y: 0;
+        margin: 30px;
+        
 
         }
 
         .annonce button{
                 text-align: justify;
-                margin:15% 5%;
+                margin:12% 5%;
+                justify-content: space-around;
+        }
+        #annonce-2 a{
+                text-align: justify;
+                margin:12% 5%;
                 justify-content: space-around;
         }
 @media screen and (max-width: 500px) {
         .col-sm-12{
                 height:45%;
         }
+        .row{
+                margin-bottom: 100%;
+        }
+
 }
 

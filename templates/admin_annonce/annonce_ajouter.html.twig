@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+
+{% block h1 %}{% endblock %}
+
+{% block body %}
+	<a class="btn btn-info" href="{{ path("accueil") }}">Retour accueil</a>
+
+	<div
+		class="col-md-12 mx-auto mt-3">
+		{# mon formulaire #}
+		{{ form_start(formAnnonce) }}
+		<div class="row">
+
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto ">
+					{{ form_row(formAnnonce.titre) }}
+				</div>
+			</div>
+
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.description_courte) }}
+				</div>
+			</div>
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.description_longue) }}
+				</div>
+			</div>
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.prix) }}
+				</div>
+			</div>
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.adresse) }}
+				</div>
+			</div>
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.cp) }}
+				</div>
+			</div>
+			<div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.ville) }}
+				</div>
+			</div>
+
+			{# <div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.categorie.propriete) }}
+				</div>
+			</div> #}
+            <div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.image) }}
+				</div>
+			</div>
+            <div class=" col-md-6 mx-2">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.surface) }}
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<input type="submit" value="Ajouter" class="btn btn-dark col-md-12 mt-3">
+	{{ form_end(formAnnonce) }}
+	{# fermeture du formulaire </form> #}
+{% endblock %}

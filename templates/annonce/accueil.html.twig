@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ asset("css/admin/accueil_style.css") }}">
 {% endblock %}
 {% block body %}
+
+    {% for notification in app.flashes('success') %}
+        <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+    {% endfor %}
+
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -26,7 +32,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li>
                                 
-                                    <a class="dropdown-item" href="{{ path('annonce') }}">Consulter</a>
+                                    <a class="dropdown-item" href="{{ path('accueil') }}">Consulter</a>
                                 </li>
                                 {% if not app.user %} {# non connecté #}
                                 <li>
@@ -55,18 +61,18 @@
 
                             {% if not app.user %} {# non connecté #}
                                 <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('annonce') }}">Inscription</a>
+                                        <a class="nav-link" href="{{ path('accueil') }}">Inscription</a>
                                 </li>
 
                                 <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('annonce') }}">Connexion</a>
+                                        <a class="nav-link" href="{{ path('accueil') }}">Connexion</a>
                                 </li>
                             {% else %}
                                 {% if is_granted('ROLE_ADMIN') %}
 
 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('annonce') }}">back_office</a>
+                                                <a class="nav-link" href="{{ path('accueil') }}">back_office</a>
                                             </li>
                                             
                                                                 <li class="nav-item dropdown">
@@ -74,12 +80,12 @@
                                                 {{ app.user.email }}
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="{{path('annonce')}}">Profil</a></li>
+                                                <li><a class="dropdown-item" href="{{path('accueil')}}">Profil</a></li>
                                                 <li><hr class="dropdown-divider"></li>
                                                 <li><a class="dropdown-item" href="{{ path('app_logout')}}">Déconnexion</a></li>
                                             </ul>	
                                         <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('annonce' ) }}">Consulter mes annonces</a>
+                                                <a class="nav-link" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
                                             </li>
                                 
                                 {% elseif is_granted('ROLE_USER')  %}
@@ -88,12 +94,12 @@
                                                 {{ app.user.pseudo }}
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="{{path('annonce')}}">Profil</a></li>
+                                                <li><a class="dropdown-item" href="{{path('accueil')}}">Profil</a></li>
                                                 <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" href="{{ path('annonce')}}">Déconnexion</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('accueil')}}">Déconnexion</a></li>
                                             </ul>	
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ path('annonce' ) }}">Consulter mes annonces</a>
+                                                <a class="nav-link" href="{{ path('accueil' ) }}">Consulter mes annonces</a>
                                             </li>
 
                                 {% endif %}
@@ -106,15 +112,15 @@
             </div>
         </div>
     </nav>
-
+<div style="display:flex; flex-direction:column">
     <div class="main row" >
         <div class="left col-2" >
             <div class="annonce" id="annonce-1">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem illum, tempora nemo architecto possimus excepturi maiores repellendus.</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
             </div>
 
             <div class="annonce" id="annonce-2">
-                <button type="button" class="btn btn-primary">Voir les annonces</button>
+                <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Voir les annonces</a>
             </div>
 
             <div class="annonce" id="annonce-3">
@@ -130,11 +136,58 @@
             </div>
         
         </div>
-        
-    
     </div>
 
+    
+    <div class="main row" >
+        <div class="left col-2" >
+            <div class="annonce" id="annonce-1">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
+            </div>
 
+            <div class="annonce" id="annonce-2">
+                <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
+            </div>
+
+            <div class="annonce" id="annonce-3">
+                <button type="button" class="btn btn-primary">Vous êtes promoteur?</button>
+            </div>
+        
+        </div>
+        <div class="right col-lg-9 col-sm-12" >
+            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
+                <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                    style="border:0"    >
+                </iframe>
+            </div>
+        </div>
+        
+    </div>
+    <div class="main row" >
+        <div class="left col-2" >
+            <div class="annonce" id="annonce-1">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
+            </div>
+
+            <div class="annonce" id="annonce-2">
+                <button type="button" class="btn btn-primary">Voir les annonces</button>
+            </div>
+
+            <div class="annonce" id="annonce-3">
+                <button type="button" class="btn btn-primary">Vous êtes promoteur?</button>
+            </div>
+        
+        </div>
+        <div class="right col-lg-9 col-sm-12" >
+            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
+                <iframe src="https://maps.google.com/maps" frameborder="0"
+                    style="border:0"    >
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}
 

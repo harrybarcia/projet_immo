@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %} {{ annonce.titre }} {% endblock %}
+
+
+{% block h1 %}{{ annonce.titre }}  {% endblock %}
+
+{% block body %}
+    {% for notification in app.flashes('success') %}
+        <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+    {% endfor %}
+
+  <td>
+        
+                {% if annonce.image |length > 1 %}
+                    <div id="carouselExemple">
+                        <div>
+                            <img style="height:50%" src="{{ asset("images/imagesUpload/" ~ annonce.image ) }}" class="d-block">
+                        </div>
+                    </div>
+                
+                {% else %}
+                        <div class="text-center">
+                            <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
+                        </div>
+
+                {% endif %}
+
+        </td>
+
+<h5 class="text-center text-danger"> {{ annonce.prix}} €</h5>
+
+
+
+<a class="btn btn-success" href="{# {{ path('ajout_commentaire',{'id':annonce.id}) }} #}">Laisser un commentaire</a>
+<a class="btn btn-success" href="{{ path('catalogue') }}">Retour au produit</a>
+<br>
+
+<br>
+{% if annonce.commentaires is not empty %}
+
+        <table class="table table-hover table-striped text-center mt-3">
+
+            <thead class="bg-dark text-white">
+
+                <tr>
+                
+                    <th>Commentaire</th>
+                    <th>Utilisateur</th>
+                    {# <th>Date</th> #}
+
+                </tr>
+                 </thead>
+
+                <tbody>
+                <tr class="align-middle">
+                    
+                    {% for commentaire in commentaires %}
+                        <td>{{ commentaire.commentaire }}</td>
+                        <td>{{ commentaire.user.email }}</td>
+                        
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+        </table>
+
+    
+
+
+{% else %}
+Aucun commentaire pour le moment
+    
+
+{% endif %}
+
+ 
+{% endblock %}
+

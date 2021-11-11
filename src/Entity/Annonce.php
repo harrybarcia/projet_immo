@@ -32,7 +32,7 @@ class Annonce
     /**
      * @ORM\Column(type="text")
      */
-    private $descriptio_longue;
+    private $description_longue;
 
     /**
      * @ORM\Column(type="integer")
@@ -74,6 +74,18 @@ class Annonce
      */
     private $commentaires;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="annonces")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+
 
     public function __construct()
     {
@@ -111,14 +123,14 @@ class Annonce
         return $this;
     }
 
-    public function getDescriptioLongue(): ?string
+    public function getDescriptionLongue(): ?string
     {
-        return $this->descriptio_longue;
+        return $this->description_longue;
     }
 
-    public function setDescriptioLongue(string $descriptio_longue): self
+    public function setDescriptionLongue(string $description_longue): self
     {
-        $this->descriptio_longue = $descriptio_longue;
+        $this->description_longue = $description_longue;
 
         return $this;
     }
@@ -236,6 +248,32 @@ class Annonce
 
         return $this;
     }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+
 
 
 

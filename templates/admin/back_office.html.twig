@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent()}} | Back-office {% endblock %}
+
+{% block h1 %}Back-office{% endblock %}
+
+{% block body %}
+
+<div class="row">
+<a class="bg-danger p-4 text-center col-md-6 text-white" href="{{path('annonce_afficher')}}"> Gestion des produits</a>
+<a class="bg-info p-4 text-center col-md-6 text-white" href="{{path('categorie_afficher')}}"> Gestion des catégories</a>
+<a class="bg-primary p-4 text-center col-md-6 text-white" href="{{path('accueil')}}"> Gestion Accueil</a>
+</div>
+
+
+
+{% endblock %}
+
+

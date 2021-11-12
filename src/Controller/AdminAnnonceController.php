@@ -57,11 +57,22 @@ class AdminAnnonceController extends AbstractController
             $form->handleRequest($request);
             
             if ($form->isSubmitted() && $form->isValid()) {
-            // dump($request); 
-                // ---------j'envoie l'objet en bdd-----------------
+                $imageFile = $form->get('image')->getData();
+                if($imageFile) // si $imageFile n'est pas vide/null ==> une image a été upload
+                {
+
+                    $nomImage = date("YmdHis") . "-" . uniqid() . "-" . $imageFile->getClientOriginalName();
+                    
+                    $imageFile->move(
+                        $this->getParameter("images_annonces"),
+                        $nomImage
+                    );
+                    $annonce->setImage($nomImage);
+                }
                 $annonce->setDateEnregistrement(new \DateTimeImmutable('now'));
                 $user=$this->getUser();
                 $annonce->setUser($user);
+
 
                 $manager->persist($annonce);
                 $manager->flush();
@@ -79,7 +90,7 @@ class AdminAnnonceController extends AbstractController
 
     /**
 
-     * @Route("/gestion_annonce/modifier/{id<\d+>}", name="annonce_modifier")
+     * @Route("/modifier/{id<\d+>}", name="annonce_modifier")
      */
     public function annonce_modifier(Annonce $annonce, Request $request, EntityManagerInterface $manager) // objet de la class Annonce
     {
@@ -93,9 +104,6 @@ class AdminAnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-
-
-
         $manager->persist($annonce); //avec persist on peut ajouter ou modifier un annonce. Si l'id est null, il va créer l'annonce si l'id
         // existe, il va l'update.
         $manager->flush(); 
@@ -114,20 +122,25 @@ class AdminAnnonceController extends AbstractController
 
  
     /**
-     * @Route("/gestion_annonce/supprimer/{id}", name="annonce_supprimer") 
+     * @Route("/supprimer/{id}", name="annonce_supprimer") 
      * 
      * 
      */
     public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager ){
 
-
+        if($annonce->getImage()){
+            dump(gettype($annonce));
+            dump($annonce->getImage());
+            unlink($this->getParameter("images_annonces") . '/' . $annonce->getImage()); //si mon produit contient une image alors je la supprr
+            
+        }
         
             $idAnnonce=$annonce->getId();
             
             $manager->remove($annonce);
             $manager->flush ();
 
-            $this->addFlash("success","l'annonce $idAnnonce bien été modifié"); 
+            $this->addFlash("success","l'annonce $idAnnonce bien été supprimée"); 
         
 
         return $this->redirectToRoute("annonce_afficher");

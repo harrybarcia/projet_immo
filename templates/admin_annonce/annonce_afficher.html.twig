@@ -70,7 +70,14 @@
                         <td>{{ annonce.titre}}</td>
                         <td>{{ annonce.titre}}</td>
                         <td>
-                            <img src="{{ asset("images/imagesUpload/" ~ annonce.image ) }}" alt="" style="width:80px"> 
+                             {% if annonce.photos is not empty %}
+
+                            <img src="{{ asset("images/imagesUpload/" ~ annonce.photos[0].nom ) }}" alt="" style="width:80px"> 
+
+                         {% else %}
+                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:80px">
+
+                        {% endif %}
                         </td>
                         <td>
                             <a href="{{ path('annonce_modifier' ,  {'id' : annonce.id} ) }}">

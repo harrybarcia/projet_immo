@@ -14,19 +14,11 @@
     {% endfor %}
     
     <div class="col-md-6 mx-auto">
-        {{ form_start(formAnnonce) }}
+        {{ form_start(formAnnonce_modif) }}
 
-        {{ form_row(formAnnonce.titre)}}
-
-        {{ form_row(formAnnonce.prix)}}
-
-        
-
-        
 
         <input type="submit" value="Modifier" class="col-md-12 btn btn-dark mt-3">
-
-        {{ form_end(formAnnonce) }}
+        {{ form_end(formAnnonce_modif) }}
     </div>
 
 

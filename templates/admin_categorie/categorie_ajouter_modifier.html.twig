@@ -1,27 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ parent() }} | 
 
-    {% if modification %}
-        Modifier : {{ categorie.type }}
-    {% else %}
-        Ajouter une catégorie
-    {% endif %}
-
-{% endblock %}
-
-
-
-
-{% block h1 %}
-
-    {% if modification %}
-        Modifier : {{ categorie.type }}
-    {% else %}
-        Ajouter une catégorie
-    {% endif %}
-
-{% endblock %}
 
 
 
@@ -35,11 +14,8 @@
     <div class="col-md-6 mx-auto">
 
         {{ form_start(formCategorie) }}
-
-        {{ form_row(formCategorie.type) }}
-
+        {{ form_end(formCategorie) }}
         
-
         <input type="submit" 
         
             {% if modification %}
@@ -49,10 +25,6 @@
             {% endif %}
     
          class="btn btn-danger col-md-12 mt-3">
-
-         
-
-        {{ form_end(formCategorie) }}
 
     </div>
 

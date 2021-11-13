@@ -11,14 +11,84 @@
 
         
     </head>
-    <body>
-        
-        
-        <div class="me-3 ms-3 ">
-            <h1 class="text-center m-3">{% block h1 %}{% endblock %}</h1>
+<body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Immo</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('catalogue') }}">Catalogue</a>
+                        </li>
+                        {% if not app.user %} {# non connecté #}
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('register') }}">Inscription</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                            </li>
+                        {% else %}{# connecté #}
+
+                            {% if is_granted('ROLE_ADMIN') %}{# connecté et ROLE_ADMIN #}
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="{# {{ path('profil')}} #}">Profil</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('back_office') }}">Back Office</a></li>
+                                        
+                                        <li><a class="dropdown-item" href="{{ path('annonce_afficher') }}">Gestion des annonces</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('categorie_afficher') }}">Gestion des catégories</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('accueil') }}">Accueil Afficher</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ path('logout')}}">Déconnexion</a></li>
+                                    </ul>
+                                </li>
+
+                            {% elseif is_granted('ROLE_USER') %}{# connecté et ROLE_USER #}
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ app.user.prenom }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="{# {{path('profil')}} #}">Profil</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ path('logout')}}">Déconnexion</a></li>
+                                    </ul>
+                                    </li>
+
+
+                            {% endif %}
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-10 mx-auto">
+            <h1 class="titre">{% block h1 %}{% endblock %}</h1>
             {% block body %}{% endblock %}
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
         {% block javascripts %}{% endblock %}
+        
     </body>
 </html>

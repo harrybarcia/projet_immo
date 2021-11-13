@@ -65,11 +65,6 @@ class Annonce
     private $date_enregistrement;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="annonce")
      */
     private $commentaires;
@@ -85,11 +80,17 @@ class Annonce
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="annonce")
+     */
+    private $photos;
+
 
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     
@@ -207,17 +208,7 @@ class Annonce
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Commentaire[]
@@ -269,6 +260,36 @@ class Annonce
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getAnnonce() === $this) {
+                $photo->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

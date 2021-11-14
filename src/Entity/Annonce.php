@@ -27,12 +27,12 @@ class Annonce
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $description_courte;
+    private $descriptioncourte;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description_longue;
+    private $descriptionlongue;
 
     /**
      * @ORM\Column(type="integer")
@@ -114,24 +114,24 @@ class Annonce
 
     public function getDescriptionCourte(): ?string
     {
-        return $this->description_courte;
+        return $this->descriptioncourte;
     }
 
-    public function setDescriptionCourte(string $description_courte): self
+    public function setDescriptionCourte(string $descriptioncourte): self
     {
-        $this->description_courte = $description_courte;
+        $this->descriptioncourte = $descriptioncourte;
 
         return $this;
     }
 
     public function getDescriptionLongue(): ?string
     {
-        return $this->description_longue;
+        return $this->descriptionlongue;
     }
 
-    public function setDescriptionLongue(string $description_longue): self
+    public function setDescriptionLongue(string $descriptionlongue): self
     {
-        $this->description_longue = $description_longue;
+        $this->descriptionlongue = $descriptionlongue;
 
         return $this;
     }

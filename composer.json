@@ -10,8 +10,10 @@
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.4",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
+        "mbezhanov/faker-provider-collection": "^2.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.3.*",
@@ -46,6 +48,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "hautelook/alice-bundle": "^2.9",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "5.3.*",
         "symfony/css-selector": "5.3.*",
@@ -97,5 +100,11 @@
             "allow-contrib": false,
             "require": "5.3.*"
         }
-    }
+    },
+        "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/theofidry/AliceBundle"
+        }
+    ]
 }

@@ -24,10 +24,6 @@ class Categorie
      */
     private $type;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $propriete;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="Categorie")
@@ -58,17 +54,7 @@ class Categorie
         return $this;
     }
 
-    public function getPropriete(): ?string
-    {
-        return $this->propriete;
-    }
 
-    public function setPropriete(string $propriete): self
-    {
-        $this->propriete = $propriete;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Annonce[]

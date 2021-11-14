@@ -29,7 +29,7 @@ class AdminAnnonceController extends AbstractController
         {
             $annoncesArray = $repoAnnonce->findAll();
 
-            //dd($annoncesArray);// c'est un tableau d'objets
+            
             
 
 
@@ -42,7 +42,7 @@ class AdminAnnonceController extends AbstractController
     /**
      * @Route("/ajouter", name="annonce_ajouter")
      */
-    public function ajouter_annonce(Request $request, EntityManagerInterface $manager)
+    public function annonce_ajouter(Request $request, EntityManagerInterface $manager)
     {
 
         if($this->isGranted('IS_ANONYMOUS')) //si la personne connectée est anonyme
@@ -96,6 +96,7 @@ class AdminAnnonceController extends AbstractController
             return $this->redirectToRoute("accueil");
         }
         return $this->render('admin_annonce/annonce_ajouter.html.twig',[
+            
             "formAnnonce"=>$form->createView()
         ]);
     }

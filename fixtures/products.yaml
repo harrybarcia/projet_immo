@@ -1,0 +1,40 @@
+App\Entity\User:
+  user_{1..2}:
+    email: '<current()>\@example.org'
+    password: "a"
+    is_verified: "a"
+    roles: []
+
+App\Entity\Categorie:
+  categorie_{1..3}:
+    type: <numberBetween(1, 4)>
+    propriete: <numberBetween(1, 4)>
+    
+    
+
+App\Entity\Annonce:
+  annonce_{1..100}:
+    titre: <productName()>
+    prix: <numberBetween(200000, 4000000)>
+    descriptioncourte: <text(50)>
+    descriptionlongue: <text(100)>
+    surface: <numberBetween(20, 400)>
+    adresse: <numberBetween(1, 100)>
+    cp: <numberBetween(94015, 94080 )>
+    ville: <city()>
+    date_enregistrement: <(new \DateTime('2021-11-11'))>
+    user: '@user_*'
+    categorie: '@categorie_*'
+
+
+App\Entity\Photo:
+  photo_{1..50}:
+    nom: http://picsum.photos/id/<numberBetween(400,800)>/290/180
+    annonce: '@annonce_*'
+
+App\Entity\Commentaire:
+  commentaire_{1..50}:
+    commentaire: <text(50)>
+    date_enregistrerment: <(new \DateTime('2021-11-11'))>
+    user: '@user_*'
+    annonce: '@annonce_*'

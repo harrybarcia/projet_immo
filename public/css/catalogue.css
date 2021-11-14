@@ -1,4 +1,11 @@
-.cardCatalogue{
-    box-shadow: 2px 2px 4px grey;
+.titre{
+
 }
 
+.prix{
+
+}
+
+.cardCatalogue{
+    border:1 px solid black
+}

@@ -19,12 +19,7 @@ class CategorieType extends AbstractType
                 "attr"=>["placeholder"=>"saisir le nom de la catégorie"
                 ]
             ])
-            ->add('propriete', TextType::class,[
-                "required"=>false,
-                "label"=>"Statut de la propriété",
-                "attr"=>["placeholder"=>"saisir le statut de la propriété"
-                ]
-            ])
+
         ;
     }
 

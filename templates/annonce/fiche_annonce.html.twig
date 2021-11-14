@@ -13,19 +13,14 @@
 
   <td>
         
-                {% if annonce.image |length > 1 %}
-                    <div id="carouselExemple">
-                        <div>
-                            <img style="height:50%" src="{{ asset("images/imagesUpload/" ~ annonce.image ) }}" class="d-block">
-                        </div>
-                    </div>
-                
-                {% else %}
-                        <div class="text-center">
-                            <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
-                        </div>
+                             {% if annonce.photos is not empty %}
 
-                {% endif %}
+                            <img src="{{ annonce.photos[0].nom }}" alt="" style="width:150px"> 
+
+                         {% else %}
+                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:80px">
+
+                        {% endif %}
 
         </td>
 

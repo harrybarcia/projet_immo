@@ -7,40 +7,33 @@
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('css/catalogue.css') }}">
+	
 {% endblock %}
 
-{% block h1 %}Catalogue
+{% block h1  %}Catalogue
 {% endblock %}
 
 
 {% block body %}
-{# 
-	<form action="{{ path('test') }}">
-		<div class="row">
-			<select name="categorie" class="form-control col-3" id="">
-				<option selected disabled>Sélectionnez la catégorie</option>
-				{% for i in categories %}
-					<option value="{{i.id}}">{{i.titre}}</option>
-				{% endfor %}
 
-
-			</select>
-			<button type="submit">
-				Filtrer</button>
-
-		</div>
-	</form> #}
-
-	{# si le tableau annonces n'est pas vide #}
 	{% if annonces %}{# {% if annonces is not empty %} #}<div class="row justify-content-around ">
 			{% for annonce in annonces %}
-				<div class="col-md-3 col-sm-5 cardCatalogue p-3 m-2 text-center">
-
-					
-					<h5>{{ annonce.titre|capitalize }}</h5>
-					<h5>{{ annonce.prix }}
-						€</h5>
-					<a class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">Voir la fiche</a>
+				<div class="col-md-5 cardCatalogue p-3 m-2 ">
+					<div class="row" style="justify-content: space-around;border:1px black solid">
+						<div class="col-md-5" >
+							{% if annonce.photos is not empty %}
+								<img src="{{ annonce.photos[0].nom }}" alt="" style="width:320px"> 
+							{% else %}
+								<img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:198px">
+							{% endif %}
+						</div>
+						<div class="col-md-5" style="padding-left: 24px;text-align: center ">
+							<h5>{{ annonce.titre|capitalize }}</h5>
+							<h5>{{ annonce.prix }}€</h5>
+							<p class="text text-muted">{{ annonce.descriptionlongue }}€</p>
+							<a class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">Voir la fiche</a>
+						</div>
+					</div>
 				</div>
 			{% endfor %}
 		</div>

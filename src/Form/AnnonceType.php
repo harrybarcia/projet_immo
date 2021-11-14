@@ -20,9 +20,30 @@ class AnnonceType extends AbstractType
         if($options["ajouter"] == true)
         {
             $builder
-                ->add('titre')
-                ->add('description_courte')
-                ->add('description_longue')
+            ->add('titre', TextType::class, [
+                "label" => "Titre du produit",
+                "required" => false,
+                "attr" => [
+                    "placeholder" => "Saisir le titre du produit",
+                    "class" => "bg-warning",
+                ]
+            ])
+                ->add('descriptioncourte', TextType::class, [
+                    "label" => "Description du produit",
+                    "required" => false,
+                    "attr" => [
+                        "placeholder" => "",
+                        "class" => "bg-warning",
+                    ]
+                ])
+                ->add('descriptionlongue', TextType::class, [
+                    "label" => "Description longue du produit",
+                    "required" => false,
+                    "attr" => [
+                        "placeholder" => "",
+                        "class" => "bg-warning",
+                    ]
+                ])
                 ->add('prix')
                 ->add('surface')
                 ->add('adresse')
@@ -57,7 +78,7 @@ class AnnonceType extends AbstractType
                         "class" => "bg-warning",
                     ]
                 ])
-                ->add('description_courte', TextType::class, [
+                ->add('descriptioncourte', TextType::class, [
                     "label" => "Description du produit",
                     "required" => false,
                     "attr" => [
@@ -65,7 +86,7 @@ class AnnonceType extends AbstractType
                         "class" => "bg-warning",
                     ]
                 ])
-                ->add('description_longue', TextType::class, [
+                ->add('descriptionlongue', TextType::class, [
                     "label" => "Description longue du produit",
                     "required" => false,
                     "attr" => [

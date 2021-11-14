@@ -39,11 +39,13 @@
                 
                     <th>ID</th>
                     <th>Titre</th>
-                    <th>Prix (€)</th>
+                    <th>Prix</th>
+                    <th>Ville</th>
                     
                     <th>catégorie</th>
-                    <th>description_courte</th>
-                    <th>description_longue</th>
+                    <th>description courte</th>
+                    <th>description longue</th>
+                    <th>surface</th>
                     <th>Image</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
@@ -62,20 +64,20 @@
              
                         <td>{{ annonce.id }}</td>
                         <td>{{ annonce.titre }}</td>
-                        <td>{{ annonce.prix }}</td>
                         
-                        <td>
-                            {{ annonce.categorie.type}}
-                        </td>
-                        <td>{{ annonce.titre}}</td>
-                        <td>{{ annonce.titre}}</td>
+                        <td style="width:100px">{{ annonce.prix | number_format(0, ',', ' ')  }} €</td>
+                        <td>{{ annonce.ville}}</td>
+                        <td>{{ annonce.categorie.type}}</td>
+                        <td>{{ annonce.descriptioncourte }}</td>
+                        <td>{{ annonce.descriptionlongue }}</td>
+                        <td>{{ annonce.surface }}</td>
                         <td>
                              {% if annonce.photos is not empty %}
 
-                            <img src="{{ asset("images/imagesUpload/" ~ annonce.photos[0].nom ) }}" alt="" style="width:80px"> 
+                            <img src="{{ annonce.photos[0].nom }}" alt="" style="width:150px"> 
 
                          {% else %}
-                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:80px">
+                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
 
                         {% endif %}
                         </td>

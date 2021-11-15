@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous nos produits{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {% include 'annonce/_filter.html.twig' with {form: form, min: min, max: max} only %}
+            </div>
+            <div class="col-md-9">
+                <div class="d-flex justify-content-end mb-2">
+                    {{ knp_pagination_sortable(annonces, 'Prix', 'p.prix') }}
+                    
+                </div>
+                <div class="grid">
+                    {% for annonce in annonces %}
+                        <div class="card">
+                        {% if annonce.photos is not empty %}
+                        <img src="{{ annonce.photos[0].nom }}" alt="" style="width:150px">
+                         {% else %}
+                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
+                        {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ annonce.titre }}</h5>
+                                <div class="card-title text-primary" style="font-weight: bold; font-size: 1.5rem;">
+                                {{ annonce.prix | number_format(0, ',', ' ') }} €
+                                
+                                </div>
+                                <p class="text text-muted">{{ annonce.descriptionlongue }}</p>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-4">
+                    {{ knp_pagination_render(annonces) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

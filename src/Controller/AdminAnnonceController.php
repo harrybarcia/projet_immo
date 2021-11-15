@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Photo;
 use DateTimeImmutable;
 use App\Entity\Annonce;
+use src\data\SearchData;
+use src\data\SearchForm;
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;
 use App\Repository\AnnonceRepository;
@@ -198,5 +200,47 @@ class AdminAnnonceController extends AbstractController
         return $this->redirectToRoute("annonce_afficher");
 
 
+    }
+    /**
+     * @Route("/index", name="index")
+     */
+    public function index(AnnonceRepository $repoannonce, Request $request): Response
+    {
+        $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
+        $data->page = $request->get('page', 1);
+        $form=$this->createForm(SearchForm::class, $data);  // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
+
+        $form->handleRequest($request);
+        [$min, $max] = $repoannonce->findMinMax($data);
+
+        $annonces=$repoannonce->findSearch($data);
+        // $filtre = $_GET["categorie"];
+        // dump($filtre);
+        // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
+        // if ($test) {
+        //     return $this->render('annonce/test.html.twig', ["test"=>$test]);
+        // }
+        return $this->render('annonce/index.html.twig',[
+            "annonces"=>$annonces,
+            "form"=>$form->createView(),
+            'min' => $min,
+            'max' => $max
+        ]); 
+        
+    }
+        /**
+     * @Route("/tet", name="annonce_afficher")
+     */
+    public function tet(AnnonceRepository $repoAnnonce)
+    {
+        $annoncesArray = $repoAnnonce->findAll();
+
+        
+        
+
+
+        return $this->render('admin_annonce/annonce_afficher.html.twig', [
+            "annonces" => $annoncesArray
+        ]);
     }
 }

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PLU du Perreux sur Marne</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+<script src='https://cdn.rawgit.com/mapbox/geo-viewport/8f71814c/geo-viewport.js'></script>
+
+<!-- liens geocoder -->
+<!-- <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
+ -->
+<link rel="stylesheet" href="{{ asset("css/admin/accueil_style.css") }}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+
+<style>
+
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+  #container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+  
+  #map {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+    height:auto;
+  }
+  
+  #preview {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    border:2px solid grey;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  
+  
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Load the `mapbox-gl-geocoder` plugin. -->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+    <div id="container" class=col-md-12>
+        <div id="map"></div>
+        <img id="preview" />
+      </div>
+    <!-- ma navbar bootsrap -->
+
+<script src="script.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script src="jquery.min.js"></script>
+
+<script>
+  mapboxgl.accessToken =
+  "pk.eyJ1IjoiaGFycnliYXJjaWEiLCJhIjoiY2s3dzRvdTJnMDBqODNlbzhpcjdmaGxldiJ9.vg2wE4S7o_nryVx8IFIOuQ";
+//DISPLAY MY MAP Configuration de la carte, style, url, zoom, center, nom du container
+  var map = new mapboxgl.Map({
+    container: "map", // container id
+    style: "mapbox://styles/harrybarcia/cksn9vv4o27jm18pgbw3vrt2l",
+
+    center: [2.503, 48.842],
+    zoom: 15.2,
+    pitch: 40,
+    bearing: 10,
+    hash: true,
+    minZoom: 6,
+    maxZoom: 19,
+  });
+
+map.on("load", function () {
+  //   ajout de la carte satellite
+
+
+  // ajout source carte réglementaire
+  map.addSource("Zonage", {
+    type: "vector",
+    url: "mapbox://harrybarcia.1lyy8d8e", //tilesetID
+  });
+
+  // ajout carte réglementaire en dessous de ma couche watershadow
+  map.addLayer({
+    id: "Zonage", // nom donné à ma couche sur Atom
+    type: "fill",
+    source: "Zonage",
+    "source-layer": "zonage_perreux-3t2g2s", // nom de la couche sur Mapbox
+    layout: { visibility: "none" },
+    paint: {
+      "fill-color": {
+        property: "LIBELLE",
+        type: "categorical",
+        stops: [
+          ["UEa", "#96ceb4"],
+          ["UAa", "#d6d4e0"],
+          ["UEb", "#b8a9c9"],
+          ["UL", "#622569"],
+          ["N", "#588c7e"],
+          ["UAb", "#f2e394"],
+          ["UH", "#f2ae72"],
+          ["URa", "#a2836e"],
+          ["UM", "#85C1E9"],
+          ["URb", "#034f84"],
+          ["UB", "#eea29a"],
+        ],
+      },
+      "fill-opacity": 1,
+    },
+
+    layout: { visibility: "visible" },
+  },
+  "waterway-shadow" 
+);
+
+  // ajout source
+  map.addSource("bati", {
+    type: "vector",
+    url: "mapbox://harrybarcia.5p71e2pg", //tilesetID
+  });
+
+  // ajout carte bati avec couleur correspondant à la zone
+  map.addLayer({
+    id: "bati", // nom donné à ma couche sur Atom
+
+    type: "fill-extrusion",
+
+    source: "bati",
+
+    "source-layer": "zonage_perreux_nett-5jtjei", // nom de la couche sur Mapbox
+    layout: { visibility: "visible" },
+
+    paint: {     
+      "fill-extrusion-color": {
+      property: "LIBELLE",
+      stops: [
+        ["UEa", "#588c7e"],
+        ["UAa", "#a2836e"],
+        ["UEb", "#622569"],
+        ["UL", "#b8a9c9"],
+        ["N", "#588c7e"],
+        ["UAb", "#ffcc5c"],
+        ["UH", "#c83349"],
+        ["URa", "#d6d4e0"],
+        ["UM", "#5DADE2"],
+        ["URb", "#034f84"],
+        ["UB", "#D84315"],
+      ],
+      type:"categorical",
+    },
+      "fill-extrusion-height": ["interpolate",
+        ["exponential",10],
+        ["zoom"],8,1,8.05,["get", "HAUTEUR"],
+      ],
+    "fill-extrusion-base": 0, // mettre 'surface_re' fait commencer la hauteur a 20 m pour 20 m² de surface par ex
+    "fill-extrusion-opacity": 0.8,
+    },
+
+  });
+
+  // ajout satellite
+  map.addLayer({
+    id: "satellite",
+    source: { type: "raster", url: "mapbox://mapbox.satellite", tileSize: 256 },
+    type: "raster",
+    layout: { visibility: "none" },
+ 
+  
+  });
+  // initialisation du geocoder et ajout sur la map
+
+  let h = $(window).height();
+  let w = $(window).width();
+
+// Add the control to the map.
+  map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+      })
+  );
+
+  var switchy = document.getElementById("preview");
+  switchy.src = "sat.jpg";
+
+  // Construct a static map url
+  // https://www.mapbox.com/developers/api/static/
+
+  // fonction qui permet l'affichage de la map au click sur l'image preview
+    console.log(switchy);
+    switchy.addEventListener("click", function () {
+      switchy = document.getElementById("preview");
+      if (switchy.className === "on") {
+        switchy.setAttribute("class", "off");
+        map.setLayoutProperty("satellite", "visibility", "none");
+        console.log(switchy);
+        document.getElementById("preview").src = "sat.jpg";
+      } else {
+        switchy.setAttribute("class", "on");
+        map.setLayoutProperty("satellite", "visibility", "visible");
+        document.getElementById("preview").src = "street.jpg";
+      }
+    });
+});
+
+
+</script>
+ 
+</body>
+</html>

@@ -229,18 +229,13 @@ class AdminAnnonceController extends AbstractController
         
     }
         /**
-     * @Route("/tet", name="annonce_afficher")
+     * @Route("/test", name="test")
      */
-    public function tet(AnnonceRepository $repoAnnonce)
+    public function test()
     {
-        $annoncesArray = $repoAnnonce->findAll();
-
         
-        
-
-
-        return $this->render('admin_annonce/annonce_afficher.html.twig', [
-            "annonces" => $annoncesArray
+        return $this->render('carto.html.twig', [
+            
         ]);
     }
 }

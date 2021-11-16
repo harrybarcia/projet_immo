@@ -6,62 +6,52 @@ body {
         
     }
 .main{
-    height: 90vh;
+        height: 90vh;
         margin: 30 auto;
         border: 1px solid black;
         display:flex;
         min-height: 660px;
+        padding:1%;
+        
         
         
 }
 
+.right {
+        height: 90%;
+        border: 1px solid black;
+        margin:10px auto;
+        
+           
+}
 
 .left {
         height: 90%;
         min-width: 200px;
         border: 1px solid black;
         margin:10px auto;
-           
-}
-
-
-.right {
-        height: 90%;
-        border: 1px solid black;
-        margin:10px auto;
-           
-}
-
-#annonce-1{
+        }
+.annonce{
 
         height: 60%;
-        
-        border: 1px solid black;
-        margin:10px 10px;
+        border: 1px solid rgb(151, 135, 135);
+        margin:5% 10%;
         border-radius: 3%;
 }
-#annonce-2{
-
-        height: 15%;
-        
-        border: 1px solid black;
-        margin:5px 10px;
+.annonce2_3{
+        min-width: 198px;
+        border: 1px solid rgb(153, 141, 141);
+        margin: 5% 10%;
         border-radius: 3%;
-        z-index:100;
-}
-#annonce-3{
+        z-index: 100;
+        text-align: center;
+        }
 
-        height: 15%;
-        
-        border: 1px solid black;
-        margin:5px 10px;
-        border-radius: 3%;
-        z-index:100;
+a{
+        margin:1% auto;
 }
 
-.annonce{
-    margin:auto 5%  ;
-}
+
 
 .map-container{
         overflow:hidden;
@@ -90,18 +80,35 @@ body {
                 margin:12% 5%;
                 justify-content: space-around;
         }
-        #annonce-2 a{
+        .annonce-2_3 a{
                 text-align: justify;
                 margin:12% 5%;
                 justify-content: space-around;
         }
 @media screen and (max-width: 500px) {
-        .col-sm-12{
-                height:45%;
-        }
+
         .row{
-                margin-bottom: 100%;
+                min-height: 90%;
+
         }
+        .left {
+                height: 45%;
+                min-width: 80%;
+                text-align: center;
+                border: 1px solid black;
+                margin:2% auto;
+                }
+        .right {
+                
+                height: 50%;
+                width: 90%;
+                text-align: center;
+                border: 2px solid rgb(255, 0, 0);
+
+        }
+
+
+
 
 }
 

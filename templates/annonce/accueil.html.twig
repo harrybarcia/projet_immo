@@ -5,6 +5,15 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset("css/admin/accueil_style.css") }}">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+    <script src='https://cdn.rawgit.com/mapbox/geo-viewport/8f71814c/geo-viewport.js'></script>
+    <link rel="stylesheet" href="{{ asset("public/js/script.js") }}">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="jquery.min.js"></script>
 {% endblock %}
 {% block body %}
 
@@ -12,83 +21,80 @@
         <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
     {% endfor %}
 
-<div style="display:flex; flex-direction:column">
-    <div class="main row" >
-        <div class="left col-2" >
-            <div class="annonce" id="annonce-1">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
-            </div>
 
-            <div class="annonce" id="annonce-2">
-                <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Voir les annonces</a>
-            </div>
+    <div style="display:flex; flex-direction:column">
+        <div class="main row" >
+            <div class="left col-3" >
+                <div class="annonce" id="annonce-1">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil  t. Soluta explicabo veritatis debitis nihil  t. Soluta explicabo veritatis debitis nihil   .</p>
+                </div>
 
-            <div class="annonce" id="annonce-3">
-                <button type="button" class="btn btn-primary">Vous êtes promoteur?</button>
+                <div class="annonce2_3">
+                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
+                </div>
+
+                <div class="annonce2_3">
+                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
+                </div>
+            
             </div>
-        
+            <div class="right col-lg-9 col-sm-12" >
+                <div>
+                {% include "carto.html.twig" %} 
+                </div>
+            
+            </div>
         </div>
-        <div class="right col-lg-9 col-sm-12" >
-            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
-                <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                    style="border:0"    >
-                </iframe>
-            </div>
+
         
+        <div class="main row" >
+            <div class="left col-2" >
+                <div class="annonce" id="annonce-1">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
+                </div>
+
+                <div class="annonce2_3">
+                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
+                </div>
+
+                <div class="annonce2_3">
+                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
+                </div>
+            
+            </div>
+            <div class="right col-lg-9" >
+                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
+                    <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                        style="border:0"    >
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+        <div class="main row" >
+            <div class="left col-2" >
+                <div class="annonce" id="annonce-1">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
+                </div>
+
+                <div class="annonce2_3">
+                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
+                </div>
+
+                <div class="annonce2_3">
+                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
+                </div>
+            
+            </div>
+            <div class="right col-lg-9" >
+                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
+                    <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                        style="border:0"    >
+                    </iframe>
+                </div>
+            </div>
+            
         </div>
     </div>
-
-    
-    <div class="main row" >
-        <div class="left col-2" >
-            <div class="annonce" id="annonce-1">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
-            </div>
-
-            <div class="annonce" id="annonce-2">
-                <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
-            </div>
-
-            <div class="annonce" id="annonce-3">
-                <button type="button" class="btn btn-primary">Vous êtes promoteur?</button>
-            </div>
-        
-        </div>
-        <div class="right col-lg-9 col-sm-12" >
-            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
-                <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                    style="border:0"    >
-                </iframe>
-            </div>
-        </div>
-        
-    </div>
-    <div class="main row" >
-        <div class="left col-2" >
-            <div class="annonce" id="annonce-1">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
-            </div>
-
-            <div class="annonce" id="annonce-2">
-                <button type="button" class="btn btn-primary">Voir les annonces</button>
-            </div>
-
-            <div class="annonce" id="annonce-3">
-                <button type="button" class="btn btn-primary">Vous êtes promoteur?</button>
-            </div>
-        
-        </div>
-        <div class="right col-lg-9 col-sm-12" >
-            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
-                <iframe src="https://maps.google.com/maps" frameborder="0"
-                    style="border:0"    >
-                </iframe>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 {% endblock %}
-
-{% block javascripts %}{% endblock %}

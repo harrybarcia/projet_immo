@@ -18,12 +18,12 @@ class Commentaire
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Commentaires")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=annonce::class, inversedBy="commentaires")
+     * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="Commentaires")
      */
     private $annonce;
 
@@ -35,7 +35,7 @@ class Commentaire
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_enregistrerment;
+    private $date_enregistrement;
 
     public function getId(): ?int
     {
@@ -78,14 +78,14 @@ class Commentaire
         return $this;
     }
 
-    public function getDateEnregistrerment(): ?\DateTimeInterface
+    public function getDateEnregistrement(): ?\DateTimeInterface
     {
-        return $this->date_enregistrerment;
+        return $this->date_enregistrement;
     }
 
-    public function setDateEnregistrerment(\DateTimeInterface $date_enregistrerment): self
+    public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): self
     {
-        $this->date_enregistrerment = $date_enregistrerment;
+        $this->date_enregistrement = $date_enregistrement;
 
         return $this;
     }

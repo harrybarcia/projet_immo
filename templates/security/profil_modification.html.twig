@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent()}} | Modification de vos données {% endblock %}
+
+{% block h1 %}Modification de vos données{% endblock %}
+
+{% block body %}
+
+    <a href="{{path("profil")  }}">Retour profil</a>
+    <div class="col-md-6 mx-auto">
+
+        {{ form_start(formUser) }}
+
+        {{ form_row(formUser.email) }}
+
+        
+
+        <input type="submit" value="modifier" class="btn btn-danger col-md-12 mt-3">
+
+        {{ form_end(formUser) }}
+
+    </div>
+{% endblock %}

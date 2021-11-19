@@ -18,14 +18,19 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\UserAuthenticator
+            
             logout:
                 path: logout
                 # where to redirect after logout
                 # target: app_any_route
-
+            form_login:
+                login_path: login #qd une pers va vouloir s'auth? qd il sera sur la route connex
+                check_path: login # les infos sont récupérées sur la route connexion
+                
+                
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -36,4 +41,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profil, roles: ROLE_USER }
+         - { path: ^/ajouter, roles: ROLE_USER }
+         - { path: ^/ajout_commentaire, roles: ROLE_USER }
+         

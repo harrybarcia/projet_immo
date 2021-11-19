@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% for notification in app.flashes('success') %}
+        <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+    {% endfor %}
+
+    
+    {% if commentaires %} 
+
+
+        <table class="table table-hover table-striped text-center mt-3">
+
+            <thead class="bg-dark text-white">
+
+                <tr>
+                
+                    <th>commentaire</th>
+                    <th>Annonce</th>
+                    
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+                 </thead>
+
+            <tbody>
+                {% for commentaire in commentaires %}
+                    
+                    <tr class="align-middle">
+                        <td>{{ commentaire.commentaire }}</td>
+                        <td>{{ commentaire.annonce.titre }}</td>
+                        
+                        <td>
+                            <a href="{{ path('commentaire_modifier' ,  {'id' : commentaire.id} ) }}">
+                                <img src="{{ asset('images/update.png') }}" alt="">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('commentaire_supprimer',  {'id' : commentaire.id} ) }}" onclick="return confirm('Confirmez-vous la suppression du commentaire ?')">
+                                <img src="{{ asset('images/delete.png') }}" alt="">
+                            </a>
+                        </td>
+                    
+                    </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+
+
+    {% else %}
+        
+
+        <h4 class="text-center text-danger mt-3 fst-italic">Vous n'avez commenté aucune annonce pour le moment</h4>
+{% endif %}
+{% endblock %}
+

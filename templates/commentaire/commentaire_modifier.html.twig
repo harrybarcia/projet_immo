@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} | Modification {% endblock %}
+
+{% block h1 %}Modification {% endblock %}
+
+{% block body %}
+
+    <a class="btn btn-info" href="{{ path("mes_commentaires") }}">Retour à mon commentaire</a>
+
+
+    {% for notification in app.flashes('success') %}
+        <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+    {% endfor %}
+    
+    <div class="col-md-6 mx-auto">
+        {{ form_start(formcommentaire_modif) }}
+
+
+        <input type="submit" value="Modifier" class="col-md-12 btn btn-dark mt-3">
+        {{ form_end(formcommentaire_modif) }}
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+    let loadFile = function(event){
+        let image = document.getElementById('image');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+
+{% endblock %}
+
+

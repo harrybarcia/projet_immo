@@ -25,7 +25,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAnnonceController extends AbstractController
 {
     /**
-     * @Route("/afficher", name="annonce_afficher")
+     * @Route("/afficher", name="gestion_annonce_afficher")
      */
         public function annonce_afficher(AnnonceRepository $repoAnnonce)
         {
@@ -42,7 +42,7 @@ class AdminAnnonceController extends AbstractController
 
 
     /**
-     * @Route("/ajouter", name="annonce_ajouter")
+     * @Route("/ajouter", name="gestion_annonce_ajouter")
      */
     public function annonce_ajouter(Request $request, EntityManagerInterface $manager)
     {
@@ -104,7 +104,7 @@ class AdminAnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/modifier/{id<\d+>}", name="annonce_modifier")
+     * @Route("/modifier/{id<\d+>}", name="gestion_annonce_modifier")
      */
     public function annonce_modifier(Annonce $annonce, Request $request, EntityManagerInterface $manager, PhotoRepository $repophotos) // objet de la class Annonce
     {
@@ -170,7 +170,7 @@ class AdminAnnonceController extends AbstractController
 
  
     /**
-     * @Route("/supprimer/{id}", name="annonce_supprimer") 
+     * @Route("/supprimer/{id}", name="gestion_annonce_supprimer") 
      */
     public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire ){
         

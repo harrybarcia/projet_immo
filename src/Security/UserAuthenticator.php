@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+
 class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -27,7 +28,12 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+        dump("1");
+        $test=($urlGenerator->getContext()->getPathInfo()); // renvoit "/afficher/fiche_annonce/21"
+        
+        return $test;
     }
+    
 
     public function authenticate(Request $request): PassportInterface
     {
@@ -37,6 +43,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
         return new Passport(
             new UserBadge($email),
+            
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
@@ -46,12 +53,15 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
 
-        // For example:
-        return new RedirectResponse($this->urlGenerator->generate('accueil'));
+/*         $target_path=$request->request->get('_target_path', ''); //renvoie http://127.0.0.1:8000/afficher/fiche_annonce/21
+        if(strpos($target_path, "fiche_annonce") !== false){
+            $target_path=explode("/", $target_path);
+            $id=end($target_path);
+            return new RedirectResponse($this->urlGenerator->generate("ajout_commentaire",array('id' => $id)));
+        }
+        else{ */
+            return new RedirectResponse($this->urlGenerator->generate("accueil"));
         
     }
 
@@ -59,4 +69,6 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+
+
 }

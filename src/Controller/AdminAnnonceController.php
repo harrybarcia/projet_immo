@@ -201,41 +201,5 @@ class AdminAnnonceController extends AbstractController
 
 
     }
-    /**
-     * @Route("/index", name="index")
-     */
-    public function index(AnnonceRepository $repoannonce, Request $request): Response
-    {
-        $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
-        $data->page = $request->get('page', 1);
-        $form=$this->createForm(SearchForm::class, $data);  // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
-
-        $form->handleRequest($request);
-        [$min, $max] = $repoannonce->findMinMax($data);
-
-        $annonces=$repoannonce->findSearch($data);
-        // $filtre = $_GET["categorie"];
-        // dump($filtre);
-        // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
-        // if ($test) {
-        //     return $this->render('annonce/test.html.twig', ["test"=>$test]);
-        // }
-        return $this->render('annonce/index.html.twig',[
-            "annonces"=>$annonces,
-            "form"=>$form->createView(),
-            'min' => $min,
-            'max' => $max
-        ]); 
-        
-    }
-        /**
-     * @Route("/test", name="test")
-     */
-    public function test()
-    {
-        
-        return $this->render('carto.html.twig', [
-            
-        ]);
-    }
+    
 }

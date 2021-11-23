@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Photo;
 use App\Entity\Annonce;
+use src\data\SearchData;
+use src\data\SearchForm;
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;
+use App\Repository\CoordsRepository;
 use App\Repository\AnnonceRepository;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,19 +16,43 @@ use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
 
 class AnnonceController extends AbstractController
 
 {
-    
+
 
     #[Route('/', name: 'accueil')]
-    public function accueil(): Response
+    public function accueil(CoordsRepository $repoCoords, Request $request, AnnonceRepository $repoannonce): Response
     {
+    // coordonnées
+        $coordsArray = $repoCoords->findAll();
+        $annonceArray = $repoannonce->findAll();
+    // formulaire filtre
+        $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
+        $data->page = $request->get('page', 1);
+         // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
+        $form = $this->createForm(SearchForm::class, $data, [
+            'action' => $this->generateUrl('index'),
+        ]);
+        $form->handleRequest($request);
+        [$min, $max] = $repoannonce->findMinMax($data);
+
+        $annonces_search=$repoannonce->findSearch($data);   
+
         return $this->render('annonce/accueil.html.twig', [
             'controller_name' => 'AnnonceController',
+            "coords" => $coordsArray,
+            "annonces" => $annonceArray,
+            "annonces"=>$annonces_search,
+            "form"=>$form->createView(),
+            'min' => $min,
+            'max' => $max
+
         ]);
     }
     #[Route('/afficher', name: 'catalogue')]
@@ -62,7 +89,7 @@ class AnnonceController extends AbstractController
      */
     public function annonce_ajouter(Request $request, EntityManagerInterface $manager, SessionInterface $session)
     {
-/*         $test=$request->getSession();
+        $test=$request->getSession();
         dump($test);
         if($this->isGranted('IS_ANONYMOUS')) //si la personne connectée est anonyme
         { 
@@ -71,7 +98,7 @@ class AnnonceController extends AbstractController
             'Veuillez vous connecter pour pouvoir déposer une annonce'
             );
                 return $this->redirectToRoute("login");
-        } */
+        }
         // ----------Je créé un nouvel objet annonce------------
         $annonce=new Annonce;
         //dd($annonce);
@@ -223,4 +250,44 @@ class AnnonceController extends AbstractController
         
     }
 
+    /**
+     * @Route("/index", name="index")
+     */
+    public function index(AnnonceRepository $repoannonce, Request $request): Response
+    {
+
+        $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
+        $data->page = $request->get('page', 1);
+        // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
+
+        $form = $this->createForm(SearchForm::class, $data);
+
+        $form->handleRequest($request);
+        [$min, $max] = $repoannonce->findMinMax($data);
+
+        $annonces=$repoannonce->findSearch($data);
+        // $filtre = $_GET["categorie"];
+        // dump($filtre);
+        // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
+        // if ($test) {
+        //     return $this->render('annonce/test.html.twig', ["test"=>$test]);
+        // }
+        return $this->render('annonce/index.html.twig',[
+            "annonces"=>$annonces,
+            "form"=>$form->createView(),
+            'min' => $min,
+            'max' => $max
+        ]); 
+        
+    }
+        /**
+     * @Route("/test", name="test")
+     */
+    public function test()
+    {
+        
+        return $this->render('carto.html.twig', [
+            
+        ]);
+    }
 }

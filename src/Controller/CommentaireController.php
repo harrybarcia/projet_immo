@@ -19,14 +19,7 @@ class CommentaireController extends AbstractController
     #[Route('/ajout_commentaire/{id}', name: 'ajout_commentaire')]
     public function deposer__commentaire(Request $request , EntityManagerInterface $manager, Annonce $annonce, PhotoRepository $repophotos)
     {
-        if($this->isGranted('IS_ANONYMOUS')) //si la personne connectée est anonyme
-        { 
-            $this->addFlash(
-            'success',
-            'Veuillez vous connecter pour pouvoir déposer un commentaire'
-            );
-                return $this->redirectToRoute("login");
-        }
+
         $comment = new Commentaire;
         $form = $this->createForm(CommentaireType::class, $comment);
         $form->handleRequest($request);

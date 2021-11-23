@@ -33,15 +33,15 @@ body {
         }
 .annonce{
 
-        height: 60%;
+        
         border: 1px solid rgb(151, 135, 135);
-        margin:5% 10%;
+        
         border-radius: 3%;
 }
 .annonce2_3{
         min-width: 198px;
         border: 1px solid rgb(153, 141, 141);
-        margin: 5% 10%;
+        margin: 2% auto;
         border-radius: 3%;
         z-index: 100;
         text-align: center;
@@ -68,23 +68,46 @@ a{
         }
 
 .row {
-        --bs-gutter-x: 0rem;
-        --bs-gutter-y: 0;
-        margin: 30px;
-        
+--bs-gutter-x: 0rem;
+--bs-gutter-y: 0;
 
-        }
 
-        .annonce button{
-                text-align: justify;
-                margin:12% 5%;
-                justify-content: space-around;
-        }
-        .annonce-2_3 a{
-                text-align: justify;
-                margin:12% 5%;
-                justify-content: space-around;
-        }
+
+}
+
+.annonce button{
+        text-align: justify;
+        margin:auto 5%;
+        justify-content: space-around;
+}
+.annonce-2_3 a{
+        text-align: justify;
+        margin:12% 5%;
+        justify-content: space-around;
+}
+
+.card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 0.25rem;
+        justify-content: space-between;
+    }
+
+.card-body {
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+}
+
 @media screen and (max-width: 500px) {
 
         .row{

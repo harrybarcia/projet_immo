@@ -13,7 +13,7 @@ class SearchData {
      */
     public $q=''; // ma query
     /**
-     * @var categorie[]
+     * @var Categorie[]
      */
 
     public $categorie=[];

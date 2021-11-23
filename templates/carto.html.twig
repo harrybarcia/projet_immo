@@ -220,7 +220,21 @@ map.on("load", function () {
         document.getElementById("preview").src = "street.jpg";
       }
     });
+
+{% for coord in coords %}
+  
+  // ajout point test
+   new mapboxgl.Marker({
+            color: "rgba(0,0,0,.4)"
+        })
+        .setLngLat([{{coord.long}}, {{coord.lat}}])
+        .addTo(map)
+  
+  
+{% endfor %}  
 });
+
+
 
 
 </script>

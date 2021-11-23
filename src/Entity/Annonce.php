@@ -85,12 +85,18 @@ class Annonce
      */
     private $photos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Coords::class, mappedBy="annonce")
+     */
+    private $coords;
+
 
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->coords = new ArrayCollection();
     }
 
     
@@ -288,6 +294,36 @@ class Annonce
             // set the owning side to null (unless already changed)
             if ($photo->getAnnonce() === $this) {
                 $photo->setAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Coords[]
+     */
+    public function getCoords(): Collection
+    {
+        return $this->coords;
+    }
+
+    public function addCoord(Coords $coord): self
+    {
+        if (!$this->coords->contains($coord)) {
+            $this->coords[] = $coord;
+            $coord->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoord(Coords $coord): self
+    {
+        if ($this->coords->removeElement($coord)) {
+            // set the owning side to null (unless already changed)
+            if ($coord->getAnnonce() === $this) {
+                $coord->setAnnonce(null);
             }
         }
 

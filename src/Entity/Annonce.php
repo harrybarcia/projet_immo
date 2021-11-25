@@ -207,9 +207,9 @@ class Annonce
         return $this->date_enregistrement;
     }
 
-    public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): self
+    public function setDateEnregistrement(\DateTimeInterface $_): self
     {
-        $this->date_enregistrement = $date_enregistrement;
+        $this->_ = $_;
 
         return $this;
     }

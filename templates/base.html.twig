@@ -57,18 +57,14 @@
     }
 
 
-            .filter {
-                display: block;
-                position: sticky;
-                top: 20px;
-            }
+
         </style>
 
         
     </head>
 <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Immo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,7 +139,7 @@
                 </div>
             </div>
         </nav>
-        <div class="col-md-11 mx-auto">
+        <div class="col-md-11 mx-auto mt-2">
             
             {% block body %}{% endblock %}
         </div>

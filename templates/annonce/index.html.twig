@@ -4,9 +4,34 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 mt-5 p-4" >
-                {% include 'annonce/_filter.html.twig' with {form: form, min: min, max: max} only %}
+        <div class="row" >
+            <div class="col-md-3 mt-5 p-4" style="display:flex;flex-direction:column">
+                <div style="position: sticky;top: 60px;">
+                    {# le formulaire #}
+                    <div>    
+                        {{ form_start(form) }}
+                        {{ form_row(form.q) }}
+
+                        <h4>Catégories</h4>
+                        {{ form_row(form.categorie) }}
+
+                        <h4>Prix</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                            {{ form_row(form.min) }}
+                            </div>
+                            <div class="col-md-6">
+                            {{ form_row(form.max) }}
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit" class="annonce2_3">Filtrer</button>
+
+                        {{ form_end(form) }}
+                    </div>
+                    <div class="col-md-12 mt-4 p-2"  style="width:380px;height:290px;border:1px solid black;">
+                    {% include "carto.html.twig" %}
+                    </div>    
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="d-flex justify-content-end mb-2">

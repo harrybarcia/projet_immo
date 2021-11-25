@@ -25,7 +25,7 @@ class CommentaireController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) 
         {    
-                $comment->setDateEnregistrement(new \DateTimeImmutable('now'));
+                $comment->setdate_enregistrement(new \DateTimeImmutable('now'));
                 $user=$this->getUser();
                 dump($user);
                 $comment->setUSer($user);

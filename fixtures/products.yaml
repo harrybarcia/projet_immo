@@ -35,6 +35,6 @@ App\Entity\Photo:
 App\Entity\Commentaire:
   commentaire_{1..50}:
     commentaire: <text(50)>
-    date_enregistrement: <(new \DateTime('2021-11-11'))>
+    dateenregistrement: <(new \DateTime('2021-11-11'))>
     user: '@user_*'
     annonce: '@annonce_*'

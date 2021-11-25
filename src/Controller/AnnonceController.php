@@ -253,8 +253,10 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/index", name="index")
      */
-    public function index(AnnonceRepository $repoannonce, Request $request): Response
+    public function index(AnnonceRepository $repoannonce, Request $request, CoordsRepository $repoCoords): Response
     {
+        // pour la partie carto du menu gauche
+        $coordsArray = $repoCoords->findAll();
 
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         $data->page = $request->get('page', 1);
@@ -276,7 +278,8 @@ class AnnonceController extends AbstractController
             "annonces"=>$annonces,
             "form"=>$form->createView(),
             'min' => $min,
-            'max' => $max
+            'max' => $max,
+            "coords" => $coordsArray,
         ]); 
         
     }

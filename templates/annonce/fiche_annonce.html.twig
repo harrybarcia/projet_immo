@@ -8,62 +8,53 @@
 
 {% block body %}
     {% for notification in app.flashes('success') %}
-        <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+        <div class="col-md-6 mx-auto text-center mt-2 alert alert-success">{{ notification }}</div>
     {% endfor %}
+<div style="text-align:center">
+    <div  style="min-width: 300px;">
 
-  <td>
-        
-                             {% if annonce.photos is not empty %}
+    {% if annonce.photos is not empty %}
 
-                            <img src="{{ annonce.photos[0].nom }}" alt="" style="width:150px"> 
+        <img src="{{ annonce.photos[0].nom }}" alt="" style="width:290px"> 
 
-                         {% else %}
-                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:80px">
+    {% else %}
+        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:290px">
 
-                        {% endif %}
+    {% endif %}
 
-        </td>
+    </div>
 
-<h5 class="text-center text-danger"> {{ annonce.prix}} €</h5>
+    <h5 class="text-center text-danger"> {{ annonce.prix}} €</h5>
 
-
-
-<a class="btn btn-success" href="{{ path('ajout_commentaire',{'id':annonce.id}) }}">Laisser un commentaire</a>
-<a class="btn btn-success" href="{{ path('catalogue') }}">Retour au produit</a>
-<br>
-
-<br>
+    <a class="btn btn-success" style="text-align:left" href="{{ path('ajout_commentaire',{'id':annonce.id}) }}">Laisser un commentaire</a>
+    <a class="btn btn-success" style="text-align:left" href="{{ path('catalogue') }}">Retour au produit</a>
+</div>
 {% if annonce.commentaires is not empty %}
-
-        <table class="table table-hover table-striped text-center mt-3">
-
-            <thead class="bg-dark text-white">
-
-                <tr>
+{% for commentaire in commentaires %}
+    <div class="row-comment" >
+        <div class="userInfos col-2">
+            <div class="avatar-oc">
+                <div class="author">
+                    <a href="" rel="nofollow" title="Profil de Hiruka">{{ commentaire.user.email }}</a>
+                </div>
+                <a href="" rel="nofollow" title="Profil de Hiruka">
+                    <img src="https://openclassrooms.com/bundles/common/images/avatar_defaut.png" alt="" width="80px">
+                </a>
+            </div>
+        </div>
+        <div class="comment col-8" id="message-92335495">
+            
+            <div class="content" style="display:flex;flex-direction:column">
+                <i class="fas fa-camera" style="text-align:left;font-size: 0.7em;" >{{ commentaire.date_enregistrement|format_datetime(locale='fr') }}</i>
                 
-                    <th>Commentaire</th>
-                    <th>Utilisateur</th>
-                    {# <th>Date</th> #}
-
-                </tr>
-                 </thead>
-
-                <tbody>
-                <tr class="align-middle">
-                    
-                    {% for commentaire in commentaires %}
-                        <td>{{ commentaire.commentaire }}</td>
-                        <td>{{ commentaire.user.email }}</td>
-                        
-                        </tr>
-                    {% endfor %}
-                    
-                </tbody>
-        </table>
-
+                <div class="message markdown-body" role="article" style="text-align:left; max-width:1400px">
+                    <p class="long_text">{{ commentaire.commentaire }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     
-
-
+{% endfor %}
 {% else %}
 Aucun commentaire pour le moment
     
@@ -72,4 +63,7 @@ Aucun commentaire pour le moment
 
  
 {% endblock %}
+
+
+
 

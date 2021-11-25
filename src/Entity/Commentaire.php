@@ -78,12 +78,12 @@ class Commentaire
         return $this;
     }
 
-    public function getDateEnregistrement(): ?\DateTimeInterface
+    public function getdate_enregistrement(): ?\DateTimeInterface
     {
         return $this->date_enregistrement;
     }
 
-    public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): self
+    public function setdate_enregistrement(\DateTimeInterface $date_enregistrement): self
     {
         $this->date_enregistrement = $date_enregistrement;
 

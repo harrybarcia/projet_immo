@@ -1,8 +1,6 @@
 body {
-        margin:10px;
+        
         padding:0;
-        text-align: center;
-        background-color: rgba(245, 241, 237, 0.973);
         
     }
 .main{
@@ -47,9 +45,7 @@ body {
         text-align: center;
         }
 
-a{
-        margin:1% auto;
-}
+
 
 
 
@@ -87,7 +83,25 @@ border-color: 1px solid black;
 }
         
 
+.row-comment{
+        display:flex;
+        margin: 0;
+        padding: 15px 15px 5px 15px;
+        border-bottom: 3px solid #7b7b7b;
+        
+}
+.row-comment:hover {
+        background-color: rgb(243, 237, 237);
+      }
 
-    
+      .long_text{
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
 
+#sticky-index {
+        position: sticky;
+        top: 60px;
+}
 

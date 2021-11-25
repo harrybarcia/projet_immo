@@ -37,6 +37,7 @@
     right: 0px;
     z-index: 100;
     height:auto;
+    width:auto;
     border-radius: 1%;
   }
   
@@ -66,7 +67,7 @@
 <!-- Load the `mapbox-gl-geocoder` plugin. -->
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
-    <div id="container" class=col-md-12>
+    <div id="container" class="col-md-12">
         <div id="map"></div>
         <img id="preview" />
       </div>
@@ -207,7 +208,7 @@
       );
 
       var switchy = document.getElementById("preview");
-      switchy.src = "sat.jpg";
+      switchy.src = "{{ asset('images/sat.jpg') }}";
 
       // Construct a static map url
       // https://www.mapbox.com/developers/api/static/
@@ -220,11 +221,11 @@
             switchy.setAttribute("class", "off");
             map.setLayoutProperty("satellite", "visibility", "none");
             console.log(switchy);
-            document.getElementById("preview").src = "sat.jpg";
+            document.getElementById("preview").src = "{{ asset('images/sat.jpg') }}";
           } else {
             switchy.setAttribute("class", "on");
             map.setLayoutProperty("satellite", "visibility", "visible");
-            document.getElementById("preview").src = "street.jpg";
+            document.getElementById("preview").src = "{{ asset('images/street.jpg') }}";
           }
         });
 

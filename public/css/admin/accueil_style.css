@@ -70,7 +70,7 @@ a{
 .row {
 --bs-gutter-x: 0rem;
 --bs-gutter-y: 0;
-
+border-color: 1px solid black;
 
 
 }
@@ -82,56 +82,12 @@ a{
 }
 .annonce-2_3 a{
         text-align: justify;
-        margin:12% 5%;
+        
         justify-content: space-around;
 }
-
-.card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 1px solid rgba(0,0,0,.125);
-        border-radius: 0.25rem;
-        justify-content: space-between;
-    }
-
-.card-body {
-        flex: 1 1 auto;
-        padding: 1rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-}
-
-@media screen and (max-width: 500px) {
-
-        .row{
-                min-height: 90%;
-
-        }
-        .left {
-                height: 45%;
-                min-width: 80%;
-                text-align: center;
-                
-                margin:2% auto;
-                }
-        .right {
-                
-                height: 50%;
-                width: 90%;
-                text-align: center;
-                border: 2px solid rgb(255, 0, 0);
-
-        }
+        
 
 
+    
 
-
-}
 

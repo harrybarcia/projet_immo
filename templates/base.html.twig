@@ -6,20 +6,64 @@
         
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset("css/admin/accueil_style.css") }}">
         
-        {% block stylesheets %}{% endblock %}
-        <style>
-            .grid {
+ <style>
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    justify-content: space-between;
+};
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+};
+      
+
+
+    @media screen and (max-width: 991px) {
+        .grid {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-gap: 20px;
+        }
+    }
+{#     @media screen and  (min-width: 768px) and  (max-width: 991px) {
+        .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 20px;
+        }
+    } #}
+    @media screen and  (min-width: 991px) {
+        .grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 grid-gap: 20px;
-            }
+        }
+    }
+
+
             .filter {
                 display: block;
                 position: sticky;
                 top: 20px;
             }
         </style>
+
         
     </head>
 <body>
@@ -99,8 +143,8 @@
                 </div>
             </div>
         </nav>
-        <div class="col-md-10 mx-auto">
-            <h1 class="titre">{% block h1 %}{% endblock %}</h1>
+        <div class="col-md-11 mx-auto">
+            
             {% block body %}{% endblock %}
         </div>
 

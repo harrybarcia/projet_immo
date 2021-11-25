@@ -8,7 +8,7 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
     <script src='https://cdn.rawgit.com/mapbox/geo-viewport/8f71814c/geo-viewport.js'></script>
-    <link rel="stylesheet" href="{{ asset("public/js/script.js") }}">
+    
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -23,8 +23,10 @@
 
 
     <div style="display:flex; flex-direction:column">
-        <div class="main row" >
-            <div class="left col-3" >
+        <div class="main row" style="max-width: 1585px">
+
+                {# 1 ere box ------ #}
+            <div class="left col-2 col-sm-md-10 "style="min-width: 258.98px;">
                 <div class="annonce" id="annonce-1" style="padding: 1rem;" >
                     {{ form_start(form, {attr: {class: 'filter'}}) }}
                     {{ form_row(form.q) }}
@@ -32,20 +34,16 @@
                     <h5>Je recherche un(e)</h5>
                     {{ form_row(form.categorie) }}
 
-                    <h5>, mon budget est compris entre</h5>
-
-
+                    <h5>Mon budget est compris entre</h5>
                         {{ form_row(form.min) }}
-
                     <h5> et </h5>
                         {{ form_row(form.max) }}
                         
-
-                    <button type="submit" class="btn btn-primary w-50">Filtrer</button>
-
+                    <div class="annonce2_3">
+                        <button type="submit" class="btn btn-primary" style="margin:0 auto">Filtrer</button>
+                    </div>
                     {{ form_end(form) }}
                 </div>
-
                 <div class="annonce2_3">
                     <a class="btn btn-primary" href="{{ path('annonce_ajouter' ) }}">Déposer une annonce</a>
                 </div>
@@ -53,65 +51,56 @@
                 <div class="annonce2_3">
                     <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
                 </div>
+
             
             </div>
-            <div class="right col-lg-9 col-sm-12" >
+            <div class="right col-xl-9 col-lg-7 col-sm-6 col-10" >
                 <div>
                 {% include "carto.html.twig" %} 
                 </div>
-            
+            {# 2 eme box ------ #}
+            </div>
+                <div class="left col-2 col-sm-md-10 "style="min-width: 258.98px;">
+                    <div class="annonce" id="annonce-1" style="padding: 1rem;" >
+                        Box
+                    </div>
+                    <div class="annonce2_3">
+                        <a class="btn btn-primary" href="{{ path('annonce_ajouter' ) }}">Déposer une annonce</a>
+                    </div>
+                    
+                    <div class="annonce2_3">
+                        <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
+                    </div>
+
+                
+                </div>
+                <div class="right col-xl-9 col-lg-7 col-sm-6 col-10" >
+                    <div style="height: inherit;border:1px solid black">
+                     
+                    </div>
+                </div>
+                {# 3 eme box ------ #}
+                <div class="left col-2 col-sm-md-10 "style="min-width: 258.98px;">
+                    <div class="annonce" id="annonce-1" style="padding: 1rem;" >
+                        Box
+                    </div>
+                    <div class="annonce2_3">
+                        <a class="btn btn-primary" href="{{ path('annonce_ajouter' ) }}">Déposer une annonce</a>
+                    </div>
+                    
+                    <div class="annonce2_3">
+                        <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
+                    </div>
+
+                
+                </div>
+                <div class="right col-xl-9 col-lg-7 col-sm-6 col-10" >
+                    <div>
+                    <div style="height: inherit;border:1px solid black">
+                    </div>
             </div>
         </div>
-            
         
-        <div class="main row" >
-            <div class="left col-3" >
-                <div class="annonce" id="annonce-1">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
-                </div>
-
-                <div class="annonce2_3">
-                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
-                </div>
-
-                <div class="annonce2_3">
-                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
-                </div>
-            
-            </div>
-            <div class="right col-lg-9" >
-                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
-                    <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                        style="border:0"    >
-                    </iframe>
-                </div>
-            </div>
-            
-        </div>
-        <div class="main row" >
-            <div class="left col-3" >
-                <div class="annonce" id="annonce-1">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta explicabo veritatis debitis nihil at esse maiores illum blanditiis aperiam. Exercitationem culpa aliquid natus voluptatum dolorem porro cupiditate quod, eos optio, sint suscipit. Nobis enim incidunt perspiciatis impedit sunt facere nulla esse dolorem .</p>
-                </div>
-
-                <div class="annonce2_3">
-                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Consulter mes annonces</a>
-                </div>
-
-                <div class="annonce2_3">
-                    <a class="btn btn-primary" href="{{ path('catalogue' ) }}">Vous êtes promoteur?</a>
-                </div>
-            
-            </div>
-            <div class="right col-lg-9" >
-                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 100%">
-                    <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                        style="border:0"    >
-                    </iframe>
-                </div>
-            </div>
-            
-        </div>
     </div>
 
 {% endblock %}

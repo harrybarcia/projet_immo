@@ -3,9 +3,9 @@
 {% block title %}Tous nos produits{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 mt-5 p-4" >
                 {% include 'annonce/_filter.html.twig' with {form: form, min: min, max: max} only %}
             </div>
             <div class="col-md-9">
@@ -19,16 +19,19 @@
                         {% if annonce.photos is not empty %}
                         <img src="{{ annonce.photos[0].nom }}" alt="" style="width:100%">
                          {% else %}
-                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
+                        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:100%">
                         {% endif %}
-                            <div class="card-body">
+                            <div class="card-body" style="flex: 1 1 auto;padding: 1rem 1rem;display: flex;flex-direction: column;justify-content: space-between;">
                                 <h5 class="card-title">{{ annonce.titre }}</h5>
                                 <div class="card-title text-primary" style="font-weight: bold; font-size: 1.5rem;">
                                 {{ annonce.prix | number_format(0, ',', ' ') }} €
                                 
+
+
                                 </div>
-                                <p class="text text-muted">{{ annonce.descriptionlongue }}</p>
+                                <a class="text text-muted" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}">{{ annonce.descriptionlongue }}</a>
                                 <a  class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">Voir la fiche</a>
+                                <a href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" name="classified-link" z="1"  target="_blank" class="CoveringLink-a3s3kt-0 dXJclF"></a>
 
                             </div>
                         </div>
@@ -41,28 +44,4 @@
         </div>
     </div>
 {% endblock %}
-{% block stylesheets %}
-    <style>
-    .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 1px solid rgba(0,0,0,.125);
-        border-radius: 0.25rem;
-        justify-content: space-between;
-    }
 
-.card-body {
-        flex: 1 1 auto;
-        padding: 1rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-}
-    </style>
-{% endblock %}

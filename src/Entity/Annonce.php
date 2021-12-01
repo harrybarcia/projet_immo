@@ -90,6 +90,11 @@ class Annonce
      */
     private $coords;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="favoris")
+     */
+    private $favoris;
+
 
 
     public function __construct()
@@ -97,6 +102,7 @@ class Annonce
         $this->commentaires = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->coords = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     
@@ -326,6 +332,30 @@ class Annonce
                 $coord->setAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(User $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(User $favori): self
+    {
+        $this->favoris->removeElement($favori);
 
         return $this;
     }

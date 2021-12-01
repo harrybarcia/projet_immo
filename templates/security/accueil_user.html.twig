@@ -27,21 +27,21 @@
                 {# 1ere box - Mon formulaire filtre #} 
                 <div class="left col-2 col-sm-md-10 "style="min-width: 258.98px;">
                     <div class="annonce" id="annonce-1" style="padding: 1rem;" >
-                        {{ form_start(form, {attr: {class: 'filter'}}) }}
-                        {{ form_row(form.q) }}
+                        {{ form_start(form_user, {attr: {class: 'filter'}}) }}
+                        {{ form_row(form_user.q) }}
 
                         <h5>Je recherche un(e)</h5>
-                        {{ form_row(form.categorie) }}
+                        {{ form_row(form_user.categorie) }}
 
                         <h5>Mon budget est compris entre</h5>
-                            {{ form_row(form.min) }}
+                            {{ form_row(form_user.min) }}
                         <h5> et </h5>
-                            {{ form_row(form.max) }}
+                            {{ form_row(form_user.max) }}
                             
                         <div class="annonce2_3">
                             <button type="submit" class="btn btn-primary" style="margin:0 auto">Filtrer</button>
                         </div>
-                        {{ form_end(form) }}
+                        {{ form_end(form_user) }}
                     </div>
                     <div class="annonce2_3">
                         <a class="btn btn-primary" href="{{ path('annonce_ajouter' ) }}">Déposer une annonce</a>
@@ -54,7 +54,7 @@
 
             {# Ma carto #}    
                 <div class="right col-xl-9 col-lg-7 col-sm-6 col-10" >
-                    <div>{% include "carto.html.twig" %}</div>
+                    <div>{% include "carto_user.html.twig" %}</div>
                 </div>
             {# 2ème box #}
                 <div class="left col-2 col-sm-md-10 "style="min-width: 258.98px;">

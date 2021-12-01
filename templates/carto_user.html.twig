@@ -237,10 +237,16 @@
 
 
 });
-    {% for coord in coords %}
-      {{coord.annonce.prix}}
+    
+    {% for coord in coords_user %}
+
+{#     const div = window.document.createElement('div');
+    div.innerHTML = 'Hello, world!'; #}
+      
+      {# const div="<span><strong>Code postal: </strong>{{coord.annonce.cp}}<br><br><strong>Ville: </strong>{{coord.annonce.prix| number_format(0, ',', ' ')}} €}} </span>" #}
       // ajout points annonces sur la map
         new mapboxgl.Marker({className: 'banana-popup', offset: [0, -15] })
+          
           .setLngLat([{{coord.long}}, {{coord.lat}}])
           .addTo(map)
           .setPopup(new mapboxgl.Popup().setHTML(`

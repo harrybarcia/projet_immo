@@ -1,5 +1,6 @@
 body {
-        
+        background-color:#778899; 
+        z-index:12;       
         padding:0;
         
     }
@@ -104,4 +105,5 @@ border-color: 1px solid black;
         position: sticky;
         top: 60px;
 }
+
 

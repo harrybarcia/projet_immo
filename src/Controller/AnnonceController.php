@@ -55,6 +55,7 @@ class AnnonceController extends AbstractController
 
         ]);
     }
+
     #[Route('/afficher', name: 'catalogue')]
     public function consulter_annonce(AnnonceRepository $repoannonce, CategorieRepository $repocategorie)
     {
@@ -256,7 +257,7 @@ class AnnonceController extends AbstractController
     public function index(AnnonceRepository $repoannonce, Request $request, CoordsRepository $repoCoords): Response
     {
         // pour la partie carto du menu gauche
-        $coordsArray = $repoCoords->findAll();
+
 
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         $data->page = $request->get('page', 1);
@@ -268,6 +269,13 @@ class AnnonceController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces=$repoannonce->findSearch($data);
+        dump(gettype($annonces));
+        dump($annonces);
+        //dd($annonces); renvoit les items qui correspondent à la requête
+        $list=$annonces->getItems();
+        dump($list);
+        
+        $coordsi=$repoCoords->findBy(array('annonce' => $list));
         // $filtre = $_GET["categorie"];
         // dump($filtre);
         // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
@@ -279,18 +287,9 @@ class AnnonceController extends AbstractController
             "form"=>$form->createView(),
             'min' => $min,
             'max' => $max,
-            "coords" => $coordsArray,
+            "test" => $coordsi
         ]); 
         
     }
-        /**
-     * @Route("/test", name="test")
-     */
-    public function test()
-    {
-        
-        return $this->render('carto.html.twig', [
-            
-        ]);
-    }
+
 }

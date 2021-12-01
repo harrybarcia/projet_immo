@@ -23,24 +23,24 @@
                 <div style="position: sticky;top: 60px;">
                     {# le formulaire #}
                     <div>    
-                        {{ form_start(form) }}
-                        {{ form_row(form.q) }}
+                        {{ form_start(form_user) }}
+                        {{ form_row(form_user.q) }}
 
                         <h4>Catégories</h4>
-                        {{ form_row(form.categorie) }}
+                        {{ form_row(form_user.categorie) }}
 
                         <h4>Prix</h4>
                         <div class="row">
                             <div class="col-md-6">
-                            {{ form_row(form.min) }}
+                            {{ form_row(form_user.min) }}
                             </div>
                             <div class="col-md-6">
-                            {{ form_row(form.max) }}
+                            {{ form_row(form_user.max) }}
                             </div>
                         </div>
                         <button class="btn btn-primary" type="submit" class="annonce2_3">Filtrer</button>
 
-                        {{ form_end(form) }}
+                        {{ form_end(form_user) }}
                     </div>
                     {# la carto #}
                     <div class="col-md-12 col-sm-10 mt-4 p-2"  style="width:380px;height:290px;border:1px solid black;max-width:100%">
@@ -51,11 +51,11 @@
             {# right #}
             <div class="col-md-9">
                 <div class="d-flex justify-content-end mb-2">
-                    {{ knp_pagination_sortable(annonces, 'Prix', 'p.prix') }}
+                    {{ knp_pagination_sortable(annonces_user, 'Prix', 'p.prix') }}
                 </div>
                 <div class="grid">
-                    {% if annonces %}
-                    {% for annonce in annonces %}
+                    {% if annonces_user %}
+                    {% for annonce in annonces_user %}
                     
                         <div class="card" data-value={{ annonce.coords[0].long}},{{ annonce.coords[0].lat}} onclick="location.href="{{ path('fiche_annonce', {'id' : annonce.id}) }}";" style="cursor: pointer;">
                             {% if annonce.photos is not empty %}
@@ -72,8 +72,14 @@
                                     <a class="text text-muted" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}">{{ annonce.descriptionlongue }}</a>
                                     <a  class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">Voir la fiche</a>
                                     
-
-                                </div>
+                                        <button  onclick=location.href="{{ path('ajout_favoris') }}" style="width:40px;display:flex" value="{{annonce.id}}">
+                                            
+                                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="green" viewBox="0 0 24 24" stroke="green">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                            </svg>
+                                            
+                                        </button>
+                                    </div>
                         </div>
                         
                     {% else %}
@@ -82,7 +88,7 @@
                 {% endif %}
                         
                 <div class="mt-4">
-                    {{ knp_pagination_render(annonces) }}
+                    {{ knp_pagination_render(annonces_user) }}
                 </div>
                 </div>
                 

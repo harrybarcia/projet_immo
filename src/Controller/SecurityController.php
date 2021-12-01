@@ -2,15 +2,34 @@
 
 namespace App\Controller;
 
+use src\data\SearchData;
+use src\data\SearchForm;
+use App\Repository\CoordsRepository;
+use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    private $repoVitrineSection;
+    private $requestStack;
+    private $request;
+    private $manager;
+
+
+    public function __construct(AnnonceRepository $repoannonce, EntityManagerInterface $manager)
+    {
+        $this->repoannonce = $repoannonce;
+
+        $this->manager = $manager;
+    }
+
+
     /**
      * @Route("/login", name="login")
      */
@@ -28,6 +47,81 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+
+    #[Route('/accueil_user', name: 'accueil_user')]
+    public function accueil_user(CoordsRepository $repoCoords, Request $request, AnnonceRepository $repoannonce): Response
+    {
+    // coordonnées
+        $coordsArray = $repoCoords->findAll();
+        $annonceArray = $repoannonce->findAll();
+    // formulaire filtre
+        $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
+        $data->page = $request->get('page', 1);
+         // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
+        $form = $this->createForm(SearchForm::class, $data, [
+            'action' => $this->generateUrl('index_user'),
+        ]);
+        $form->handleRequest($request);
+        [$min, $max] = $repoannonce->findMinMax($data);
+
+        $annonces_search=$repoannonce->findSearch($data);   
+
+        return $this->render('security/accueil_user.html.twig', [
+            'controller_name_user' => 'AnnonceController',
+            "coords_user" => $coordsArray,
+            "annonces_user" => $annonceArray,
+            "annonces_user" =>$annonces_search,
+            "form_user" =>$form->createView(),
+            'min_user' => $min,
+            'max_user' => $max
+
+        ]);
+    }
+
+/**
+     * @Route("/index_user", name="index_user")
+     */
+    public function index_user(AnnonceRepository $repoannonce, Request $request, CoordsRepository $repoCoords): Response
+    {
+        // pour la partie carto du menu gauche
+
+        
+        
+
+
+
+        $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
+        $data->page = $request->get('page', 1);
+        // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
+
+        $form = $this->createForm(SearchForm::class, $data);
+
+        $form->handleRequest($request);
+        [$min, $max] = $repoannonce->findMinMax($data);
+
+        $annonces=$repoannonce->findSearch($data);
+        dump(gettype($annonces));
+        dump($annonces);
+        //dd($annonces); renvoit les items qui correspondent à la requête
+        $list=$annonces->getItems();
+        dump($list);
+        
+        $coordsi=$repoCoords->findBy(array('annonce' => $list));
+        // $filtre = $_GET["categorie"];
+        // dump($filtre);
+        // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
+        // if ($test) {
+        //     return $this->render('annonce/test.html.twig', ["test"=>$test]);
+        // }
+        return $this->render('annonce/index_user.html.twig',[
+            "annonces_user"=>$annonces,
+            "form_user"=>$form->createView(),
+            'min' => $min,
+            'max' => $max,
+            "test" => $coordsi
+        ]); 
+        
+    }
     /**
      * @Route("/logout", name="logout")
      */
@@ -79,10 +173,21 @@ class SecurityController extends AbstractController
         ]);
     }
     /**
-     * @Route("/not-the-homepage", name="alternate_page")
+     * @Route("/session/favori", name="ajout_favoris")
      */
-    public function alternatePage()
+    public function like(AnnonceRepository $repoannonce)
     {
-        return $this->render('annonce/annonce_ajouter.html.twig',[]);
+        $an=$repoannonce->find(24);
+        $test=$this->getUser()->addFavori($an);
+        
+
+        $this->manager->persist($test);
+        $this->manager->flush();
+        dd("");
+        return $this->render("annonce/index_user.html.twig");
+
+     
     }
+
+
 }

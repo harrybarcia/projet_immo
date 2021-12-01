@@ -29,7 +29,7 @@ security:
             form_login:
                 login_path: login #qd une pers va vouloir s'auth? qd il sera sur la route connex
                 check_path: login # les infos sont récupérées sur la route connexion
-                
+                default_target_path: accueil_user
                 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -44,4 +44,5 @@ security:
          - { path: ^/profil, roles: ROLE_USER }
          - { path: ^/ajouter, roles: ROLE_USER }
          - { path: ^/ajout_commentaire, roles: ROLE_USER }
+         - { path: ^/accueil_user, roles: ROLE_USER }
          

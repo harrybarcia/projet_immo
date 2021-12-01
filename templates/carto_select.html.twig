@@ -44,12 +44,12 @@
   #preview {
     position: absolute;
     bottom: 40px;
-    left: 40px;
-    border:2px solid grey;
-    width: 80px;
-    height: 80px;
+    right: 10px;
+    border: 2px solid grey;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
-  z-index: 1000;
+    z-index: 1000;
   
   }
 
@@ -62,6 +62,12 @@
 
 
 .mapboxgl-ctrl .mapboxgl-ctrl-group { position: absolute; bottom: 0; right: 0; width: 100%; }
+
+.card:hover {
+
+  transform: scale(1.05);
+transition-duration: 140ms
+};
 
 </style>
 </head>
@@ -77,7 +83,6 @@
     <!-- ma navbar bootsrap -->
 
 
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -85,14 +90,22 @@
 <script src="jquery.min.js"></script>
 
 <script>
+{% for coord in test %}
+  center_long  = {{coord.long}}
+  center_lat  = {{coord.lat}}
+console.log('u');
+  console.log(center_long)
+  console.log(center_lat)
+{% endfor %}
+
+
 
   mapboxgl.accessToken ="pk.eyJ1IjoiaGFycnliYXJjaWEiLCJhIjoiY2s3dzRvdTJnMDBqODNlbzhpcjdmaGxldiJ9.vg2wE4S7o_nryVx8IFIOuQ";
   //DISPLAY MY MAP Configuration de la carte, style, url, zoom, center, nom du container
     var map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/harrybarcia/cksn9vv4o27jm18pgbw3vrt2l",
-
-      center: [2.503, 48.842],
+      center: [center_long, center_lat],
       zoom: 15.2,
       pitch: 40,
       bearing: 10,
@@ -229,6 +242,8 @@
           } else {
             switchy.setAttribute("class", "on");
             map.setLayoutProperty("satellite", "visibility", "visible");
+            
+
             document.getElementById("preview").src = "{{ asset('images/street.jpg') }}";
           }
         });
@@ -237,8 +252,8 @@
 
 
 });
-    {% for coord in coords %}
-      {{coord.annonce.prix}}
+    {% for coord in test %}
+      
       // ajout points annonces sur la map
         new mapboxgl.Marker({className: 'banana-popup', offset: [0, -15] })
           .setLngLat([{{coord.long}}, {{coord.lat}}])
@@ -248,14 +263,12 @@
             <strong>Code postal: </strong>
               {{coord.annonce.cp}}
               <br>
-              <br>
               <strong>Ville: </strong>
               {{coord.annonce.ville}} 
+              <br>
               </span>
-              <br>
-              <br>
-            <strong>Prix: </strong>{{coord.annonce.prix | number_format(0, ',', ' ')}} €
-            <br>
+            <strong>Prix: </strong>
+            <p>{{coord.annonce.prix}}</p>
             <br>
             <a  class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : coord.annonce.id}) }}" class="mt-2">Voir la fiche</a>`
         )) // add popup

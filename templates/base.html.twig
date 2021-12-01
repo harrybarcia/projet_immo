@@ -23,14 +23,8 @@
     justify-content: space-between;
 };
 
-.card-body {
-    flex: 1 1 auto;
-    padding: 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
-};
+
       
 
 
@@ -74,10 +68,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                        {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                            <a class="nav-link" href="{{ path('accueil_user') }}">Accueil</a>
                         </li>
-
+                        {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('catalogue') }}">Catalogue</a>
@@ -86,6 +81,9 @@
                             <a class="nav-link" href="{{ path('annonce_ajouter') }}">Déposer une annonce</a>
                         </li>
                         {% if not app.user %} {# non connecté #}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                        </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('register') }}">Inscription</a>

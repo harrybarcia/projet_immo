@@ -12,21 +12,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    private $repoVitrineSection;
+    private $manager;
     private $requestStack;
     private $request;
-    private $manager;
 
-
-    public function __construct(AnnonceRepository $repoannonce, EntityManagerInterface $manager)
+    public function __construct(AnnonceRepository $repoannonce, EntityManagerInterface $manager, RequestStack $requestStack)
     {
         $this->repoannonce = $repoannonce;
-
         $this->manager = $manager;
+        $this->requestStack = $requestStack;
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
 
@@ -100,11 +100,11 @@ class SecurityController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces=$repoannonce->findSearch($data);
-        dump(gettype($annonces));
-        dump($annonces);
+        /* dump(gettype($annonces));
+        dump($annonces); */
         //dd($annonces); renvoit les items qui correspondent à la requête
         $list=$annonces->getItems();
-        dump($list);
+        /* dump($list); */
         
         $coordsi=$repoCoords->findBy(array('annonce' => $list));
         // $filtre = $_GET["categorie"];
@@ -177,15 +177,19 @@ class SecurityController extends AbstractController
      */
     public function like(AnnonceRepository $repoannonce)
     {
-        $an=$repoannonce->find(24);
+        
+         $an_id=$this->request->request->get("id");
+        
+        $an=$repoannonce->find($an_id);
         $test=$this->getUser()->addFavori($an);
         
 
         $this->manager->persist($test);
         $this->manager->flush();
-        dd("");
-        return $this->render("annonce/index_user.html.twig");
-
+        
+        
+        /* return $this->render("annonce/index_user.html.twig"); */
+        return new JsonResponse($an_id);
      
     }
 

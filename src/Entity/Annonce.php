@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\AnnonceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
@@ -62,7 +63,7 @@ class Annonce
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_enregistrement;
+    private $dateenregistrement;
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="annonce")
@@ -208,14 +209,14 @@ class Annonce
         return $this;
     }
 
-    public function getDateEnregistrement(): ?\DateTimeInterface
+    public function getDateenregistrement(): ?\DateTimeInterface
     {
-        return $this->date_enregistrement;
+        return $this->dateenregistrement;
     }
 
-    public function setDateEnregistrement(\DateTimeInterface $_): self
+    public function setDateenregistrement(\DateTimeInterface $dateenregistrement): self
     {
-        $this->_ = $_;
+        $this->dateenregistrement = $dateenregistrement;
 
         return $this;
     }

@@ -86,10 +86,8 @@ class SecurityController extends AbstractController
         // pour la partie carto du menu gauche
 
         
-        
-
-
-
+        $deja_favoris=$this->getUser()->getFavoris();
+    
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         $data->page = $request->get('page', 1);
         // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
@@ -118,7 +116,8 @@ class SecurityController extends AbstractController
             "form_user"=>$form->createView(),
             'min' => $min,
             'max' => $max,
-            "test" => $coordsi
+            "test" => $coordsi,
+            "deja_favoris"=>$deja_favoris
         ]); 
         
     }
@@ -177,19 +176,32 @@ class SecurityController extends AbstractController
      */
     public function like(AnnonceRepository $repoannonce)
     {
-        
-         $an_id=$this->request->request->get("id");
-        
-        $an=$repoannonce->find($an_id);
-        $test=$this->getUser()->addFavori($an);
-        
-
-        $this->manager->persist($test);
+        // 1 -- 1 ere Requête select id where id=10
+        $an_id=$this->request->request->get("id"); // 2--  Select objet annonce where id=34
+        $test=$this
+        ->getUser() // 3-- Requête select id where id=10
+        ->addFavori($repoannonce
+        ->find($this->request->request
+        ->get("id"))); // 4 eme Requête Select moi le User de la table User INNER JOIN annonce_user on
+        // t0.id=annonce_user.user_id Where annonce_user.annonce_id=34
+        // Ce qui veut dire: sélectionne moi toutes les propriétés de User de la table User, joins moi la table annonce_user
+        // ou l'id (ici de User est égal à annonce_user.user_id) et où annonce_user.annonce_id=34.
+        $deja_favoris=$this->getUser()->getFavoris();
+        $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
         $this->manager->flush();
         
         
-        /* return $this->render("annonce/index_user.html.twig"); */
-        return new JsonResponse($an_id);
+        $data = [];
+        for ($i = 0; $i < count($deja_favoris); $i++)
+            {
+                $order[$i] = [
+                    "id" =>  $deja_favoris[$i]->getId()
+                    
+                ];
+            }
+            array_push($data, $order);
+            
+        return new JsonResponse($data);
      
     }
 

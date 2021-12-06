@@ -63,7 +63,7 @@ class AdminAnnonceController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $annonce->setDateEnregistrement(new \DateTimeImmutable('now'));
+            $annonce->setDateenregistrement(new \DateTimeImmutable('now'));
             
             $user=$this->getUser();
             $annonce->setUser($user);

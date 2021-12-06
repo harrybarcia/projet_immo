@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -216,8 +217,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->favoris;
     }
 
-    public function addFavori(Annonce $favori): self
+    public function addFavori(Annonce $favori): self //favori est le repoannonce 34 par exemple 
     {
+        // si l'objet user ne contient pas de favori, alors tu me rajoutes le favori 
+        // dans un tableau.
+        // a chaque fois que tu trouves un favori, tu me le rajoutes dans le tableau favoris.
+        // Si j'appelle trois fois la méthode addfavori, à mon dernier objet 
+        // j'aurais 3 valeurs dans mon tableau.
+        // A chaqu élément de mon tableau, je lui accole la méthode addFavori de Annonce.php.
+        // qui Mon objet user à donc lui aussi les tableau de favoris.
         if (!$this->favoris->contains($favori)) {
             $this->favoris[] = $favori;
             $favori->addFavori($this);

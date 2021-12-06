@@ -108,18 +108,20 @@ class AnnonceController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $annonce->setDateEnregistrement(new \DateTimeImmutable('now'));
+            
+            $annonce->setDateenregistrement(new \DateTimeImmutable('now'));
             
             $user=$this->getUser();
             $annonce->setUser($user);
+            
 
             $manager->persist($annonce);
             $manager->flush();
-
             $photoFile = $form->get('photo')->getData();
 
             if($photoFile)
             {
+                
                 //-- le champs photo est un tableau de mon entité annonce--
                 for($c = 0; $c < count($photoFile); $c++)
                 {

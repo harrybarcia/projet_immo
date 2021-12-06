@@ -22,7 +22,7 @@ App\Entity\Annonce:
     adresse: <numberBetween(1, 100)>
     cp: <numberBetween(94015, 94080 )>
     ville: <city()>
-    date_enregistrement: <(new \DateTime('2021-11-11'))>
+    dateenregistrement: <(new \DateTime('2021-11-11'))>
     user: '@user_*'
     categorie: '@categorie_*'
 

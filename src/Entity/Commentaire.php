@@ -35,7 +35,7 @@ class Commentaire
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_enregistrement;
+    private $dateenregistrement;
 
     public function getId(): ?int
     {
@@ -78,14 +78,14 @@ class Commentaire
         return $this;
     }
 
-    public function getdate_enregistrement(): ?\DateTimeInterface
+    public function getdateenregistrement(): ?\DateTimeInterface
     {
-        return $this->date_enregistrement;
+        return $this->dateenregistrement;
     }
 
-    public function setdate_enregistrement(\DateTimeInterface $date_enregistrement): self
+    public function setdateenregistrement(\DateTimeInterface $dateenregistrement): self
     {
-        $this->date_enregistrement = $date_enregistrement;
+        $this->dateenregistrement = $dateenregistrement;
 
         return $this;
     }

@@ -45,7 +45,7 @@
         <div class="comment col-8" id="message-92335495">
             
             <div class="content" style="display:flex;flex-direction:column">
-                <i class="fas fa-camera" style="text-align:left;font-size: 0.7em;" >{{ commentaire.date_enregistrement|format_datetime(locale='fr') }}</i>
+                <i class="fas fa-camera" style="text-align:left;font-size: 0.7em;" >{{ commentaire.dateenregistrement|format_datetime(locale='fr') }}</i>
                 
                 <div class="message markdown-body" role="article" style="text-align:left; max-width:1400px">
                     <p class="long_text">{{ commentaire.commentaire }}</p>

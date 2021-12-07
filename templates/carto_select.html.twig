@@ -53,11 +53,15 @@
   
   }
 
-  .banana-popup .mapboxgl-popup-content {
-        height:auto;
-        width:auto;
-        max-height: 200px;
-        overflow:scroll;
+   .mapboxgl-popup-content {
+        height:280px;
+        width:274px;
+        border-radius:3%;
+        padding:0;
+        background-color:ghostwhite;
+        font-family: 'Poppins', sans-serif;
+        font-size:1.2em;
+        overflow:hidden;
         }
 
 
@@ -90,14 +94,13 @@ transition-duration: 140ms
 <script src="jquery.min.js"></script>
 
 <script>
-{% for coord in test %}
-  center_long  = {{coord.long}}
-  center_lat  = {{coord.lat}}
-console.log('u');
-  console.log(center_long)
-  console.log(center_lat)
-{% endfor %}
+let sujetArray = [];
+  {% for coord in test %}
+    sujetArray.push(["{{ coord.long }}", "{{ coord.lat }}"]);  {% endfor %}
 
+console.log(sujetArray);
+
+			
 
 
   mapboxgl.accessToken ="pk.eyJ1IjoiaGFycnliYXJjaWEiLCJhIjoiY2s3dzRvdTJnMDBqODNlbzhpcjdmaGxldiJ9.vg2wE4S7o_nryVx8IFIOuQ";
@@ -105,8 +108,8 @@ console.log('u');
     var map = new mapboxgl.Map({
       container: "map", // container id
       style: "mapbox://styles/harrybarcia/cksn9vv4o27jm18pgbw3vrt2l",
-      center: [center_long, center_lat],
-      zoom: 15.2,
+      center: [sujetArray[0][0], sujetArray[0][1]],
+      zoom: 12.2,
       pitch: 40,
       bearing: 10,
       hash: true,
@@ -252,29 +255,44 @@ console.log('u');
 
 
 });
-    {% for coord in test %}
-      
+{% for coord in test %}
+      {{coord.annonce.prix}}
       // ajout points annonces sur la map
-        new mapboxgl.Marker({className: 'banana-popup', offset: [0, -15] })
+        new mapboxgl.Marker({offset: [0, -15],closeOnClick:true, closeButton:false })
           .setLngLat([{{coord.long}}, {{coord.lat}}])
           .addTo(map)
           .setPopup(new mapboxgl.Popup().setHTML(`
-            <span>
-            <strong>Code postal: </strong>
-              {{coord.annonce.cp}}
-              <br>
-              <strong>Ville: </strong>
-              {{coord.annonce.ville}} 
-              <br>
-              </span>
-            <strong>Prix: </strong>
-            <p>{{coord.annonce.prix}}</p>
-            <br>
-            <a  class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : coord.annonce.id}) }}" class="mt-2">Voir la fiche</a>`
+    <a style='position:absolute;top:0px;left:0px;width:100%;height:100%;display:inline;' href="{{ path('fiche_annonce', {'id' : coord.annonce.id}) }}"></a>
+    <button class="h-5 w-5 ajouter_favori toggle-click" value={{ coord.annonce.id }} style="width:35px;position:absolute;border:0;background: transparent;fill-opacity:0.7">
+
+      <svg class="heart w-5 h-5 " value={{ coord.annonce.id }} xmlns="http://www.w3.org/2000/svg" data-click-state="0" viewbox="0 0 24 24" stroke="red">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+      </svg>
+    </button>
+    {% if coord.annonce.photos is not empty %}
+      <img src="{{ coord.annonce.photos[0].nom }}" alt="" style="width:274px">
+    {% else %}
+
+      <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:274px;border-radius:3%">
+    {% endif %}
+    <span>
+      <strong>Code postal:
+      </strong>
+      {{coord.annonce.descriptionlongue}}
+    </span>
+    <br>
+    <br>
+    <strong>Prix:
+    </strong>
+    {{coord.annonce.prix | number_format(0, ',', ' ')}}
+    €
+    <br>
+    <br>
+`
+
         )) // add popup
       
     {% endfor %}
-
 
 
 

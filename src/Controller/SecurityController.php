@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -174,35 +175,63 @@ class SecurityController extends AbstractController
     /**
      * @Route("/session/favori", name="ajout_favoris")
      */
-    public function like(AnnonceRepository $repoannonce)
+    public function like(AnnonceRepository $repoannonce, Session $session)
     {
-        // 1 -- 1 ere Requête select id where id=10
-        $an_id=$this->request->request->get("id"); // 2--  Select objet annonce where id=34
-        $test=$this
-        ->getUser() // 3-- Requête select id where id=10
-        ->addFavori($repoannonce
-        ->find($this->request->request
-        ->get("id"))); // 4 eme Requête Select moi le User de la table User INNER JOIN annonce_user on
-        // t0.id=annonce_user.user_id Where annonce_user.annonce_id=34
-        // Ce qui veut dire: sélectionne moi toutes les propriétés de User de la table User, joins moi la table annonce_user
-        // ou l'id (ici de User est égal à annonce_user.user_id) et où annonce_user.annonce_id=34.
+
+        
+        $test = $this->repoannonce->find($this->request->request->get('id')); // find (34)
+        $existant = $this->request->request->get('class'); // find (34)
+
+        if ($existant == 0) {
+            // 1 -- 1 ere Requête select id where id=10
+            $an_id=$this->request->request->get("id"); // 2--  Select objet annonce where id=34
+            $test=$this
+            ->getUser() // 3-- Requête select id where id=10
+            ->addFavori($repoannonce
+            ->find($this->request->request
+            ->get("id"))); // 4 eme Requête Select moi le User de la table User INNER JOIN annonce_user on
+            // t0.id=annonce_user.user_id Where annonce_user.annonce_id=34
+            // Ce qui veut dire: sélectionne moi toutes les propriétés de User de la table User, joins moi la table annonce_user
+            // ou l'id (ici de User est égal à annonce_user.user_id) et où annonce_user.annonce_id=34.
+    
+            $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
+            $this->manager->flush();
+            $test="l'annonce a bien été ajoutée à vos favoris";
+            
+        }
+        else{
+            $test=$this
+            ->getUser()
+            ->removeFavori($repoannonce
+            ->find($this->request->request
+            ->get("id"))); 
+            $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
+            $this->manager->flush();
+            $test="l'annonce a bien été retirée de vos favoris";
+            
+        }
+        
         $deja_favoris=$this->getUser()->getFavoris();
-        $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
-        $this->manager->flush();
         
+        $data = ["ok"=>$test,"class"=>$existant];
+            
         
-        $data = [];
-        for ($i = 0; $i < count($deja_favoris); $i++)
-            {
-                $order[$i] = [
-                    "id" =>  $deja_favoris[$i]->getId()
-                    
-                ];
-            }
-            array_push($data, $order);
             
         return new JsonResponse($data);
      
+    }
+    #[Route('/mes_annonces_likees', name: 'mes_annonces_likees')]
+    public function consulter_annonce(AnnonceRepository $repoannonce)
+    {
+        $deja_favoris=$this->getUser()->getFavoris();
+        
+
+        return $this->render('annonce/mes_annonces_likees.html.twig',[
+            "annonces"=>$deja_favoris,
+            
+            
+        ]);
+        
     }
 
 

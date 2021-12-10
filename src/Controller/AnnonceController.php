@@ -6,6 +6,7 @@ use App\Entity\Photo;
 use App\Entity\Annonce;
 use src\data\SearchData;
 use src\data\SearchForm;
+use App\Entity\Categorie;
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;
 use App\Repository\CoordsRepository;
@@ -13,9 +14,12 @@ use App\Repository\AnnonceRepository;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommentaireRepository;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -29,12 +33,14 @@ class AnnonceController extends AbstractController
     #[Route('/', name: 'accueil')]
     public function accueil(CoordsRepository $repoCoords, Request $request, AnnonceRepository $repoannonce): Response
     {
-    // coordonnées
+        // coordonnées
         $coordsArray = $repoCoords->findAll();
         $annonceArray = $repoannonce->findAll();
-    // formulaire filtre
+        // formulaire filtre
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         $data->page = $request->get('page', 1);
+
+/*         dd($data); */
          // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
         $form = $this->createForm(SearchForm::class, $data, [
             'action' => $this->generateUrl('index'),
@@ -43,6 +49,7 @@ class AnnonceController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces_search=$repoannonce->findSearch($data);   
+        dump($repoannonce);
 
         return $this->render('annonce/accueil.html.twig', [
             'controller_name' => 'AnnonceController',
@@ -77,13 +84,13 @@ class AnnonceController extends AbstractController
      */
     public function fiche_annonce(Annonce $annonceObject, AnnonceRepository $repoannonce, CommentaireRepository $repocommentaire)
                 // $id, annonceRepository $repoannonce    
-    {
-        $mesannonces=($annonceObject->getId());
-        return $this->render("annonce/fiche_annonce.html.twig", [
-            "annonce"=>$annonceObject,
-            "commentaires"=>$repocommentaire->findBy(["annonce"=>$mesannonces]),
-        ]);
-    }
+        {
+            $mesannonces=($annonceObject->getId());
+            return $this->render("annonce/fiche_annonce.html.twig", [
+                "annonce"=>$annonceObject,
+                "commentaires"=>$repocommentaire->findBy(["annonce"=>$mesannonces]),
+            ]);
+        }
 
        /**
      * @Route("/ajouter", name="annonce_ajouter")
@@ -110,7 +117,7 @@ class AnnonceController extends AbstractController
             
             
             $annonce->setDateenregistrement(new \DateTimeImmutable('now'));
-            
+            $annonce->setActive(false);
             $user=$this->getUser();
             $annonce->setUser($user);
             
@@ -197,7 +204,7 @@ class AnnonceController extends AbstractController
                     $manager->flush(); // on envoie l'instance en BDD
                 }
             }
-           
+            $annonce->setActive(false);
             $manager->persist($annonce); //avec persist on peut ajouter ou modifier un annonce. Si l'id est null, il va créer l'annonce si l'id
             // existe, il va l'update.
             $manager->flush(); 
@@ -256,42 +263,106 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/index", name="index")
      */
-    public function index(AnnonceRepository $repoannonce, Request $request, CoordsRepository $repoCoords): Response
+    public function index(AnnonceRepository $repoannonce, Request $request, CoordsRepository $repoCoords, CacheInterface $cache,  CategorieRepository $catRepo): Response
     {
         // pour la partie carto du menu gauche
 
+        
+        $requetes=$request->query->all();
+        
+        
+        
+        dump($requetes);
+
+
 
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
+        
+        dump($data);// me renvoit un objet vide avec q:"", min"", max:"", page=1
         $data->page = $request->get('page', 1);
-        // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
-
+        
         $form = $this->createForm(SearchForm::class, $data);
-
+        dump($form); // renvoie un objet form avec "get", la dataClass "search data" et la query
+        /* +page: 1
+        +q: ""
+        +categorie: []
+        +max: null
+        +min: null */
+        
         $form->handleRequest($request);
+        // je gère la requête
         [$min, $max] = $repoannonce->findMinMax($data);
+        // je cherche en bdd le min max par rapport à la requête effectuée
+        $filters = $request->get("categorie");
+        dump($filters);
+        // renvoit un tableau avec les catégories cherchées
 
-        $annonces=$repoannonce->findSearch($data);
-        dump(gettype($annonces));
-        dump($annonces);
-        //dd($annonces); renvoit les items qui correspondent à la requête
+        $annonces=$repoannonce->findSearch($data);// effectue la requête grâce à getSearchQuery et 
+        // découpe ma requête en pages
+       
+        
         $list=$annonces->getItems();
         dump($list);
-        
+        // renvoie un tableaud es 9 annonces
         $coordsi=$repoCoords->findBy(array('annonce' => $list));
-        // $filtre = $_GET["categorie"];
-        // dump($filtre);
-        // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
-        // if ($test) {
-        //     return $this->render('annonce/test.html.twig', ["test"=>$test]);
-        // }
+
+        $total = $repoannonce->getTotalAnnonces($filters);
+        dump($total);
+        $limit=9;
+        // On récupère le numéro de page
+        $page = (int)$request->query->get("page", 1);
+        $categories=$catRepo->findAll();
+
+        // On vérifie si on a une requête Ajax
+        if($request->get('ajax')){
+            
+            return new JsonResponse([
+                'content' => $this->renderView('annonce/_content.html.twig',[
+                    "annonces"=>$annonces,
+                    "form"=>$form->createView(),
+                    'min' => $min,
+                    'max' => $max,
+                    "test" => $coordsi,
+                    
+                    "page" => $page,
+                    
+        
+                ])
+            ]);
+        }
+        // On va chercher toutes les catégories
+/*         $categories = $cache->get('categories_list', function(ItemInterface $item) use($catRepo){
+            $item->expiresAfter(3600);
+
+            return $catRepo->findAll();
+        }); */
+        
         return $this->render('annonce/index.html.twig',[
             "annonces"=>$annonces,
             "form"=>$form->createView(),
             'min' => $min,
             'max' => $max,
-            "test" => $coordsi
+            "test" => $coordsi,
+            "categories" => $categories,
+            "page" => $page,
+            "requetes" => $requetes
+
         ]); 
         
+    }
+
+    /**
+     * @Route("/activer/{id}", name="activer")
+     */
+    public function activer(Annonce $annonce)
+    {
+        $annonce->setActive(($annonce->getActive())?false:true);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($annonce);
+        $em->flush();
+
+        return new Response("true");
     }
 
 }

@@ -102,7 +102,7 @@ border-color: 1px solid black;
 
 #sticky-index {
         position: sticky;
-        top: 60px;
+        top: 80px;
 }
 
 
@@ -120,3 +120,46 @@ border-color: 1px solid black;
         fill:red;
         background-color: yellow;
 }
+
+
+
+.navbartwo > .navbar .navbar-inner {
+        background-color: #662D91;
+        background-image: none; 
+        background-repeat: repeat-x;
+        border: 1px solid #662D91;
+        border-radius: 4px;
+        box-shadow: none;
+        min-height: 32px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .navbartwo > .navbar .brand {
+      display: block;
+      float: left;
+      padding: 10px 20px 10px;
+      margin-left: -20px;
+      font-size: 15px;
+      font-weight: 200;
+      color: #fff;
+      text-shadow: none;
+    }
+    
+    .navbartwo > .navbar .nav > li > a {
+      float: none;
+      padding: 10px 15px 10px;
+      color: #fff;
+      text-decoration: none;
+      text-shadow: none;
+      display: inline;
+    }
+    
+    .navbartwo > .navbar .nav > li > a:focus,
+    .navbartwo > .navbar .nav > li > a:hover {
+      color: #000;
+      text-decoration: none;
+      background-color: #fff;
+    }
+
+
+ 

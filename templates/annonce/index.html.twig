@@ -11,93 +11,84 @@
 <style>
       .mapboxgl-ctrl-geocoder{
       min-width: 10%;
-      visibility:hidden;
+      visibility:hidden}
 
-  
-  }
+.filtre_navbar2{
+        
+        
+        display: flex;
+        margin: 0 0;
+        
+}
+#filters p{
+    
+    margin: 1em 1em
+}
+.min_max{
+    
+    
+    width: 100px;
+    margin: 0.8em 0.9em
+}
+
 </style>
 
-    <div class="container-fluid">
-        <div class="row" >
-            {# left #}
-            <div class="col-md-3 mt-5 p-4" style="display:flex;flex-direction:column">
-                <div style="position: sticky;top: 60px;">
-                    {# le formulaire #}
-                    <div>    
-                        {{ form_start(form) }}
-                        {{ form_row(form.q) }}
-
-                        <h4>Catégories</h4>
-                        {{ form_row(form.categorie) }}
-
-                        <h4>Prix</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                            {{ form_row(form.min) }}
-                            </div>
-                            <div class="col-md-6">
-                            {{ form_row(form.max) }}
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" type="submit" class="annonce2_3">Filtrer</button>
-
-                        {{ form_end(form) }}
-                    </div>
-                    {# la carto #}
-                    <div class="col-md-12 col-sm-10 mt-4 p-2"  style="width:380px;height:290px;border:1px solid black;max-width:100%">
-                    {% include "carto_select.html.twig" %}
-                    </div>    
-                </div>
-            </div>
-            {# right #}
-            <div class="col-md-9">
-                <div class="d-flex justify-content-end mb-2">
-                    {{ knp_pagination_sortable(annonces, 'Prix', 'p.prix') }}
-                </div>
-                <div class="grid">
-                    {% if annonces %}
-                    {% for annonce in annonces %}
+    <div class="container-fluid navbartwo" style="position: fixed;background-color: beige;z-index: 10;height: 60px">
+        <div class="span6 offset3 navbar" style="padding-top:0">
+            <div class="navbar-inner"  style="margin:0 auto">
                     
-                        <div class="card" data-value={{ annonce.coords[0].long}},{{ annonce.coords[0].lat}} style="cursor: pointer;">
-                           <a style='position:absolute;top:0px;left:0px;width:100%;height:80%;display:inline;' href="{{ path('fiche_annonce', {'id' : annonce.id}) }}"></a>
-                           <button onclick="url()"
-                                            class="h-5 w-5 ajouter_favori toggle-click" value={{ annonce.id }} style="width:45px;position:absolute;border:0;background: transparent">
-                                            {# annonce.id in deja_favoris[key].id #}
-                                            <svg class="heart w-5 h-5 " value={{ annonce.id }} xmlns="http://www.w3.org/2000/svg" fill="white" data-click-state="0"  viewbox="0 0 24 24" stroke="red">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                            </svg>
-                                        </button>
-                            {% if annonce.photos is not empty %}
-                            <img src="{{ annonce.photos[0].nom }}" alt="" style="width:100%">
-                            {% else %}
-                            <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:100%">
-                            {% endif %}
+                <form id="filters" class="filtre_navbar2" >
+                     {% for categorie in categories %}
+                    {# On vérifie si la catégorie est dans les paramètres #}
+                    
+                    <p>
+                        <input type="checkbox"
+                            name="categorie[]" 
+                            id="cat{{categorie.id}}" 
+                            value="{{categorie.id}}"
+                            {# requetes.categorie renvoie 22  #}
                             
-                                <div class="card-body"  style="flex: 1 1 auto;padding: 1rem 1rem;display: flex;flex-direction: column;justify-content: space-between;">
-                                    <h5 class="card-title" onmouseover="this.style.textDecoration = 'underline'">{{ annonce.titre }}</h5>
-                                    <div class="card-title text-primary" style="font-weight: bold; font-size: 1.5rem;">
-                                        {{ annonce.prix | number_format(0, ',', ' ') }} €
-                                    </div>
-                                    <a class="text text-muted" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}">{{ annonce.descriptionlongue }}</a>
-                                    <a  class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">Voir la fiche</a>
-                                    
+                            {% if requetes.categorie is defined %}
+                            
+                                {% if categorie.id in requetes.categorie  %} checked {% endif %} 
 
-                                </div>
-                        </div>
-                        
-                    {% else %}
-                        <h4 class="text-center text-danger mt-3 fst-italic">Il n'y a pas d'annonce avec vos critères pour le moment.</h4>
-                    {% endfor %}
-                {% endif %}
-                        
-                <div class="mt-4">
-                    {{ knp_pagination_render(annonces) }}
-                </div>
-                </div>
+                            {% endif %}>
+                            
+                                
+                            
+                            <label for="cat{{categorie.id}}">{{categorie.type}}</label>
+
+                    </p>
+                {% endfor %}
+
+                <input type="text"  class="min_max"name="min" id="min" placeholder="min">
+                    
+                <input type="text" class="min_max"name="max" id="max" placeholder="max">
+                    
+                    
+                    <input type="hidden" name="page" value="{{page}}">
+                </form>
                 
             </div>
         </div>
     </div>
+    <div class="col-md-11 mx-auto " style="margin-top:75px!important">
+
+    <div class="container-fluid">
+        <div class="row">
+
+{# right #}
+<div class="col-md-9" id="content">
+	
+		
+			{% include "annonce/_content.html.twig" %}
+			
+		
+	</div>
+<div class="mt-4">{{ knp_pagination_render(annonces) }}</div>   
+
+
+
 {% endblock %}
 
 
@@ -130,6 +121,51 @@ function url() {
     location = "{{ path('index_user')}}";
 }
 
-    </script>
+window.onload = () => {
+    const FiltersForm = document.querySelector("#filters");
+    console.log(FiltersForm);
 
+    // On boucle sur les input
+    document.querySelectorAll("#filters").forEach(input => {
+        input.addEventListener("change", () => {
+            console.log('click');
+            // Ici on intercepte les clics
+            // On récupère les données du formulaire
+            const Form = new FormData(FiltersForm);
+            console.log(Form);
+            // On fabrique la "queryString"
+            const Params = new URLSearchParams();
+
+            Form.forEach((value, key) => {
+                Params.append(key, value);
+                console.log(Params.toString());
+            });
+
+            // On récupère l'url active
+            const Url = new URL(window.location.href);
+            console.log(Params.toString());
+            // On lance la requête ajax
+            fetch(Url.pathname + "?" + Params.toString() + "&ajax=1", {
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            }).then(response => 
+                response.json()
+            ).then(data => {
+                // On va chercher la zone de contenu
+                const content = document.querySelector("#content");
+
+                // On remplace le contenu
+                content.innerHTML = data.content;
+
+                // On met à jour l'url
+                history.pushState({}, null, Url.pathname + "?" + Params.toString());
+            }).catch(e => alert(e));
+
+        });
+    });
+}
+
+</script>
 {% endblock %}
+

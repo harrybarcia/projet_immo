@@ -33,7 +33,7 @@ class AnnonceRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,
             $search->page,
-            9
+            25
         );
     }    
     /**
@@ -49,42 +49,70 @@ class AnnonceRepository extends ServiceEntityRepository
         return [(int)$results[0]['min'], (int)$results[0]['max']];
     }
 
-    private function getSearchQuery(SearchData $search, $ignorePrice = false): QueryBuilder
+    private function getSearchQuery(SearchData $search, $ignorePrice = false ): QueryBuilder
     {
         $query = $this
             ->createQueryBuilder('an')
             ->select('c', 'an')
             ->join('an.categorie', 'c');
-
-        if (!empty($search->q)) {
-            $query = $query
+            
+            if (!empty($search->q)) {
+                $query = $query
                 ->andWhere('an.titre LIKE :q')
                 ->setParameter('q', "%{$search->q}%");
+            }
+
+            if (!empty($search->min) && $ignorePrice === false) {
+                $query = $query
+                ->andWhere('an.prix >= :min')
+                ->setParameter('min', $search->min);
+            }
+            
+            if (!empty($search->max) && $ignorePrice === false) {
+                $query = $query
+                ->andWhere('an.prix <= :max')
+                ->setParameter('max', $search->max);
+            }
+            
+            
+            
+            if (!empty($search->categorie)) {
+                $query = $query
+                ->andWhere('c.id IN (:categorie)')
+                ->setParameter('categorie', $search->categorie);
+            }
+            
+            return $query;
+        }
+        
+    /**
+     * @return void
+     * 
+     */
+    
+    public function getTotalAnnonces(SearchData $search, $filters = null, $ignorePrice = false, ){
+        $query = $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->where('a.active=1');
+            
+        if($filters != null){
+            $query->andWhere('a.categorie IN(:cats)')
+                ->setParameter(':cats', array_values($filters));
         }
 
         if (!empty($search->min) && $ignorePrice === false) {
             $query = $query
-                ->andWhere('an.prix >= :min')
-                ->setParameter('min', $search->min);
+            ->andWhere('an.prix >= :min')
+            ->setParameter('min', $search->min);
         }
-
+        
         if (!empty($search->max) && $ignorePrice === false) {
             $query = $query
-                ->andWhere('an.prix <= :max')
-                ->setParameter('max', $search->max);
+            ->andWhere('an.prix <= :max')
+            ->setParameter('max', $search->max);
         }
 
-
-
-        if (!empty($search->categorie)) {
-            $query = $query
-                ->andWhere('c.id IN (:categorie)')
-                ->setParameter('categorie', $search->categorie);
-        }
-
-        return $query;
+        return $query->getQuery()->getSingleScalarResult();
     }
-
-
     
 }

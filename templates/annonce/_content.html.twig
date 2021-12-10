@@ -1,0 +1,38 @@
+<div class="grid">
+{% if annonces %}
+	{% for annonce in annonces %}
+
+		<div class="card" data-value={{ annonce.coords[0].long}} , {{ annonce.coords[0].lat}} style="cursor: pointer;">
+			<a style='position:absolute;top:0px;left:0px;width:100%;height:80%;display:inline;' href="{{ path('fiche_annonce', {'id' : annonce.id}) }}"></a>
+			<button
+				onclick="url()" class="h-5 w-5 ajouter_favori toggle-click" value={{ annonce.id }} style="width:45px;position:absolute;border:0;background: transparent">
+				{# annonce.id in deja_favoris[key].id #}
+				<svg class="heart w-5 h-5 " value={{ annonce.id }} xmlns="http://www.w3.org/2000/svg" fill="white" data-click-state="0" viewbox="0 0 24 24" stroke="red">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+				</svg>
+			</button>
+			{% if annonce.photos is not empty %}
+				<img src="{{ annonce.photos[0].nom }}" alt="" style="width:100%">
+			{% else %}
+				<img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:100%">
+			{% endif %}
+
+			<div class="card-body" style="flex: 1 1 auto;padding: 1rem 1rem;display: flex;flex-direction: column;justify-content: space-between;">
+				<h5 class="card-title" onmouseover="this.style.textDecoration = 'underline'">{{ annonce.titre }}</h5>
+				<div class="card-title text-primary" style="font-weight: bold; font-size: 1.5rem;">
+					{{ annonce.prix | number_format(0, ',', ' ') }}
+					€
+				</div>
+				<a class="text text-muted" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}">{{ annonce.descriptionlongue }}</a>
+				<a class="btn btn-danger" href="{{ path('fiche_annonce', {'id' : annonce.id}) }}" class="mt-2">{{ annonce.categorie.type }}</a>
+
+
+			</div>
+		</div>
+
+	{% else %}
+		<h4 class="text-center text-danger mt-3 fst-italic">Il n'y a pas d'annonce avec vos critères pour le moment.</h4>
+	{% endfor %}
+{% endif %}
+
+</div>

@@ -96,6 +96,11 @@ class Annonce
      */
     private $favoris;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
 
 
     public function __construct()
@@ -357,6 +362,18 @@ class Annonce
     public function removeFavori(User $favori): self
     {
         $this->favoris->removeElement($favori);
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

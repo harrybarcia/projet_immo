@@ -33,7 +33,7 @@ class AnnonceRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,
             $search->page,
-            25
+            100
         );
     }    
     /**
@@ -102,13 +102,13 @@ class AnnonceRepository extends ServiceEntityRepository
 
         if (!empty($search->min) && $ignorePrice === false) {
             $query = $query
-            ->andWhere('an.prix >= :min')
+            ->andWhere('a.prix >= :min')
             ->setParameter('min', $search->min);
         }
         
         if (!empty($search->max) && $ignorePrice === false) {
             $query = $query
-            ->andWhere('an.prix <= :max')
+            ->andWhere('a.prix <= :max')
             ->setParameter('max', $search->max);
         }
 

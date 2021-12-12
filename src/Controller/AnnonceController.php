@@ -306,7 +306,7 @@ class AnnonceController extends AbstractController
         // renvoie un tableaud es 9 annonces
         $coordsi=$repoCoords->findBy(array('annonce' => $list));
 
-        $total = $repoannonce->getTotalAnnonces($filters);
+        $total = $repoannonce->getTotalAnnonces($data, $filters);
         dump($total);
         $limit=9;
         // On récupère le numéro de page
@@ -323,8 +323,9 @@ class AnnonceController extends AbstractController
                     'min' => $min,
                     'max' => $max,
                     "test" => $coordsi,
-                    
+                    "total" => $total,
                     "page" => $page,
+                    "requetes" => $requetes,
                     
         
                 ])
@@ -345,7 +346,8 @@ class AnnonceController extends AbstractController
             "test" => $coordsi,
             "categories" => $categories,
             "page" => $page,
-            "requetes" => $requetes
+            "requetes" => $requetes,
+            "total" => $total
 
         ]); 
         

@@ -1,8 +1,11 @@
-<div class="grid">
+
+<div style="z-index: 10000;
+    margin-top: -3.5em;
+    position: fixed;">{{ total }} annonces trouvées</div>
 {% if annonces %}
 	{% for annonce in annonces %}
 
-		<div class="card" data-value={{ annonce.coords[0].long}} , {{ annonce.coords[0].lat}} style="cursor: pointer;">
+		<div class="card" data-value="{{ annonce.coords[0].long}} , {{ annonce.coords[0].lat}}" style="cursor: pointer;">
 			<a style='position:absolute;top:0px;left:0px;width:100%;height:80%;display:inline;' href="{{ path('fiche_annonce', {'id' : annonce.id}) }}"></a>
 			<button
 				onclick="url()" class="h-5 w-5 ajouter_favori toggle-click" value={{ annonce.id }} style="width:45px;position:absolute;border:0;background: transparent">
@@ -33,6 +36,20 @@
 	{% else %}
 		<h4 class="text-center text-danger mt-3 fst-italic">Il n'y a pas d'annonce avec vos critères pour le moment.</h4>
 	{% endfor %}
-{% endif %}
 
+{% endif %}
+<div id="mydiv">
+
+{% include "annonce/test.html.twig" %}
+
+	test3
 </div>
+
+
+<script>
+var arr = mydiv.getElementsByTagName('script')
+for (var n = 0; n < arr.length; n++)
+    eval(arr[n].innerHTML)//run script inside div
+</script>
+
+

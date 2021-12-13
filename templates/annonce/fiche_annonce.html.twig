@@ -11,18 +11,36 @@
         <div class="col-md-6 mx-auto text-center mt-2 alert alert-success">{{ notification }}</div>
     {% endfor %}
 <div style="text-align:center">
-    <div  style="min-width: 300px;">
+    
+{% include "annonce/slider.html.twig" %}
 
-    {% if annonce.photos is not empty %}
 
-        <img src="{{ annonce.photos[0].nom }}" alt="" style="width:290px"> 
+<script>
+{% if annonce.photos is not empty %}
+console.log("dedans");
+            let sujetArray = [];
 
-    {% else %}
-        <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:290px">
+			{% for sujet in annonce.photos %}
+			sujetArray.push("{{ sujet.nom}}");{% endfor %}
+			console.log(sujetArray);
+            
+            Make_Img_Slider(sujetArray)
 
-    {% endif %}
+    
+{% else %}
+    {{ asset('images/imageDefault.jpg') }}
+{% endif %}
 
-    </div>
+
+    
+
+
+            
+</script>
+
+
+
+    
 
     <h5 class="text-center text-danger"> {{ annonce.prix}} €</h5>
 
@@ -63,7 +81,5 @@ Aucun commentaire pour le moment
 
  
 {% endblock %}
-
-
 
 

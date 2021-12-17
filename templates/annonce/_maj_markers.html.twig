@@ -99,8 +99,7 @@ transition-duration: 140ms
 let sujetArray = [];
   {% for coord in test %}
     sujetArray.push(["{{ coord.long }}", "{{ coord.lat }}"]);  {% endfor %}
-console.log('ici');
-console.log(sujetArray);
+
 
 			
 
@@ -257,8 +256,10 @@ console.log(sujetArray);
 
 
 });
+
 {% for coord in test %}
-      {{coord.annonce.prix}}
+      
+      
       // ajout points annonces sur la map
         new mapboxgl.Marker({offset: [0, -15],closeOnClick:true, closeButton:false })
           .setLngLat([{{coord.long}}, {{coord.lat}}])
@@ -267,7 +268,7 @@ console.log(sujetArray);
 <a style='position:absolute;top:0px;left:0px;width:100%;height:100%;display:inline;' href="{{ path('fiche_annonce', {'id' : coord.annonce.id}) }}"></a>
     <button class="h-5 w-5 ajouter_favori toggle-click" value={{ coord.annonce.id }} style="width:35px;position:absolute;border:0;background: transparent;fill-opacity:0.7">
 
-      <svg class="heart w-5 h-5 " value={{ coord.annonce.id }} xmlns="http://www.w3.org/2000/svg" data-click-state="0" viewbox="0 0 24 24" stroke="red">
+      <svg class="heart w-5 h-5 " value={{ coord.annonce.id }} xmlns="http://www.w3.org/2000/svg" fill="{{ coord.annonce in deja_favoris ? 'red':'white' }}" "data-click-state="0" viewbox="0 0 24 24" stroke="red">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
       </svg>
     </button>

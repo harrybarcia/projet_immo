@@ -49,32 +49,35 @@ class SecurityController extends AbstractController
     }
 
 
-    #[Route('/accueil_user', name: 'accueil_user')]
-    public function accueil_user(CoordsRepository $repoCoords, Request $request, AnnonceRepository $repoannonce): Response
+    #[Route('/', name: 'accueil')]
+    public function accueil(CoordsRepository $repoCoords, Request $request, AnnonceRepository $repoannonce): Response
     {
-    // coordonnées
+        // coordonnées
         $coordsArray = $repoCoords->findAll();
         $annonceArray = $repoannonce->findAll();
-    // formulaire filtre
+        // formulaire filtre
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         $data->page = $request->get('page', 1);
+
+/*         dd($data); */
          // je créé mon formulaire qui utilise la classe searchForm que je viens de créé, je précise en second paramètre les données. Comme ça quand je vais faire un handle request ca va modifier cet objet (new search data) qui représente mes données
         $form = $this->createForm(SearchForm::class, $data, [
-            'action' => $this->generateUrl('index_user'),
+            'action' => $this->generateUrl('index'),
         ]);
         $form->handleRequest($request);
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces_search=$repoannonce->findSearch($data);   
+        dump($repoannonce);
 
-        return $this->render('security/accueil_user.html.twig', [
-            'controller_name_user' => 'AnnonceController',
-            "coords_user" => $coordsArray,
-            "annonces_user" => $annonceArray,
-            "annonces_user" =>$annonces_search,
-            "form_user" =>$form->createView(),
-            'min_user' => $min,
-            'max_user' => $max
+        return $this->render('annonce/accueil.html.twig', [
+            'controller_name' => 'AnnonceController',
+            "coords" => $coordsArray,
+            "annonces" => $annonceArray,
+            "annonces"=>$annonces_search,
+            "form"=>$form->createView(),
+            'min' => $min,
+            'max' => $max
 
         ]);
     }
@@ -172,54 +175,7 @@ class SecurityController extends AbstractController
             "formUser" => $form->createView()
         ]);
     }
-    /**
-     * @Route("/session/favori", name="ajout_favoris")
-     */
-    public function like(AnnonceRepository $repoannonce, Session $session)
-    {
-
-        
-        $test = $this->repoannonce->find($this->request->request->get('id')); // find (34)
-        $existant = $this->request->request->get('class'); // find (34)
-
-        if ($existant == 0) {
-            // 1 -- 1 ere Requête select id where id=10
-            $an_id=$this->request->request->get("id"); // 2--  Select objet annonce where id=34
-            $test=$this
-            ->getUser() // 3-- Requête select id where id=10
-            ->addFavori($repoannonce
-            ->find($this->request->request
-            ->get("id"))); // 4 eme Requête Select moi le User de la table User INNER JOIN annonce_user on
-            // t0.id=annonce_user.user_id Where annonce_user.annonce_id=34
-            // Ce qui veut dire: sélectionne moi toutes les propriétés de User de la table User, joins moi la table annonce_user
-            // ou l'id (ici de User est égal à annonce_user.user_id) et où annonce_user.annonce_id=34.
     
-            $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
-            $this->manager->flush();
-            $test="l'annonce a bien été ajoutée à vos favoris";
-            
-        }
-        else{
-            $test=$this
-            ->getUser()
-            ->removeFavori($repoannonce
-            ->find($this->request->request
-            ->get("id"))); 
-            $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
-            $this->manager->flush();
-            $test="l'annonce a bien été retirée de vos favoris";
-            
-        }
-        
-        $deja_favoris=$this->getUser()->getFavoris();
-        
-        $data = ["ok"=>$test,"class"=>$existant];
-            
-        
-            
-        return new JsonResponse($data);
-     
-    }
     #[Route('/mes_annonces_likees', name: 'mes_annonces_likees')]
     public function consulter_annonce(AnnonceRepository $repoannonce)
     {

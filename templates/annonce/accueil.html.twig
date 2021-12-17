@@ -20,10 +20,9 @@
     {% for notification in app.flashes('success') %}
         <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
     {% endfor %}
-
-
+                        
         <div class="main">
-            <div class="section top row" style="height:100vh" >
+            <div class="section top row" style="height:90vh;margin-top:2em" >
                 {# 1ere box - Mon formulaire filtre #} 
                 <div class="gris">
                     <div class="row">
@@ -54,14 +53,17 @@
                             </div>
                         </div>
 
-                        {# Ma carto #}    
+                        
+                        {# Ma carto #}  
+
                         <div class="right col-xl-10 col-lg-7 col-sm-6 col-10" style="height:95%" >
                             <div>{% include "carto.html.twig" %}</div>
                         </div>
+
                     </div>
                 </div>
             </div>
-            <div class="container-fluid section middle row mx-auto" style="height:100vh;">
+            <div class="container-fluid section middle row mx-auto" style="height:80vh;background-color: ghostwhite;">
                 <div class="blancmiddle">
                     <section style="display:flex;flex-direction:row">
                         <img src='../../images/middle_bg.png' alt="" style="width: 30%;margin: 18px 20px;">   

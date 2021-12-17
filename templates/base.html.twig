@@ -71,11 +71,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        {% if is_granted('ROLE_USER') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('accueil_user') }}">Accueil</a>
-                        </li>
-                        {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('catalogue') }}">Catalogue</a>
@@ -115,7 +110,7 @@
                                         <li><a class="dropdown-item" href="{{ path('mes_annonces_likees' ) }}">Consulter mes annonces likées</a>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ path('logout')}}">Déconnexion</a></li>
-                                    </li>                                        </li>
+                                    
                                     </ul>
                                 </li>
 

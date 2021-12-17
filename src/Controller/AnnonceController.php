@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -29,6 +30,17 @@ class AnnonceController extends AbstractController
 
 {
 
+    private $manager;
+    private $requestStack;
+    private $request;
+
+    public function __construct(AnnonceRepository $repoannonce, EntityManagerInterface $manager, RequestStack $requestStack)
+    {
+        $this->repoannonce = $repoannonce;
+        $this->manager = $manager;
+        $this->requestStack = $requestStack;
+        $this->request = $this->requestStack->getCurrentRequest();
+    }
 
     #[Route('/', name: 'accueil')]
     public function accueil(CoordsRepository $repoCoords, Request $request, AnnonceRepository $repoannonce): Response
@@ -265,29 +277,27 @@ class AnnonceController extends AbstractController
      */
     public function index(AnnonceRepository $repoannonce, Request $request, CoordsRepository $repoCoords, CacheInterface $cache,  CategorieRepository $catRepo): Response
     {
+        // gestion Favoris
+        if($this->isGranted('ROLE_USER')){
+            $deja_favoris=$this->getUser()->getFavoris();
+            
+        }
+        else{
+            $deja_favoris="";
+            
+            
+        }
         // pour la partie carto du menu gauche
-
-        
         $requetes=$request->query->all();
         
-        
-        
         dump($requetes);
-
-
-
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         
         dump($data);// me renvoit un objet vide avec q:"", min"", max:"", page=1
         $data->page = $request->get('page', 1);
         
         $form = $this->createForm(SearchForm::class, $data);
-        dump($form); // renvoie un objet form avec "get", la dataClass "search data" et la query
-        /* +page: 1
-        +q: ""
-        +categorie: []
-        +max: null
-        +min: null */
+        dump($form); 
         
         $form->handleRequest($request);
         // je gère la requête
@@ -303,7 +313,7 @@ class AnnonceController extends AbstractController
         
         $list=$annonces->getItems();
         dump($list);
-        // renvoie un tableaud es 9 annonces
+        // renvoie un tableaud des 9 annonces
         $coordsi=$repoCoords->findBy(array('annonce' => $list));
 
         $total = $repoannonce->getTotalAnnonces($data, $filters);
@@ -326,6 +336,7 @@ class AnnonceController extends AbstractController
                     "total" => $total,
                     "page" => $page,
                     "requetes" => $requetes,
+                    "deja_favoris"=>$deja_favoris
                     
         
                 ])
@@ -347,7 +358,8 @@ class AnnonceController extends AbstractController
             "categories" => $categories,
             "page" => $page,
             "requetes" => $requetes,
-            "total" => $total
+            "total" => $total,
+            "deja_favoris"=>$deja_favoris
 
         ]); 
         
@@ -365,6 +377,79 @@ class AnnonceController extends AbstractController
         $em->flush();
 
         return new Response("true");
+    }
+
+    /**
+     * @Route("/session_favori", name="ajout_favoris")
+     */
+    public function like(AnnonceRepository $repoannonce)
+    {
+
+        if($this->isGranted('ROLE_USER')){
+            $deja_favoris=$this->getUser()->getFavoris();
+            $test = $this->repoannonce->find($this->request->request->get('id')); // find (34)
+            
+            $existant = $this->request->request->get('state'); // find (34)
+    
+    
+            if ($existant == 0) {
+                // 1 -- 1 ere Requête select id where id=10
+                $an_id=$this->request->request->get("id"); // 2--  Select objet annonce where id=34
+                $test=$this
+                ->getUser() // 3-- Requête select id where id=10
+                ->addFavori($repoannonce
+                ->find($this->request->request
+                ->get("id"))); // 4 eme Requête Select moi le User de la table User INNER JOIN annonce_user on
+                // t0.id=annonce_user.user_id Where annonce_user.annonce_id=34
+                // Ce qui veut dire: sélectionne moi toutes les propriétés de User de la table User, joins moi la table annonce_user
+                // ou l'id (ici de User est égal à annonce_user.user_id) et où annonce_user.annonce_id=34.
+        
+                $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
+                $this->manager->flush();
+                $test="l'annonce a bien été ajoutée à vos favoris";
+                
+            }
+            else{
+                $test=$this
+                ->getUser()
+                ->removeFavori($repoannonce
+                ->find($this->request->request
+                ->get("id"))); 
+                $this->manager->persist($test); // INSERT INTO annonce_user (annonce_id, user_id) VALUES (34, 10);
+                $this->manager->flush();
+                $test="l'annonce a bien été retirée de vos favoris";
+                
+            }
+            
+            $deja_favoris=$this->getUser()->getFavoris();
+            
+            $data = ["ok"=>$test,"class"=>$existant];
+                
+            
+                
+            return new JsonResponse($data);
+         
+        }
+            
+        
+        else{
+            return $this->redirectToRoute('login');;
+        }    
+            
+    }
+        
+    #[Route('/mes_annonces_likees', name: 'mes_annonces_likees')]
+    public function consulter_annonce_likees(AnnonceRepository $repoannonce)
+    {
+        $deja_favoris=$this->getUser()->getFavoris();
+        
+
+        return $this->render('annonce/mes_annonces_likees.html.twig',[
+            "annonces"=>$deja_favoris,
+            
+            
+        ]);
+        
     }
 
 }

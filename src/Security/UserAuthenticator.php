@@ -61,7 +61,8 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate("ajout_commentaire",array('id' => $id)));
         }
         else{ */
-            return new RedirectResponse($this->urlGenerator->generate("accueil_user"));
+            /* return new RedirectResponse($this->urlGenerator->generate("accueil_user")); */
+            return new RedirectResponse($this->urlGenerator->generate("accueil"));
         
     }
 

@@ -6,16 +6,16 @@ body {
 
 .gris {
         
-        background-color: rgb(214, 214, 233);
+        background-color: rgb(255, 255, 255);
         height: 90%;
-        border: 1px solid red!important;
+        /* border: 1px solid red!important; */
         
 } 
 
 .blanc{
         
         height: 90%;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         
 } 
 .blancmiddle{
@@ -40,7 +40,7 @@ body {
         margin-left: 0!important;
         height:100%;
         width:auto;
-        border:1px solid blue;
+        /* border:1px solid blue; */
 }
  
 .section .top{
@@ -157,10 +157,10 @@ border-color: 1px solid black;
 
 
 .navbartwo > .navbar .navbar-inner {
-        background-color: #662D91;
+        /* background-color: #662D91; */
         background-image: none; 
         background-repeat: repeat-x;
-        border: 1px solid #662D91;
+        /* border: 1px solid #662D91; */
         border-radius: 4px;
         box-shadow: none;
         min-height: 32px;

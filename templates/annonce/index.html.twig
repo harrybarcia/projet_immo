@@ -159,25 +159,31 @@ $body = $("body");
     
     }
 
-{# $(document).on('hover', '.card', function(){ #}
-    let elements = document.getElementsByClassName("card");
+let elements = document.getElementsByClassName("card");
     // console.log(elements);
-    for (let i = 0; i < elements.length; i++) {
+    
 
-            $(document).on('mouseenter', '.card', function(){
-            console.log(elements.length);
-            console.log(i);
-            let long = document.getElementsByClassName("card")[i].dataset.value;
-            console.log(long);
-            });
-
-            $(document).on('mouseenter', '.card', function(){
-            let long = document.getElementsByClassName("card")[i].dataset.value;
-            const usingSplit = Array.from(long.split(','));
-            console.log("2");
-                });    
+            $(document).off('mouseenter').on('mouseenter', '.card', function(){
             
-        };
+            console.log('this');
+            console.log(this);
+            let long = this.dataset.value;
+            console.log(long);
+            const usingSplit = Array.from(long.split(','));
+            let markerHover = new mapboxgl.Marker({
+                color:"rgba(34,66,76,1)"
+            })
+            
+            .setLngLat([usingSplit[0],usingSplit[1]])
+            .addTo(map);
+            console.log('markerHover');
+            console.log(markerHover);
+        
+            $(document).off('mouseleave').on('mouseleave', '.card', function(){
+            
+            markerHover.remove()    
+        });
+    });
 
 
 

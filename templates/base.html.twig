@@ -68,37 +68,41 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
 
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="width:100%">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('catalogue') }}">Catalogue</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('annonce_ajouter') }}">Déposer une annonce</a>
+                            </li>
+                            <li class="nav-item" >
+                                <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
+                            </li>
+                        </ul>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('catalogue') }}">Catalogue</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('annonce_ajouter') }}">Déposer une annonce</a>
-                        </li>
                         {% if not app.user %} {# non connecté #}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('accueil') }}">Accueil</a>
-                        </li>
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('register') }}">Inscription</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('register') }}">Inscription</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('login') }}">Connexion</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                                </li>
+                        
+                        </ul>
                         {% else %}{# connecté #}
 
                             {% if is_granted('ROLE_ADMIN') %}{# connecté et ROLE_ADMIN #}
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Admin
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu" style="right: 0;left: auto" aria-labelledby="navbarDropdown">
                                         
                                         <li><a class="dropdown-item" href="{{ path('back_office') }}">Back Office</a></li>
                                         <li><a class="dropdown-item" href="{{path('profil')}}">Profil</a></li>
@@ -120,7 +124,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ app.user.email }}
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu" style="right: 0;left: auto" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" href="{{path('profil')}}">Profil</a></li>
                                         <li><a class="dropdown-item" href="{{ path('mes_annonces' ) }}">Consulter mes annonces</a>
                                         <li><a class="dropdown-item" href="{{ path('mes_commentaires' ) }}">Consulter mes commentaires</a>
@@ -134,7 +138,7 @@
                         {% endif %}
 
                     </ul>
-                </div>
+                </div>  
             </div>
         </nav>
 

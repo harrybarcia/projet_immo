@@ -46,7 +46,7 @@ security:
          - { path: ^/ajouter, roles: ROLE_USER }
          - { path: ^/ajout_commentaire, roles: ROLE_USER }
          - { path: ^/ajout_favoris, roles: ROLE_USER }
-         - { path: ^/index, roles: ROLE_USER }
+         #- { path: ^/index, roles: ROLE_USER }
 
          
         # - { path: ^/accueil_user, roles: ROLE_USER }

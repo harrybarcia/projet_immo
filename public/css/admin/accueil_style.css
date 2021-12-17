@@ -255,7 +255,7 @@ body.loading .modal {
         /* width: calc((100% - 900px) / 2); setting the width to the 100% minus your desired header's width / 2 so it will occupy the rest of your content */
         position: absolute;
         top: 0;
-        background: rgba(0, 0, 0, 0.3);   /*set the desired opacity*/
+        background: rgba(0, 0, 0, 0.1);   /*set the desired opacity*/
     }
     .wrapper:before {
         left: 0;

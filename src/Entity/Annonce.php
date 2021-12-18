@@ -87,7 +87,7 @@ class Annonce
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Coords::class, mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity=Coords::class, mappedBy="annonce", cascade={"persist"})
      */
     private $coords;
 

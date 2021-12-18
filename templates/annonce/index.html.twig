@@ -53,6 +53,8 @@
                         </p>
                     {% endfor %}
 
+                    <input type="text"  class="min_max" name="q" id="q" placeholder="recherche" value="{{ requetes.q }}" >
+
                     <input type="text" class="min_max" name="min" id="min" placeholder="min" >
 
                     <input type="text" class="min_max" name="max" id="max" placeholder="max">
@@ -253,13 +255,14 @@ $(document).on('click', '.heart', function(){
 
 
 
-var ck = document.querySelectorAll('input[type=checkbox]'); 
+var ck = document.querySelectorAll('input[name=q], input[type=checkbox]' ); 
+
 let array_ck=[];
+
 for (let i = 0; i < ck.length; i++) { 
-  if(ck[i].checked==true){
+  if(ck[i].checked==true || $('input[name="q"]')[0].value.length>0  ){
     array_ck.push(1)
   }  
-  
 
 }
 if(array_ck.length==0){

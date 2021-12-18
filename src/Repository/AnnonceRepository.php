@@ -111,6 +111,11 @@ class AnnonceRepository extends ServiceEntityRepository
             ->andWhere('a.prix <= :max')
             ->setParameter('max', $search->max);
         }
+        if (!empty($search->q)) {
+            $query = $query
+            ->andWhere('a.titre LIKE :q')
+            ->setParameter('q', "%{$search->q}%");
+        }
 
         return $query->getQuery()->getSingleScalarResult();
     }

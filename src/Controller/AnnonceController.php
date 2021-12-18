@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Photo;
+use App\Entity\Coords;
 use App\Entity\Annonce;
 use src\data\SearchData;
 use src\data\SearchForm;
@@ -40,6 +41,7 @@ class AnnonceController extends AbstractController
         $this->manager = $manager;
         $this->requestStack = $requestStack;
         $this->request = $this->requestStack->getCurrentRequest();
+        
     }
 
     #[Route('/', name: 'accueil')]
@@ -104,20 +106,24 @@ class AnnonceController extends AbstractController
             ]);
         }
 
-       /**
+    /**
      * @Route("/ajouter", name="annonce_ajouter")
+     * 
      */
     public function annonce_ajouter(Request $request, EntityManagerInterface $manager, SessionInterface $session)
     {
+        
+        
+        
         $test=$request->getSession();
         dump($test);
         if($this->isGranted('IS_ANONYMOUS')) //si la personne connectée est anonyme
         { 
             $this->addFlash(
-            'success',
-            'Veuillez vous connecter pour pouvoir déposer une annonce'
+                'success',
+                'Veuillez vous connecter pour pouvoir déposer une annonce'
             );
-                return $this->redirectToRoute("login");
+            return $this->redirectToRoute("login");
         }
         // ----------Je créé un nouvel objet annonce------------
         $annonce=new Annonce;
@@ -125,13 +131,30 @@ class AnnonceController extends AbstractController
         $form = $this->createForm(AnnonceType::class, $annonce, array("ajouter"=>true));
         $form->handleRequest($request);
         
+        
+        /* $coord=new Coords;
+        
+        $annonce->$coord->setLat(2.48);
+        $annonce->$coord->setLong(48.84);
+        $annonce->addCoord($coord); */
+        
+        
         if ($form->isSubmitted() && $form->isValid()) {
             
             
             $annonce->setDateenregistrement(new \DateTimeImmutable('now'));
             $annonce->setActive(false);
+            
+
             $user=$this->getUser();
             $annonce->setUser($user);
+            
+            $coords= new Coords;
+            $coords->setLong(2.48);
+            $coords->setLat(48.84);
+            $annonce->addCoord($coords);
+
+
             
 
             $manager->persist($annonce);

@@ -22,10 +22,118 @@ body {
         height: 90%;
         
         background-repeat: no-repeat;
-        padding:10px 150px;
+        padding:10px 15px;
 
 
 }
+#blancmiddle{
+        display:flex;
+        flex-direction:row;
+}
+
+.bottom{
+        position: absolute;margin: 19% 30%;width: 30%;
+}
+#map {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 1em;
+        right: 1em;
+        z-index: 100;
+        height:auto;
+        width:auto;
+        border-radius: 1%;
+      }
+      
+      #preview {
+        position: absolute;
+        bottom: 40px;
+        right: 10px;
+        border: 2px solid grey;
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        z-index: 1000;
+      
+      }
+    
+       .mapboxgl-popup-content {
+            height:280px;
+            width:274px;
+            border-radius:3%;
+            padding:0;
+            background-color:ghostwhite;
+            font-family: 'Poppins', sans-serif;
+            font-size:1.2em;
+            overflow:hidden;
+            }
+    
+    
+    .mapboxgl-ctrl .mapboxgl-ctrl-group { position: absolute; bottom: 0; right: 0; width: 100%; }
+    
+    .card:hover {
+    
+      transform: scale(1.05);
+    transition-duration: 140ms
+    };
+
+#container {
+        position: fixed;
+        top: 126px;
+        bottom: 0px;
+        left: 880px;
+        right: 14px;
+        border-radius: 1%;
+        height: 60vh;
+    
+      }
+
+
+@media screen and (max-width: 991px) {
+        #blancmiddle {
+                flex-direction:column;
+        }
+        .bottom{
+        position: absolute;
+        margin: 43% 27%;
+        width: 50%;
+        }
+
+    }
+@media screen and (min-width: 991px) {
+        #blancmiddle p {
+                font-size: 3em;
+                margin-top: 119px;
+                
+                width: 487px;
+                margin-left: 258px;
+        }
+        .middle-p{
+
+                margin-left: 5px;
+                padding: 2px;
+                margin-top: 5px;
+                width: 25%;
+        }
+        #container {
+                position: fixed;
+                top: 126px;
+                bottom: 0px;
+                left: 880px;
+                right: 14px;
+                border-radius: 1%;
+                height: 80vh;
+            
+        }
+        .top{
+                height:85vh!important;
+                margin-top:2em
+        }
+
+    }
+
+
 
 .grisbottom{
         height: 90%;
@@ -42,14 +150,7 @@ body {
         width:auto;
         /* border:1px solid blue; */
 }
- 
-.section .top{
-        height: 90%;
-        margin: 30 auto;
-        display:flex;
-        min-height: 660px;
-        padding:1%;
-}
+
 
 
 
@@ -74,6 +175,7 @@ body {
         border-radius: 3%;
         z-index: 100;
         text-align: center;
+        margin-bottom:0;
         }
 
 .mapboxgl-popup-close-button{
@@ -268,3 +370,5 @@ body.loading .modal {
         height:2em;
         margin: 0 auto;
     }
+
+    

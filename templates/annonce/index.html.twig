@@ -83,7 +83,9 @@
 </div>
 
     {# <div class="mt-4">{{ knp_pagination_render(annonces) }}</div> #}
-
+<div id="carto-mini">
+    voir carto
+    </div>
 
     <div class="modal"><!-- Place at bottom of page --></div>
 
@@ -244,6 +246,29 @@ $(document).on('click', '.heart', function(){
       $(this).attr('data-click-state', 1);
       $(this).css('fill', 'red')
     }
+}); 
+
+$(document).on('click', '#carto-mini', function(){
+
+    
+    
+    $("#map").removeClass("invisible");
+    $("#map").addClass("map-visible");
+
+    $("#carto-mini").addClass("carto-visible");
+    $("#carto-mini").html("Voir liste");
+
+});
+$(document).on('click', '.carto-visible', function(){
+
+    
+    
+    $("#map").removeClass("map-visible");
+    $("#map").addClass("invisible");
+
+    $("#carto-mini").removeClass("carto-visible");
+    $("#carto-mini").html("Voir carto");
+
 });
     
   

@@ -98,6 +98,41 @@ body {
         position: absolute;
         margin: 43% 27%;
         width: 50%;
+}
+        #carto-mini{
+        position: fixed !important;
+        bottom: 48px !important;
+        z-index: 10000 !important;
+        white-space: nowrap !important;
+        left: 50% !important;
+        transition: -ms-transform 0.2s ease-in-out 0s, -webkit-transform 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s !important;
+        transform: translate(-50%, -48px) !important;
+        background-color: aquamarine;
+        width:auto;
+        padding:1em;
+        }
+        #map{
+                
+                visibility: hidden;
+                height:700px;
+        }
+        .map-visible{
+                height: 670px!important;
+                visibility: visible!important;
+
+        }
+
+        .red{
+                background-color: red;
+                visibility:visible;
+        }
+        .mapboxgl-canvas{
+                
+                height: 700px!important;
+        }
+        .invisible{
+                visibility:hidden;
+
         }
 
     }

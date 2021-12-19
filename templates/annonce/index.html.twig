@@ -25,18 +25,19 @@
 	}
 	.min_max {
 
-
+        height:2em;
 		width: 100px;
-		margin: 0.8em 0.9em
+		margin: 1em 1em;
 	}
 </style>
 <div id="message" class="alert alert-danger"  style="padding:0;border:0;margin:0 auto;font-weight:bold; position:fixed;z-index:10000"></div>
     {# barre de recherche #}
-    <div class="container-fluid navbartwo" style="position: fixed;background-color: beige;z-index: 10;height: 60px">
+    <div class="container-fluid navbartwo" style="position: fixed;background-color: beige;z-index: 10;height: 60px;overflow-y:auto;">
         <div class="span6 offset3 navbar" style="padding-top:0">
-            <div class="navbar-inner" style="margin:0 auto">
-
+            <div class="navbar-inner" style="margin:0 auto;position:relative">
+                
                 <form id="filters" class="filtre_navbar2">
+    
                     {% for categorie in categories %}
                         {# On vérifie si la catégorie est dans les paramètres #}
 
@@ -223,8 +224,10 @@ $(document).on('click', '.heart', function(){
             console.log(response[1]);
             let successMessage = response.ok;
              $('#message').html(successMessage);
+
              
              $(function() {
+                 
                 $('#message').delay(5).fadeIn('normal', function() {
                     $(this).delay(2500).fadeOut();
                 });

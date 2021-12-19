@@ -98,7 +98,8 @@ body {
         position: absolute;
         margin: 43% 27%;
         width: 50%;
-}
+        }
+
         #carto-mini{
         position: fixed !important;
         bottom: 48px !important;
@@ -134,7 +135,38 @@ body {
                 visibility:hidden;
 
         }
+        .trouvees{
+                margin-top: -4.8em!important; 
+        }
+        .navnartwo{
+                height: 73px
+        }
+        .card{
+                width:90%
+        }
+        .nav-link{
+                color:white!important
+        }
+        #message{
+                position:fixed!important;
+                margin-top: 100%!important;
+                margin-left: 10%!important;
+                margin-right: 10%!important;
 
+        }
+
+
+
+
+    }
+    @media screen and (min-width: 576px) {
+    #message{
+        position:fixed!important;
+        margin-top: 45%!important;
+        margin-left: 25%!important;
+        margin-right: 20%!important;
+
+        }
     }
 @media screen and (min-width: 991px) {
         #blancmiddle p {
@@ -165,6 +197,8 @@ body {
                 height:85vh!important;
                 margin-top:2em
         }
+
+
 
     }
 

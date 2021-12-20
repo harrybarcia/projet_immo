@@ -99,6 +99,7 @@ class AnnonceController extends AbstractController
     public function fiche_annonce(Annonce $annonceObject, AnnonceRepository $repoannonce, CommentaireRepository $repocommentaire)
                 // $id, annonceRepository $repoannonce    
         {
+            
             $mesannonces=($annonceObject->getId());
             return $this->render("annonce/fiche_annonce.html.twig", [
                 "annonce"=>$annonceObject,

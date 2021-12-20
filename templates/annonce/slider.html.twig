@@ -19,8 +19,8 @@
     
     #container_Lv1 {
         position: relative;
-        width: 35em;
-        margin: 0 auto;
+        width: 290px;
+        margin: 2em auto;
         
         overflow: hidden;
         border-radius: 1em;
@@ -31,9 +31,9 @@
     }
         .container_Lv0 {
             position: relative;
-            height: 30em;
-            width: 35em;
-            background-color: rgba(0, 0, 0, 0.707)
+            height:180px;
+            width: 290px;
+            overflow:hidden;
         }
         .container_Lv0 img{
             user-select: none;
@@ -41,70 +41,70 @@
             top: 50%;
             left: 50%;
             transform: translateX(calc(-50%)) translatey(calc(-50%));
-            max-height: 30em;
-            max-width: 35em;
+            max-height:380px;
+            max-width: 530px;
+        }
+        #next_Btn_div {
+            position: absolute;
+            top: 50%;
+            right: 0%;
+            transform: translateY(calc(-50%));
+            background-color: white;
+            padding-top: 0.4em;
+            padding-bottom: 0.4em;
+            padding-left: 0.6em;
+            padding-right: 0.6em;
+            border-radius: 2em;
+            transition: opacity 0.3s ease-in-out;
+        }
+            #next_Btn_div svg{
+                transform: translateX(0.1em) translateY(0.1em);
+            }
+            #next_Btn_div:active {
+                transform: translateY(calc(-50%)) scale(0.9);
+                box-shadow: 1px 1px 2px black;
+            }
+        #prev_Btn_div {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            transform: translateY(calc(-50%));
+            background-color: white;
+            padding-top: 0.4em;
+            padding-bottom: 0.4em;
+            padding-left: 0.6em;
+            padding-right: 0.6em;
+            border-radius: 2em;
+            transition: opacity 0.3s ease-in-out;
+        }
+            #prev_Btn_div svg{
+                transform: translateX(-0.1em) translateY(0.1em);
+            }
+            #prev_Btn_div:active {
+                transform: translateY(calc(-50%)) scale(0.9);
+                box-shadow: 1px 1px 2px black;
+            }
+        
+        #radio_Btns_container {
+            position:absolute;
+            bottom: 0%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            width: 80%;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .radio_Btn_div {
+            margin-left: 0.3em;
+            margin-right: 0.3em;
+            cursor: pointer;
         }
     
-    #next_Btn_div {
-        position: absolute;
-        top: 50%;
-        right: 0%;
-        transform: translateY(calc(-50%));
-        background-color: white;
-        padding-top: 0.4em;
-        padding-bottom: 0.4em;
-        padding-left: 0.6em;
-        padding-right: 0.6em;
-        border-radius: 2em;
-        transition: opacity 0.3s ease-in-out;
-    }
-        #next_Btn_div svg{
-            transform: translateX(0.1em) translateY(0.1em);
-        }
-        #next_Btn_div:active {
-            transform: translateY(calc(-50%)) scale(0.9);
-            box-shadow: 1px 1px 2px black;
-        }
-    #prev_Btn_div {
-        position: absolute;
-        top: 50%;
-        left: 0%;
-        transform: translateY(calc(-50%));
-        background-color: white;
-        padding-top: 0.4em;
-        padding-bottom: 0.4em;
-        padding-left: 0.6em;
-        padding-right: 0.6em;
-        border-radius: 2em;
-        transition: opacity 0.3s ease-in-out;
-    }
-        #prev_Btn_div svg{
-            transform: translateX(-0.1em) translateY(0.1em);
-        }
-        #prev_Btn_div:active {
-            transform: translateY(calc(-50%)) scale(0.9);
-            box-shadow: 1px 1px 2px black;
-        }
-    
-    #radio_Btns_container {
-        position:absolute;
-        bottom: 0%;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        width: 80%;
-        transition: opacity 0.3s ease-in-out;
-    }
-    .radio_Btn_div {
-        margin-left: 0.3em;
-        margin-right: 0.3em;
-        cursor: pointer;
-    }
     
 </style>
 <body>
@@ -128,6 +128,22 @@ let images_Lv0 = document.getElementById('container_Lv0');
 // container niveau 1
 let images_Lv1 = document.getElementById('container_Lv1');
 
+{# console.log('here');
+function Make_Img_Slider(array_of_images) {
+let array_d_images = array_of_images;
+    console.log('array');
+    console.log(array_of_images);
+    
+    
+
+    test2.src = array_of_images;
+}
+
+function image() {
+    var img = document.createElement("IMG");
+    img.src = array_of_images ;
+    $('#image').html(img); 
+} #}
 
 function Make_Img_Slider(array_of_images) {
     
@@ -206,39 +222,40 @@ function Make_Img_Slider(array_of_images) {
 
                             radio_Btns_container.appendChild(radio_Btn_div);
                         }
-                        images_Lv0.style.transform = 'translateX(-' + (35*counter) + 'em)'
+                        images_Lv0.style.transform = 'translateX(-' + (290*counter) + 'px)'
                         //Slecting the radio buttons with class radio_Btn with query selector all so that I can make their color diff with indexing...
                         let radio_Btn_es = document.querySelectorAll('.radio_Btn'); 
-                        radio_Btn_es[0].style.fill = 'tomato';
+                        radio_Btn_es[0].style.fill = 'grey';
 
 
 
 
                         // Making radio buttons and nex and prev show up when mouse enters the image slider and making them invisible when mouse enters...
-                        images_Lv1.addEventListener('mouseenter' , ()=>{
+                        /*images_Lv1.addEventListener('mouseenter' , ()=>{
                             radio_Btns_container.classList.remove('invisible');
                             next_Btn.classList.remove('invisible');
                             prev_Btn.classList.remove('invisible');
                         });
-                        images_Lv1.addEventListener('mouseleave' , ()=>{
+                        if(array_of_images.length<=2){
+                            console.log(array_of_images.length);
                             radio_Btns_container.classList.add('invisible');
                             next_Btn.classList.add('invisible');
-                            prev_Btn.classList.add('invisible');
-                        });
+                            prev_Btn.classList.add('invisible');}
+                        });*/
 
                         //Adding eventlistener for click on all radio buttons to enable them navigate through the images...￼
                         for (let i = 0; i < radio_Btn_es.length; i++) {
                             radio_Btn_es[i].addEventListener('click',()=>{
                                 images_Lv0.style.transition = 'none';
                                 counter = i + 1;
-                                images_Lv0.style.transform = 'translateX(-' + (35*counter) + 'em)';
+                                images_Lv0.style.transform = 'translateX(-' + (290*counter) + 'px)';
 
                                 for (let i = 0; i < radio_Btn_es.length; i++) {
                                     radio_Btn_es[i].style.fill = 'hsl(0, 0%, 45%)';
                                 }
 
                                 radio_Btn_es[i].style.transition = 'fill 0.4s ease-in-out';
-                                radio_Btn_es[i].style.fill = 'tomato';
+                                radio_Btn_es[i].style.fill = 'darkviolet';
                             });
                         }
 
@@ -247,7 +264,7 @@ function Make_Img_Slider(array_of_images) {
                             if (counter < array_d_images.length+1){
                                 images_Lv0.style.transition = 'transform 0.6s ease-in-out';
                                 counter++;
-                                images_Lv0.style.transform = 'translateX(-' + (35*counter) + 'em)';
+                                images_Lv0.style.transform = 'translateX(-' + (290*counter) + 'px)';
 
                                 for (let i = 0; i < radio_Btn_es.length; i++) {
                                     radio_Btn_es[i].style.fill = 'hsl(0, 0%, 45%)';
@@ -256,10 +273,10 @@ function Make_Img_Slider(array_of_images) {
 
                                 if (radio_Btn_es.length == counter - 1) {
                                     radio_Btn_es[0].style.transition = 'fill 0.4s ease-in-out';
-                                    radio_Btn_es[0].style.fill = 'tomato';     
+                                    radio_Btn_es[0].style.fill = 'darkviolet';     
                                 }else{
                                     radio_Btn_es[counter-1].style.transition = 'fill 0.4s ease-in-out';
-                                    radio_Btn_es[counter-1].style.fill = 'tomato';
+                                    radio_Btn_es[counter-1].style.fill = 'darkviolet';
                                 }
                             }
                         })
@@ -267,7 +284,7 @@ function Make_Img_Slider(array_of_images) {
                             if (counter > 0){
                                 images_Lv0.style.transition = 'transform 0.6s ease-in-out';
                                 counter--;
-                                images_Lv0.style.transform = 'translateX(-' + (35*counter) + 'em)'
+                                images_Lv0.style.transform = 'translateX(-' + (290*counter) + 'px)'
 
                                 for (let i = 0; i < radio_Btn_es.length; i++) {
                                     radio_Btn_es[i].style.fill = 'hsl(0, 0%, 45%)';
@@ -275,10 +292,10 @@ function Make_Img_Slider(array_of_images) {
 
                                 if (counter == 0) {
                                     radio_Btn_es[radio_Btn_es.length-1].style.transition = 'fill 0.4s ease-in-out';
-                                    radio_Btn_es[radio_Btn_es.length-1].style.fill = 'tomato';     
+                                    radio_Btn_es[radio_Btn_es.length-1].style.fill = 'darkviolet';     
                                 }else{
                                     radio_Btn_es[counter-1].style.transition = 'fill 0.4s ease-in-out';
-                                    radio_Btn_es[counter-1].style.fill = 'tomato';
+                                    radio_Btn_es[counter-1].style.fill = 'darkviolet';
                                 }
                             }
                         })
@@ -287,7 +304,7 @@ function Make_Img_Slider(array_of_images) {
                             let style = document.createElement('style');
                             style.innerHTML = `
                             #next_Btn_div svg {
-                                stroke: tomato;
+                                stroke: darkviolet;
                             }
                             `;
                             document.head.appendChild(style);
@@ -306,7 +323,7 @@ function Make_Img_Slider(array_of_images) {
                             let style = document.createElement('style');
                             style.innerHTML = `
                             #prev_Btn_div svg {
-                                stroke: tomato;
+                                stroke: darkviolet;
                             }
                             `;
                             document.head.appendChild(style);
@@ -327,12 +344,12 @@ function Make_Img_Slider(array_of_images) {
                             if (counter == array_d_images.length+1) {
                                 images_Lv0.style.transition = 'none';
                                 counter = 1;
-                                images_Lv0.style.transform = 'translateX(-' + (35*counter) + 'em)';
+                                images_Lv0.style.transform = 'translateX(-' + (290*counter) + 'px)';
 
                             }else if (counter == 0) {
                                 images_Lv0.style.transition = 'none';
                                 counter = array_d_images.length;
-                                images_Lv0.style.transform = 'translateX(-' + (35*counter) + 'em)';
+                                images_Lv0.style.transform = 'translateX(-' + (290*counter) + 'px)';
                             }
                         });
 
@@ -397,7 +414,6 @@ function Make_Img_Slider(array_of_images) {
                     console.log("hey")
                     //******************************************************************************************************************************************************
                     //This is where you put your images...
-
 
 
 

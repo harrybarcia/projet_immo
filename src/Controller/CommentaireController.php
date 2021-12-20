@@ -37,7 +37,7 @@ class CommentaireController extends AbstractController
                    'success',
                    'Votre commentaire a bien été pris en compte'
                 );
-                return $this->redirectToRoute('fiche_annonce', ['id' => $annonce->getId()]);
+                return $this->redirectToRoute('accueil');
         }
 
         if($annonce->getPhotos()) // si get photos existe
@@ -47,7 +47,8 @@ class CommentaireController extends AbstractController
         }
         return $this->render('commentaire/commentaire.html.twig',[
             "formComment"=>$form->createView(),
-            "photos"=>$photos
+            "photos"=>$photos,
+            "annonce"=>$annonce
         ]);
         
     }

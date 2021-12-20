@@ -106,11 +106,20 @@ body {
         z-index: 10000 !important;
         white-space: nowrap !important;
         left: 50% !important;
+        font-size: 1.1em;
         transition: -ms-transform 0.2s ease-in-out 0s, -webkit-transform 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s !important;
         transform: translate(-50%, -48px) !important;
-        background-color: aquamarine;
+        color:rgb(152, 19, 204);
+        line-height: 95px;
         width:auto;
-        padding:1em;
+        
+
+        
+        background-image:url('../../images/carto.png');
+        
+        background-repeat: no-repeat;
+
+
         }
         #map{
                 
@@ -154,10 +163,27 @@ body {
                 margin-right: 10%!important;
 
         }
+        .photo-profil{
+                width:50px!important;
+        }
 
 
 
 
+    }
+    @media screen and (max-width: 576px) {
+    .photo-profil{
+        width:50px!important;
+
+        }
+    .fa-camera{
+        margin-left: 9.2em!important;
+
+        }
+        .long_text{
+
+                margin-left: 0.5em!important
+        }
     }
     @media screen and (min-width: 576px) {
     #message{
@@ -167,6 +193,7 @@ body {
         margin-right: 20%!important;
 
         }
+        
     }
 @media screen and (min-width: 991px) {
         #blancmiddle p {
@@ -288,10 +315,11 @@ border-color: 1px solid black;
         
 
 .row-comment{
-        display:flex;
+        display:flex!important;
         margin: 0;
         padding: 15px 15px 5px 15px;
         border-bottom: 3px solid #7b7b7b;
+        justify-content: space-between
         
 }
 .row-comment:hover {

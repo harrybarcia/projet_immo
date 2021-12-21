@@ -34,17 +34,7 @@ body {
 .bottom{
         position: absolute;margin: 19% 30%;width: 30%;
 }
-#map {
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 1em;
-        right: 1em;
-        z-index: 100;
-        height:auto;
-        width:auto;
-        border-radius: 1%;
-      }
+
       
       #preview {
         position: absolute;
@@ -70,6 +60,10 @@ body {
             }
     
     
+.mapboxgl-ctrl .mapboxgl-ctrl-attrib{
+
+        margin: 0 20px;
+}
     .mapboxgl-ctrl .mapboxgl-ctrl-group { position: absolute; bottom: 0; right: 0; width: 100%; }
     
     .card:hover {
@@ -78,7 +72,7 @@ body {
     transition-duration: 140ms
     };
 
-#container {
+    #container {
         position: fixed;
         top: 126px;
         bottom: 0px;
@@ -90,112 +84,133 @@ body {
       }
 
 
-@media screen and (max-width: 991px) {
-        #blancmiddle {
-                flex-direction:column;
-        }
-        .bottom{
-        position: absolute;
-        margin: 43% 27%;
-        width: 50%;
-        }
+        @media screen and (max-width: 991px) {
+                #blancmiddle {
+                        flex-direction:column;
+                }
+                .bottom{
+                position: absolute;
+                margin: 43% 27%;
+                width: 50%;
+                }
 
-        #carto-mini{
-        position: fixed !important;
-        bottom: 48px !important;
-        z-index: 10000 !important;
-        white-space: nowrap !important;
-        left: 50% !important;
-        font-size: 1.1em;
-        transition: -ms-transform 0.2s ease-in-out 0s, -webkit-transform 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s !important;
-        transform: translate(-50%, -48px) !important;
-        color:rgb(152, 19, 204);
-        line-height: 95px;
-        width:auto;
-        
-
-        
-        background-image:url('../../images/carto.png');
-        
-        background-repeat: no-repeat;
-
-
-        }
-        #map{
+                #carto-mini{
+                position: fixed !important;
+                bottom: 48px !important;
+                z-index: 10000 !important;
+                white-space: nowrap !important;
+                left: 33% !important;
+                /* font-size: 1.1em; */
                 
-                visibility: hidden;
-                height:700px;
-        }
-        .map-visible{
-                height: 670px!important;
-                visibility: visible!important;
-
-        }
-
-        .red{
-                background-color: red;
-                visibility:visible;
-        }
-        .mapboxgl-canvas{
+                border-radius: 24px !important;
+                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+                outline: none !important;
+                margin: 0px !important;
+                padding: 11px 19px !important;
+                color: white !important;
+                cursor: pointer !important;
+                touch-action: manipulation !important;
                 
-                height: 700px!important;
-        }
-        .invisible{
-                visibility:hidden;
+                width:117.38px;
+                background:url(https://i.gyazo.com/74f0fa6b9d9ed6652f3e220ceae113cf.png) no-repeat center;
+                
+                background-repeat: repeat!important;
+                
+                }
+                #map{
+                        
+                        visibility: hidden;
+                        height:700px;
+                        border-radius: 24px;
+                }
+                #container{
+                        position: fixed!important;
+                        top: 126px!important;
+                        /* left: 3%; */
+                        width: 354px;
+                        
+                        height: 700px;
+                        margin: 0 auto;
+                        right: 3%;
+                }
+                .map-visible{
+                        height: 670px!important;
+                        visibility: visible!important;
+
+                }
+
+                .red{
+                        background-color: red;
+                        visibility:visible;
+                }
+                #canvas .mapboxgl-canvas{
+                        
+                        height: 700px!important;
+                        width:400px;
+                        left:50%;
+                        
+                }
+                .invisible{
+                        visibility:hidden;
+
+                }
+                .trouvees{
+                        margin-top: -4.8em!important; 
+                }
+                .navnartwo{
+                        height: 73px
+                }
+                .card{
+                        width:90%
+                }
+                .nav-link{
+                        color:white!important;
+                        font-weight: bold!important;
+                }
+                #message{
+                        position:fixed!important;
+                        margin-top: 100%!important;
+                        margin-left: 10%!important;
+                        margin-right: 10%!important;
+
+                }
+                .photo-profil{
+                        width:50px!important;
+                }
+
+
+
 
         }
-        .trouvees{
-                margin-top: -4.8em!important; 
-        }
-        .navnartwo{
-                height: 73px
-        }
-        .card{
-                width:90%
-        }
-        .nav-link{
-                color:white!important
-        }
-        #message{
-                position:fixed!important;
-                margin-top: 100%!important;
-                margin-left: 10%!important;
-                margin-right: 10%!important;
-
-        }
+        @media screen and (max-width: 576px) {
         .photo-profil{
                 width:50px!important;
+
+                }
+        .fa-camera{
+                margin-left: 9.2em!important;
+
+                }
+                .long_text{
+
+                        margin-left: 0.5em!important
+                }
+                .nav-link{
+                        color:white!important;
+                        font-weight: bold!important;
+                }
         }
+        @media screen and (min-width: 576px) {
+        #message{
+                position:fixed!important;
+                margin-top: 45%!important;
+                margin-left: 25%!important;
+                margin-right: 20%!important;
 
-
-
-
-    }
-    @media screen and (max-width: 576px) {
-    .photo-profil{
-        width:50px!important;
-
+                }
+                
         }
-    .fa-camera{
-        margin-left: 9.2em!important;
-
-        }
-        .long_text{
-
-                margin-left: 0.5em!important
-        }
-    }
-    @media screen and (min-width: 576px) {
-    #message{
-        position:fixed!important;
-        margin-top: 45%!important;
-        margin-left: 25%!important;
-        margin-right: 20%!important;
-
-        }
-        
-    }
-@media screen and (min-width: 991px) {
+        @media screen and (min-width: 991px) {
         #blancmiddle p {
                 font-size: 3em;
                 margin-top: 119px;
@@ -210,24 +225,77 @@ body {
                 margin-top: 5px;
                 width: 25%;
         }
-        #container {
-                position: fixed;
-                top: 126px;
-                bottom: 0px;
-                left: 880px;
-                right: 14px;
-                border-radius: 1%;
-                height: 80vh;
-            
-        }
+        
         .top{
                 height:85vh!important;
                 margin-top:2em
         }
+        .arrow{
+                visibility: hidden;
+        }
+        .card{
+                width:90%;
+                flex-direction: row!important;
+                min-width: 600px!important;
+                min-width: 625px!important;
+
+        }
+        #container {
+        position: fixed;
+        top: 129px;
+        bottom: 0px;
+        width:53%;
+        right: 0px;
+        border-radius: 1%;
+        left: 790px;
+                right: 14px;
+                border-radius: 1%;
+                height: 80vh;
+        }
+
+        #map {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 1em;
+        right: 6.5em;
+        z-index: 100;
+        height:auto;
+        max-width:1000px;
+        visibility:visible;
+        border-radius: 1%;
+        }
+
+        #preview {
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        border:2px solid grey;
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        z-index: 1000;
+
+        }
+
+        .mapboxgl-popup-content {
+        height:280px;
+        width:274px;
+        border-radius:3%;
+        padding:0;
+        background-color:ghostwhite;
+        font-family: 'Poppins', sans-serif;
+        font-size:1.2em;
+        overflow:hidden;
+        }
+
+
+        .mapboxgl-ctrl .mapboxgl-ctrl-group { position: absolute; bottom: 0; right: 0; width: 100%; }
 
 
 
-    }
+
+        }
 
 
 
@@ -430,10 +498,6 @@ body.loading .modal {
         height:700px
 }
 
-.mapboxgl-canvas{
-
-        height: auto!important;
-}
 
 .right{
 

@@ -178,6 +178,24 @@ body {
                         width:50px!important;
                 }
 
+                #map .marker-map{
+                        
+                        visibility: hidden;
+                        height:700px;
+                        border-radius: 24px;
+                }
+                #container .marker-container {
+                        
+                       
+                        /* left: 3%; */
+                        width: 80vh;
+                        border:1px solid red;
+                        height: 60vh;
+                        margin: 0 auto;
+                        right: 3%;
+                }
+
+
 
 
 

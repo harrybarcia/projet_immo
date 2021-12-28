@@ -290,6 +290,8 @@ class AnnonceController extends AbstractController
     #[Route('/annonce/mes_annonces', name: 'mes_annonces')]
     public function mesannonces(AnnonceRepository $repoannonce)
     {
+        
+        
         return $this->render('annonce/mes_annonces.html.twig',[
             "annonces"=>$repoannonce->findBy(['user'=>$this->getUser()->getId()]),
         ]);
@@ -474,6 +476,30 @@ class AnnonceController extends AbstractController
             
         ]);
         
+    }
+        /**
+     * @Route("/image/supprimer/{id}", name="image_annonce_supprimer") 
+     * 
+     * 
+     */
+
+
+    public function image_annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos) // objet de la class Annonce )
+    {
+
+        $photos=$repophotos->findBy(["annonce"=>$annonce->getId()]);
+                    for($d = 0; $d < count($photos); $d++){
+                        ($photos[$d]->getNom());
+                        unlink($this->getParameter("images_annonces") . '/' . $photos[$d]->getNom()); 
+                        $manager->remove($photos[$d]);
+                        $manager->flush ();
+                        
+                    }
+
+    
+    $this->addFlash("success", "L'image" . $annonce->getId() . " a bien été supprimée et remplacée par l'image par défaut");
+
+    return $this->redirectToRoute("annonce_modifier", ["id"=>$annonce->getId()]);
     }
 
 }

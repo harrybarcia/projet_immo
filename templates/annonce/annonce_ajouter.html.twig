@@ -8,68 +8,79 @@
     {% for notification in app.flashes('success') %}
         <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
     {% endfor %}
-	
-	<a class="btn btn-info" href="{{ path("accueil") }}">Retour accueil</a>
-
+	<div class="mt-4 ms-2">
+	<a class="btn btn-info " href="{{ path("accueil") }}">Retour accueil</a>
+	</div>
 	<div
-		class="col-md-12 mx-auto mt-3">
+		class="col-md-11 mx-auto mt-3">
 		{# mon formulaire #}
 		{{ form_start(formAnnonce) }}
 		<div class="row">
 
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1  mx-auto">
 				<div class="col-md-12 mt-3 mx-auto ">
 					{{ form_row(formAnnonce.titre) }}
 				</div>
 			</div>
 
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.descriptioncourte) }}
 				</div>
 			</div>
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.descriptionlongue) }}
 				</div>
 			</div>
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.prix) }}
 				</div>
 			</div>
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.adresse) }}
 				</div>
 			</div>
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.cp) }}
 				</div>
 			</div>
-			<div class=" col-md-6 mx-2">
+			<div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.ville) }}
 				</div>
 			</div>
 
-	{#             <div class=" col-md-6 mx-2">
+	{#             <div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 					<div class="col-md-12 mt-3 mx-auto">
 						{{ form_row(formAnnonce.photo[0].nom) }}
 					</div>
 				</div> #}
-            <div class=" col-md-6 mx-2">
+            <div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
 				<div class="col-md-12 mt-3 mx-auto">
 					{{ form_row(formAnnonce.surface) }}
+				</div>
+			</div>
+            <div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.photo) }}
+				</div>
+			</div>
+            <div class=" col-10 col-md-6 mx-2 ms-1 mx-auto">
+				<div class="col-md-12 mt-3 mx-auto">
+					{{ form_row(formAnnonce.categorie) }}
 				</div>
 			</div>
 
 
 		</div>
 	</div>
-    
-	<input type="submit" value="Ajouter" class="btn btn-dark col-md-12 mt-3">
+    <div class=" col-10 col-md-6 mx-2 mx-auto">
+		<input type="submit" value="Ajouter" class="btn btn-dark col-md-4 col-xl-4 col-lg-4  col-sm-12 mb-2 mx-auto">
+	</div>
 	{{ form_end(formAnnonce) }}
 	{# fermeture du formulaire </form> #}
 {% endblock %}

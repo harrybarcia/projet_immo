@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AnnonceType extends AbstractType
 {
@@ -36,7 +37,7 @@ class AnnonceType extends AbstractType
                         "class" => "bg-warning",
                     ]
                 ])
-                ->add('descriptionlongue', TextType::class, [
+                ->add('descriptionlongue', TextareaType::class, [
                     "label" => "Description longue du produit",
                     "required" => false,
                     "attr" => [

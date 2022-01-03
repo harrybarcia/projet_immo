@@ -9,6 +9,7 @@ use src\data\SearchData;
 use src\data\SearchForm;
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;
+use App\Repository\CoordsRepository;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommentaireRepository;
@@ -158,7 +159,7 @@ class AdminAnnonceController extends AbstractController
 
             $this->addFlash("success", "Le annonce N°" . $annonce->getId() . " a bien été modifié");
 
-            return $this->redirectToRoute("annonce_afficher");
+            return $this->redirectToRoute("gestion_annonce_afficher");
     
         }
 
@@ -167,8 +168,49 @@ class AdminAnnonceController extends AbstractController
         "formAnnonce_modif"=>$form->createView()]);
     }
 
+
+
+ 
     /**
-     * @Route("/image/supprimer/{id}", name="image_produit_supprimer") 
+     * @Route("/supprimer/{id}", name="gestion_annonce_supprimer") 
+     */
+    public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire, CoordsRepository $repocoords  ){
+        
+        $photos=$repophotos->findBy(["annonce"=>$annonce->getId()]);
+        // dump($photos[0]->getNom());
+        dump($annonce);
+            if ($photos){
+                for ($i=0; $i < count($photos) ; $i++) { 
+                    unlink($this->getParameter("images_annonces") . '/' . $photos[$i]->getNom()); 
+                    $manager->remove($photos[$i]);        
+                    }
+                }
+        $commentaire=$repocommentaire->findBy(["annonce"=>$annonce->getId()]);        
+            if ($commentaire){
+                for ($i=0; $i < count($commentaire) ; $i++) { 
+                $manager->remove($commentaire[$i]);        
+                    }
+                }
+            $idAnnonce=$annonce->getId();
+            $coords=$repocoords->findBy(["annonce"=>$annonce->getId()]); 
+          
+            if ($coords){
+                for ($i=0; $i < count($coords) ; $i++) { 
+                $manager->remove($coords[$i]);        
+                    }
+                }
+            $manager->remove($annonce);
+            $manager->flush ();
+
+            $this->addFlash("success","l'annonce $idAnnonce bien été supprimée"); 
+        
+
+        return $this->redirectToRoute("gestion_annonce_afficher");
+
+
+    }
+    /**
+     * @Route("/image/supprimer/{id}", name="image_annonce_supprimer") 
      * 
      * 
      */
@@ -187,43 +229,9 @@ class AdminAnnonceController extends AbstractController
                     }
 
     
-    $this->addFlash("success", "L'image" . $annonce->getId() . " a bien été modifiée");
+    
 
-    return $this->redirectToRoute("annonce_modifier", ["id"=>$annonce->getId()]);
-    }
-
- 
-    /**
-     * @Route("/supprimer/{id}", name="gestion_annonce_supprimer") 
-     */
-    public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire ){
-        
-        $photos=$repophotos->findBy(["annonce"=>$annonce->getId()]);
-        // dump($photos[0]->getNom());
-        dump($annonce);
-            if ($photos){
-                for ($i=0; $i < count($photos) ; $i++) { 
-                    unlink($this->getParameter("images_annonces") . '/' . $photos[$i]->getNom()); 
-                    $manager->remove($photos[$i]);        
-                    }
-                }
-        $commentaire=$repocommentaire->findBy(["annonce"=>$annonce->getId()]);        
-            if ($commentaire){
-                for ($i=0; $i < count($commentaire) ; $i++) { 
-                $manager->remove($commentaire[$i]);        
-                    }
-                }
-            $idAnnonce=$annonce->getId();
-            
-            $manager->remove($annonce);
-            $manager->flush ();
-
-            $this->addFlash("success","l'annonce $idAnnonce bien été supprimée"); 
-        
-
-        return $this->redirectToRoute("annonce_afficher");
-
-
+    return $this->redirectToRoute("gestion_annonce_modifier", ["id"=>$annonce->getId()]);
     }
     
 }

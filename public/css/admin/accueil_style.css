@@ -133,6 +133,16 @@ body {
                         margin: 0 auto;
                         right: 3%;
                 }
+                #container-accueil{
+                        
+                        top: 33px       !important;
+                        
+                        width: 354px;
+                        
+                        height: 700px;
+                        margin: 0 auto;
+                        right: 3%;
+                }
                 .map-visible{
                         height: 670px!important;
                         visibility: visible!important;
@@ -217,15 +227,31 @@ body {
                         color:white!important;
                         font-weight: bold!important;
                 }
+
+                .image-catalogue{
+                        width:100%;
+                        padding:1px
+                }
         }
         @media screen and (min-width: 576px) {
-        #message{
-                position:fixed!important;
-                margin-top: 45%!important;
-                margin-left: 25%!important;
-                margin-right: 20%!important;
-
+                #message{
+                        position:fixed!important;
+                        margin-top: 45%!important;
+                        margin-left: 25%!important;
+                        margin-right: 20%!important;
+                        
                 }
+                .image-catalogue{
+                        width:60%;
+                        padding:1px
+                }
+                 .zoom-photo img:hover{
+                        transform: scale(1.5);
+                        transition-duration: 140ms;
+                        overflow:visible
+                
+                };
+                
                 
         }
         @media screen and (min-width: 991px) {

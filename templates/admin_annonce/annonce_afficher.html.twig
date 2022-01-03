@@ -74,21 +74,21 @@
                         <td>
                              {% if annonce.photos is not empty %}
 
-                            <img src="{{ annonce.photos[0].nom }}" alt="" style="width:150px"> 
-
+                            <img src="{{ asset("images/imagesUpload/" ~ annonce.photos[0].nom ) }}" alt="" style="width:150px">  
+                        {{dump(annonce.photos[0].nom)}} 
                          {% else %}
                         <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
 
                         {% endif %}
                         </td>
                         <td>
-                            <a href="{{ path('annonce_modifier' ,  {'id' : annonce.id} ) }}">
+                            <a href="{{ path('gestion_annonce_modifier' ,  {'id' : annonce.id} ) }}">
                                 <img src="{{ asset('images/update.png') }}" alt="">
                             </a>
                         </td>
 
                         <td>
-                            <a href="{{ path('annonce_supprimer' ,  {'id' : annonce.id} ) }}" onclick="return confirm('Confirmez-vous la suppression de ce annonce ?')">
+                            <a href="{{ path('gestion_annonce_supprimer' ,  {'id' : annonce.id} ) }}" onclick="return confirm('Confirmez-vous la suppression de ce annonce ?')">
                                 <img src="{{ asset('images/delete.png') }}" alt="">
                             </a>
                         </td>

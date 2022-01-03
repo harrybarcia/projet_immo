@@ -19,10 +19,10 @@
 	{% if annonces %}{# {% if annonces is not empty %} #}<div class="row justify-content-around ">
 			{% for annonce in annonces %}
 				<div class="col-md-5 cardCatalogue p-3 m-2 ">
-					<div class="row" style="justify-content: space-around;border:1px black solid">
+					<div class="row" style="justify-content: space-around;border:1px black solid;border-radius:6px;background-color:#F8F8F8">
 						<div class="col-md-5" >
 							{% if annonce.photos is not empty %}
-								<img src="{{ annonce.photos[0].nom }}" alt="" style="width:320px"> 
+								<img src="{{ asset("images/imagesUpload/" ~ annonce.photos[0].nom ) }}" alt="" style="width:100%"> 
 							{% else %}
 								<img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:198px">
 							{% endif %}

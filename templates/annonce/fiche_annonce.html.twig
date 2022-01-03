@@ -10,38 +10,39 @@
     {% for notification in app.flashes('success') %}
         <div class="col-md-6 mx-auto text-center mt-2 alert alert-success">{{ notification }}</div>
     {% endfor %}
-<div style="text-align:center">
-    
-{% include "annonce/slider.html.twig" %}
+<div style="text-align:center" class="zoom-photo">
+        
+    {% include "annonce/slider.html.twig" %}
 
 
-<script>
-{% if annonce.photos is not empty %}
-console.log("dedans");
-            let sujetArray = [];
+    <script>
+    {% if annonce.photos is not empty %}
+    console.log("dedans");
+                let sujetArray = [];
 
-			{% for sujet in annonce.photos %}
-			sujetArray.push("{{ sujet.nom}}");{% endfor %}
-			console.log(sujetArray);
-            
-            Make_Img_Slider(sujetArray)
+                {% for sujet in annonce.photos %}
+                sujetArray.push("{{asset("images/imagesUpload/"~sujet.nom)}}");{% endfor %}
+                
+                console.log(sujetArray);
+                
+                Make_Img_Slider(sujetArray)
 
-    
-{% else %}
-    {{ asset('images/imageDefault.jpg') }}
-{% endif %}
+        
+    {% else %}
+        {{ asset('images/imageDefault.jpg') }}
+    {% endif %}
 
-            
-</script>
+                
+    </script>
 
 
 
-    
+        
 
-    <h5 class="text-center text-danger"> {{ annonce.prix}} €</h5>
+        <h5 class="text-center text-danger"> {{ annonce.prix}} €</h5>
 
-    <a class="btn btn-success" style="text-align:left" href="{{ path('ajout_commentaire',{'id':annonce.id}) }}">Laisser un commentaire</a>
-    <a class="btn btn-success" action="action" onclick="window.history.go(-1); return false;"type="submit" value="cancel">Retour aux résultats</a>
+        <a class="btn btn-success" style="text-align:left" href="{{ path('ajout_commentaire',{'id':annonce.id}) }}">Laisser un commentaire</a>
+        <a class="btn btn-success" action="action" onclick="window.history.go(-1); return false;"type="submit" value="cancel">Retour aux résultats</a>
 </div>
 {% if annonce.commentaires is not empty %} 
 {% for commentaire in commentaires %}

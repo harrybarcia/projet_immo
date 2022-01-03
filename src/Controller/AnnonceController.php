@@ -258,7 +258,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/supprimer/{id}", name="annonce_supprimer") 
      */
-    public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire ){
+    public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire, CoordsRepository $repocoords ){
         
         $photos=$repophotos->findBy(["annonce"=>$annonce->getId()]);
         // dump($photos[0]->getNom());
@@ -275,7 +275,17 @@ class AnnonceController extends AbstractController
                 $manager->remove($commentaire[$i]);        
                     }
                 }
-            $idAnnonce=$annonce->getId();
+                $idAnnonce=$annonce->getId();
+                
+        $coords=$repocoords->findBy(["annonce"=>$annonce->getId()]); 
+          
+            if ($coords){
+                for ($i=0; $i < count($coords) ; $i++) { 
+                $manager->remove($coords[$i]);        
+                    }
+                }
+                
+            
             
             $manager->remove($annonce);
             $manager->flush ();
@@ -497,7 +507,7 @@ class AnnonceController extends AbstractController
                     }
 
     
-    $this->addFlash("success", "L'image" . $annonce->getId() . " a bien été supprimée et remplacée par l'image par défaut");
+    
 
     return $this->redirectToRoute("annonce_modifier", ["id"=>$annonce->getId()]);
     }

@@ -26,7 +26,7 @@
                 {# 1ere box - Mon formulaire filtre #} 
                 <div class="gris">
                     <div class="row" style="height:auto">
-                        <div class="left col-xl-lg-2 col-sm-md-10 " style= "min-width: 258.98px;max-width:300px;max-height:550px;margin: 0 auto;margin-bottom: 1em;">
+                        <div class="left col-xl-lg-2 col-sm-md-10 " style= "min-width: 258.98px;max-width:300px;max-height:550px;margin: 0 auto;margin-bottom: 1em;margin-top: 1em;">
                             <div class="annonce" id="annonce-1" style="padding: 1rem;" >
                                 {{ form_start(form, {attr: {class: 'filter'}}) }}
                                 {{ form_row(form.q) }}
@@ -35,12 +35,17 @@
                                 {{ form_row(form.categorie) }}
 
                                 <h5>Mon budget</h5>
-                                    {{ form_row(form.min) }}
-                                <h5> et </h5>
-                                    {{ form_row(form.max) }}
+                                <div class="row" style="display:flex;justify-content: space-between;">
+                                    <div class='filter-min-max'>
+                                        {{ form_row(form.min) }}
+                                    </div >
+                                    <div class='filter-min-max'>
+                                        {{ form_row(form.max) }}
                                     
-                                <div class="annonce2_3">
-                                    <button type="submit" class="btn btn-primary" style="margin:0 auto">Filtrer</button>
+                                    </div >
+                                </div>    
+                                <div class="annonce2_3-filter">
+                                    <button type="submit" class="btn btn-primary" style="margin:0 20px;justify-content:center;width:120px;text-align:center">Filtrer</button>
                                 </div>
                                 {{ form_end(form) }}
                             </div>

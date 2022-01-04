@@ -43,7 +43,7 @@ let sujetArray = [];
     sujetArray.push(["{{ coord.long }}", "{{ coord.lat }}"]);  {% endfor %}
 
 
-			
+		
 
 
   mapboxgl.accessToken ="pk.eyJ1IjoiaGFycnliYXJjaWEiLCJhIjoiY2s3dzRvdTJnMDBqODNlbzhpcjdmaGxldiJ9.vg2wE4S7o_nryVx8IFIOuQ";
@@ -195,17 +195,46 @@ let sujetArray = [];
         });
 
 
+/*-----
+<div style="position: absolute; left: 0px; top: 0px; touch-action: pan-x pan-y; transform: translate(-134.045px, -12.7039px); z-index: 2002; display: block;">
+	<div style="transform: translate(calc(-50% + 0px), calc(50% + 0px)); transition: transform 0.2s ease 0s; left: 50%; position: absolute; bottom: 0px; z-index: 0; pointer-events: auto; font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">
+		<button class="_fwxpgr" aria-label="" data-veloute="map/markers/BasePillMarker" style="color: inherit; border: none; margin: 0px; padding: 0px; background: transparent; width: auto; overflow: visible; font: inherit;">
+			<div style="--content-mini-box-shadow:0 0 0 1px rgba(0, 0, 0, 0.32), 0px 2px 4px rgba(0, 0, 0, 0.18); align-items: center; cursor: pointer; display: flex; height: 28px; position: relative; transform: scale(1); transform-origin: 50% 50%; transition: transform 150ms ease 0s;">
+				<div style="background-color: rgb(235, 235, 235); border-radius: 28px; box-shadow: rgb(176, 176, 176) 0px 0px 0px 1px inset; color: rgb(34, 34, 34); height: 28px; padding: 0px 8px; position: relative; transform: scale(1); transform-origin: 50% 50%; transition: transform 250ms cubic-bezier(0, 0, 0.1, 1) 0s;">
+					<div style="align-items: center; display: flex; height: 100%; justify-content: center; opacity: 1; transition: opacity 250ms ease 0s; white-space: nowrap;">
+						<span class="_1rhps41">378€</span>
+					</div>
+				</div>
+			</div>
+		</button>
+	</div>
+</div>
 
+
+
+
+
+
+
+
+*/
 
 });
 
 {% for coord in test %}
       
-      
+      var el = document.createElement('div');
+      el.className = 'marker';
+      el.innerHTML ='<div style="position: absolute; left:0px;top:0px;touch-action:pan-xpan-y;transform:translate(-2.045px,-2.7039px);z-index:2002;display:block;"><divstyle="transform:translate(calc(-50%+0px),calc(50% + 0px)); transition: transform 0.2s ease 0s; left: 50%; position: absolute; bottom: 0px; z-index: 0; pointer-events: auto; font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">		<button class="_fwxpgr" aria-label="" data-veloute="map/markers/BasePillMarker" style="color: inherit; border: none; margin: 0px; padding: 0px; background: transparent; width: auto; overflow: visible; font: inherit;">			<div style="--content-mini-box-shadow:0 0 0 1px rgba(0, 0, 0, 0.32), 0px 2px 4px rgba(0, 0, 0, 0.18); align-items: center; cursor: pointer; display: flex; height: 28px; position: relative; transform: scale(1); transform-origin: 50% 50%; transition: transform 150ms ease 0s;">				<div style="background-color: rgb(250, 250, 250); border-radius: 28px; box-shadow: rgb(176, 176, 176) 0px 0px 0px 1px inset; color: rgb(34, 34, 34); height: 28px; padding: 0px 8px; position: relative; transform: scale(1); transform-origin: 50% 50%; transition: transform 250ms cubic-bezier(0, 0, 0.1, 1) 0s;">					<div style="align-items: center; display: flex; height: 100%; justify-content: center; opacity: 1; transition: opacity 250ms ease 0s; white-space: nowrap;"><span style="font-weight:bold" class="_1rhps41">{{coord.annonce.prix | number_format(0, ',', ' ')}} €</span></div></div></div></button></div></div>'  ;
+      console.log("el");
+      console.log(el);
+      {# el.background-color ='red'; #}
       // ajout points annonces sur la map
-        new mapboxgl.Marker({offset: [0, -15],closeOnClick:true, closeButton:false })
+        
+        new mapboxgl.Marker(el, {closeOnClick:true, closeButton:false })
           .setLngLat([{{coord.long}}, {{coord.lat}}])
           .addTo(map)
+          
           .setPopup(new mapboxgl.Popup().setHTML(`
 <a style='position:absolute;top:0px;left:0px;width:100%;height:100%;display:inline;' href="{{ path('fiche_annonce', {'id' : coord.annonce.id}) }}"></a>
     <button class="h-5 w-5 ajouter_favori toggle-click" value={{ coord.annonce.id }} style="width:35px;position:absolute;border:0;background: transparent;fill-opacity:0.7">
@@ -215,7 +244,7 @@ let sujetArray = [];
       </svg>
     </button>
     {% if coord.annonce.photos is not empty %}
-      <img src="{{ coord.annonce.photos[0].nom }}" alt="" style="width:274px">
+      <img src="{{ asset("images/imagesUpload/" ~ coord.annonce.photos[0].nom ) }}" alt="" style="width:274px;max-height: 182px;object-fit: cover">
     {% else %}
 
       <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:274px;border-radius:3%">
@@ -251,6 +280,8 @@ let sujetArray = [];
     map.addControl(new mapboxgl.FullscreenControl());  
 
     map.addControl(new mapboxgl.NavigationControl());
+
+    
 </script>
  
 </body>

@@ -181,15 +181,18 @@ let elements = document.getElementsByClassName("card");
     
 
             $(document).off('mouseenter').on('mouseenter', '.card', function(){
-            
+                
             console.log('this');
             console.log(this);
             let long = this.dataset.value;
             console.log(long);
             const usingSplit = Array.from(long.split(','));
-            let markerHover = new mapboxgl.Marker({
-                color:"rgba(34,66,76,1)"
-            })
+            var el = document.createElement('div');
+            el.className = 'marker';
+            var x=usingSplit[2].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            el.innerHTML ='<div style="position: absolute; left:0px;top:0px;touch-action:pan-xpan-y;transform:translate(-2.045px,-2.7039px);z-index:2002;display:block;"><divstyle="transform:translate(calc(-50%+0px),calc(50% + 0px)); transition: transform 0.2s ease 0s; left: 50%; position: absolute; bottom: 0px; z-index: 0; pointer-events: auto; font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif;">		<button class="_fwxpgr" aria-label="" data-veloute="map/markers/BasePillMarker" style="color: inherit; border: none; margin: 0px; padding: 0px; background: transparent; width: auto; overflow: visible; font: inherit;font-weight:bold">			<div style="--content-mini-box-shadow:0 0 0 1px rgba(0, 0, 0, 0.32), 0px 2px 4px rgba(0, 0, 0, 0.18); align-items: center; cursor: pointer; display: flex; height: 28px; position: relative; transform: scale(1); transform-origin: 50% 50%; transition: transform 150ms ease 0s;">				<div style="background-color: rgb(0, 0, 0); border-radius: 28px; box-shadow: rgb(176, 176, 176) 0px 0px 0px 1px inset; color: rgb(250, 250, 250); height: 28px; padding: 0px 8px; position: relative; transform: scale(1); transform-origin: 50% 50%; transition: transform 250ms cubic-bezier(0, 0, 0.1, 1) 0s;">					<div style="align-items: center; display: flex; height: 100%; justify-content: center; opacity: 1; transition: opacity 250ms ease 0s; white-space: nowrap;"><span style="font-weight:bold" class="_1rhps41">'+x+' €</span></div></div></div></button></div></div>';
+            let markerHover = new mapboxgl.Marker(el, {offset: [0,0],
+                color:"rgba(34,66,76,1)"})
             
             .setLngLat([usingSplit[0],usingSplit[1]])
             .addTo(map);

@@ -245,7 +245,7 @@ class AnnonceController extends AbstractController
             // existe, il va l'update.
             $manager->flush(); 
 
-            $this->addFlash("success", "L'annonce N°" . $annonce->getId() . " a bien été modifié");
+            $this->addFlash("success", "L'annonce N°" . $annonce->getId() . " a bien été modifiée");
 
             return $this->redirectToRoute("mes_annonces");
     

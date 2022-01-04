@@ -75,7 +75,7 @@
                              {% if annonce.photos is not empty %}
 
                             <img src="{{ asset("images/imagesUpload/" ~ annonce.photos[0].nom ) }}" alt="" style="width:150px">  
-                        {{dump(annonce.photos[0].nom)}} 
+                        
                          {% else %}
                         <img src="{{ asset('images/imageDefault.jpg') }}" alt="" style="width:150px">
 

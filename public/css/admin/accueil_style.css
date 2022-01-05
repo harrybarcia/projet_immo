@@ -133,6 +133,7 @@ body {
                         top: 126px!important;
                         /* left: 3%; */
                         width: 354px;
+                        max-width: 94%;
                         
                         height: 700px;
                         margin: 0 auto;

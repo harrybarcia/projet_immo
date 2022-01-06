@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Entity\Coords;
 use App\Entity\Annonce;
-use src\data\SearchData;
-use src\data\SearchForm;
+use App\Entity\SearchData;
+use App\Form\SearchForm;
 use App\Entity\Categorie;
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;
@@ -63,7 +63,7 @@ class AnnonceController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces_search=$repoannonce->findSearch($data);   
-        dump($repoannonce);
+        //dump($repoannonce);
 
         return $this->render('annonce/accueil.html.twig', [
             'controller_name' => 'AnnonceController',
@@ -99,7 +99,7 @@ class AnnonceController extends AbstractController
     public function fiche_annonce(Annonce $annonceObject, AnnonceRepository $repoannonce, CommentaireRepository $repocommentaire)
                 // $id, annonceRepository $repoannonce    
         {
-            
+        
             $mesannonces=($annonceObject->getId());
             return $this->render("annonce/fiche_annonce.html.twig", [
                 "annonce"=>$annonceObject,
@@ -117,7 +117,7 @@ class AnnonceController extends AbstractController
         
         
         $test=$request->getSession();
-        dump($test);
+        //dump($test);
         if($this->isGranted('IS_ANONYMOUS')) //si la personne connectée est anonyme
         { 
             $this->addFlash(
@@ -199,7 +199,7 @@ class AnnonceController extends AbstractController
     {
 
         $form = $this->createForm(AnnonceType::class, $annonce, array("modifier"=>true));
-        dump($form->createView());
+        //dump($form->createView());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -223,13 +223,13 @@ class AnnonceController extends AbstractController
                  
                 {
                     
-                    dump("val de c:");dump($c);
-                    dump($photoFile)[$c];
+                    //dump("val de c:");//dump($c);
+                    //dump($photoFile)[$c];
                     
 
                     $nomImage = md5(uniqid()).'.'.$photoFile[$c]->guessExtension(); // a chaque photo, j'attribue un onm
-                    dump("3");
-                    dump($nomImage);
+                    //dump("3");
+                    //dump($nomImage);
                     $photoFile[$c]->move($this->getParameter("images_annonces"),$nomImage); // déplace dan upload
                     // -- je créé un objet et je l'insère dans ma bdd
                     $image = new Photo();
@@ -261,8 +261,8 @@ class AnnonceController extends AbstractController
     public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire, CoordsRepository $repocoords ){
         
         $photos=$repophotos->findBy(["annonce"=>$annonce->getId()]);
-        // dump($photos[0]->getNom());
-        dump($annonce);
+        // //dump($photos[0]->getNom());
+        
             if ($photos){
                 for ($i=0; $i < count($photos) ; $i++) { 
                     unlink($this->getParameter("images_annonces") . '/' . $photos[$i]->getNom()); 
@@ -326,21 +326,21 @@ class AnnonceController extends AbstractController
         // pour la partie carto du menu gauche
         $requetes=$request->query->all();
         
-        dump($requetes);
+        //dump($requetes);
         $data=new SearchData(); // je créé un objet et ses propriétés (q et categorie) et je le stocke dans $data
         
-        dump($data);// me renvoit un objet vide avec q:"", min"", max:"", page=1
+        //dump($data);// me renvoit un objet vide avec q:"", min"", max:"", page=1
         $data->page = $request->get('page', 1);
         
         $form = $this->createForm(SearchForm::class, $data);
-        dump($form); 
+        //dump($form); 
         
         $form->handleRequest($request);
         // je gère la requête
         [$min, $max] = $repoannonce->findMinMax($data);
         // je cherche en bdd le min max par rapport à la requête effectuée
         $filters = $request->get("categorie");
-        dump($filters);
+        //dump($filters);
         // renvoit un tableau avec les catégories cherchées
 
         $annonces=$repoannonce->findSearch($data);// effectue la requête grâce à getSearchQuery et 
@@ -348,12 +348,12 @@ class AnnonceController extends AbstractController
        
         
         $list=$annonces->getItems();
-        dump($list);
+        //dump($list);
         // renvoie un tableaud des 9 annonces
         $coordsi=$repoCoords->findBy(array('annonce' => $list));
 
         $total = $repoannonce->getTotalAnnonces($data, $filters);
-        dump($total);
+        //dump($total);
         $limit=9;
         // On récupère le numéro de page
         $page = (int)$request->query->get("page", 1);

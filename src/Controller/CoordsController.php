@@ -19,8 +19,8 @@ class CoordsController extends AbstractController
 
         $coordsArray = $repoCoords->findAll();
         $annonceArray = $repoAnnonce->findAll();
-        dump($coordsArray);
-        dd($annonceArray);
+        //dump($coordsArray);
+        
         return $this->render("coords/coords_afficher.html.twig", [
             "coords" => $coordsArray,
             "annonces" => $annonceArray,

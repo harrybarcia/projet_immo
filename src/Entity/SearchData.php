@@ -1,6 +1,6 @@
 <?php
 
-namespace src\data;
+namespace App\Entity;
 
 class SearchData {
         /**

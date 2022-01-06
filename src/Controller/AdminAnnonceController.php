@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Entity\Photo;
 use DateTimeImmutable;
 use App\Entity\Annonce;
-use src\data\SearchData;
-use src\data\SearchForm;
+
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;
 use App\Repository\CoordsRepository;
@@ -111,7 +110,7 @@ class AdminAnnonceController extends AbstractController
     {
 
         $form = $this->createForm(AnnonceType::class, $annonce, array("modifier"=>true));
-        dump($form->createView());
+        //dump($form->createView());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -135,13 +134,13 @@ class AdminAnnonceController extends AbstractController
                  
                 {
                     
-                    dump("val de c:");dump($c);
-                    dump($photoFile)[$c];
+                    //dump("val de c:");//dump($c);
+                    //dump($photoFile)[$c];
                     
 
                     $nomImage = md5(uniqid()).'.'.$photoFile[$c]->guessExtension(); // a chaque photo, j'attribue un onm
-                    dump("3");
-                    dump($nomImage);
+                    //dump("3");
+                    //dump($nomImage);
                     $photoFile[$c]->move($this->getParameter("images_annonces"),$nomImage); // déplace dan upload
                     // -- je créé un objet et je l'insère dans ma bdd
                     $image = new Photo();
@@ -177,8 +176,8 @@ class AdminAnnonceController extends AbstractController
     public function annonce_supprimer(Annonce $annonce, EntityManagerInterface $manager, PhotoRepository $repophotos, CommentaireRepository $repocommentaire, CoordsRepository $repocoords  ){
         
         $photos=$repophotos->findBy(["annonce"=>$annonce->getId()]);
-        // dump($photos[0]->getNom());
-        dump($annonce);
+        // //dump($photos[0]->getNom());
+        //dump($annonce);
             if ($photos){
                 for ($i=0; $i < count($photos) ; $i++) { 
                     unlink($this->getParameter("images_annonces") . '/' . $photos[$i]->getNom()); 

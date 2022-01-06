@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use src\data\SearchData;
-use src\data\SearchForm;
+use App\Entity\SearchData;
+use App\Form\SearchForm;
 use App\Repository\CoordsRepository;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,7 +68,7 @@ class SecurityController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces_search=$repoannonce->findSearch($data);   
-        dump($repoannonce);
+        //dump($repoannonce);
 
         return $this->render('annonce/accueil.html.twig', [
             'controller_name' => 'AnnonceController',
@@ -102,15 +102,15 @@ class SecurityController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces=$repoannonce->findSearch($data);
-        /* dump(gettype($annonces));
-        dump($annonces); */
+        /* //dump(gettype($annonces));
+        //dump($annonces); */
         //dd($annonces); renvoit les items qui correspondent à la requête
         $list=$annonces->getItems();
-        /* dump($list); */
+        /* //dump($list); */
         
         $coordsi=$repoCoords->findBy(array('annonce' => $list));
         // $filtre = $_GET["categorie"];
-        // dump($filtre);
+        // //dump($filtre);
         // $test=$repoannonce->findByCategorie(["categorie"=>$filtre]);
         // if ($test) {
         //     return $this->render('annonce/test.html.twig', ["test"=>$test]);
@@ -150,7 +150,7 @@ class SecurityController extends AbstractController
     public function profil_modification(Request $request, EntityManagerInterface $manager)
     {
         $user = $this->getUser();
-        //dump($user);
+        ////dump($user);
 
         //$user->confirmPassword = $user->getPassword();
         //dd($user);

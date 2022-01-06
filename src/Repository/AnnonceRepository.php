@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
-use src\data\SearchData;
+use App\data\SearchData;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;

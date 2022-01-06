@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use src\data\SearchData;
-use src\data\SearchForm;
+use App\data\SearchData;
+use App\Form\SearchForm;
 use App\Repository\CoordsRepository;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Entity\Coords;
 use App\Entity\Annonce;
-use App\data\SearchData;
+use App\Entity\SearchData;
 use App\Form\SearchForm;
 use App\Entity\Categorie;
 use App\Form\AnnonceType;

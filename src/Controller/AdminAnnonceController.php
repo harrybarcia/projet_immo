@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Photo;
 use DateTimeImmutable;
 use App\Entity\Annonce;
-use App\data\SearchData;
+use App\Entity\SearchData;
 use App\Form\SearchForm;
 use App\Form\AnnonceType;
 use App\Repository\PhotoRepository;

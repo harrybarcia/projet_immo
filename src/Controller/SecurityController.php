@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\data\SearchData;
+use App\Entity\SearchData;
 use App\Form\SearchForm;
 use App\Repository\CoordsRepository;
 use App\Repository\AnnonceRepository;

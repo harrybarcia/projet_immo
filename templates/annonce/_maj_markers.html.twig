@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <title>PLU du Perreux sur Marne</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
 <script src='https://cdn.rawgit.com/mapbox/geo-viewport/8f71814c/geo-viewport.js'></script>
 
 <!-- liens geocoder -->
@@ -253,11 +253,9 @@ let sujetArray = [];
     {% endfor %}
 
 
-
-    map.addControl(new mapboxgl.FullscreenControl());  
-
+    map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(new mapboxgl.NavigationControl());
-
+    
     
 </script>
  

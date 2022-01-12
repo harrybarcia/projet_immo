@@ -27,7 +27,7 @@ class CommentaireController extends AbstractController
         {    
                 $comment->setdateenregistrement(new \DateTimeImmutable('now'));
                 $user=$this->getUser();
-                dump($user);
+                //dump($user);
                 $comment->setUSer($user);
                 ;
                 $comment->setAnnonce($annonce);

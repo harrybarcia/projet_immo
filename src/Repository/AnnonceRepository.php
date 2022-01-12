@@ -35,7 +35,7 @@ class AnnonceRepository extends ServiceEntityRepository
             $search->page,
             100
         );
-    }    
+    } 
     /**
      * Récupère le prix minimum et maximum correspondant à une recherche
      * @return integer[]

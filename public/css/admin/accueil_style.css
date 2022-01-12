@@ -97,10 +97,14 @@ body {
                 margin: 43% 27%;
                 width: 50%;
                 }
+                .mapboxgl-ctrl-top-right {
+    top: 37px;
+    right: 0;
+}
 
                 #carto-mini{
                 position: fixed !important;
-                bottom: 48px !important;
+                bottom: 88px !important;
                 z-index: 10000 !important;
                 white-space: nowrap !important;
                 left: 33% !important;
@@ -130,12 +134,12 @@ body {
                 #container{
                         visibility: hidden;
                         position: fixed!important;
-                        top: 126px!important;
+                        top: 146px!important;
                         /* left: 3%; */
                         width: 354px;
                         max-width: 94%;
                         
-                        height: 700px;
+                        height: 85%;
                         margin: 0 auto;
                         right: 3%;
                 }
@@ -150,7 +154,7 @@ body {
                         right: 3%;
                 }
                 .map-visible{
-                        height: 670px!important;
+                        height: 87%!important;
                         visibility: visible!important;
 
                 }
@@ -234,9 +238,10 @@ body {
                         font-weight: bold!important;
                 }
 
-                .image-catalogue{
+                .image_catalogue{
                         width:100%;
-                        padding:1px
+                        max-height:300px!important;
+                        padding:3px;
                 }
         }
         @media screen and (min-width: 576px) {
@@ -247,9 +252,10 @@ body {
                         margin-right: 20%!important;
                         
                 }
-                .image-catalogue{
-                        width:60%;
-                        padding:1px
+                .image_catalogue{
+                        width:100%;
+                        max-height:300px!important;
+                        padding:3px;
                 }
                  /* .zoom-photo img:hover{
                         transform: scale(1.5);

@@ -68,7 +68,7 @@ class SecurityController extends AbstractController
         [$min, $max] = $repoannonce->findMinMax($data);
 
         $annonces_search=$repoannonce->findSearch($data);   
-        dump($repoannonce);
+        //dump($repoannonce);
 
         return $this->render('annonce/accueil.html.twig', [
             'controller_name' => 'AnnonceController',
@@ -103,7 +103,7 @@ class SecurityController extends AbstractController
 
         $annonces=$repoannonce->findSearch($data);
         /* dump(gettype($annonces));
-        dump($annonces); */
+        //dump($annonces); */
         //dd($annonces); renvoit les items qui correspondent à la requête
         $list=$annonces->getItems();
         /* dump($list); */

@@ -6,7 +6,9 @@ use App\Entity\SearchData;
 use App\Form\SearchForm;
 use App\Repository\CoordsRepository;
 use App\Repository\AnnonceRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PharIo\Manifest\Email;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +16,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email as MimeEmail;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\LoginLink\LoginLinkHandler;
+use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 
 class SecurityController extends AbstractController
 {
@@ -188,6 +194,28 @@ class SecurityController extends AbstractController
             
         ]);
         
+    }
+
+    /**
+     * @Route("/magic", name="magic")
+     * 
+     */
+
+    public function magic(UserRepository $userRepository, LoginLinkHandlerInterface $loginLinkHandler, MailerInterface $mailer): Response
+    {
+        $users=$userRepository->findAll();
+        foreach ($users as $user) {
+            $loginLinkDetails=$loginLinkHandler->createLoginLink($user);
+            // dump($loginLinkDetails);
+            $email=(new MimeEmail())
+                ->from('bot@test.com')
+                ->to($user->getEmail())
+                ->text('your magic link is: '. $loginLinkDetails->getUrl());
+                ;
+            $mailer->send($email);
+        }
+    
+        return new Response('Magic!');
     }
 
 

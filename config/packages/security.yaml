@@ -21,16 +21,21 @@ security:
             
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\LoginFormAuthenticator
             
             logout:
                 path: logout
                 # where to redirect after logout
                 # target: app_any_route
-            form_login:
-                login_path: login #qd une pers va vouloir s'auth? qd il sera sur la route connex
-                check_path: login # les infos sont récupérées sur la route connexion
-                default_target_path: accueil
-            # anciennement default_target_path: accueil_user
+
+            # form_login:
+            #     login_path: login #qd une pers va vouloir s'auth? qd il sera sur la route connex
+            #     check_path: login # les infos sont récupérées sur la route connexion
+            #     default_target_path: accueil
+            login_link:
+                check_route: login_check 
+                #quand on arrive sur la route login check la signature de cette connexion va etre l'id
+                signature_properties: ['id']
                 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

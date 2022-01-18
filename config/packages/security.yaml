@@ -28,10 +28,13 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
 
-            # form_login:
-            #     login_path: login #qd une pers va vouloir s'auth? qd il sera sur la route connex
-            #     check_path: login # les infos sont récupérées sur la route connexion
-            #     default_target_path: accueil
+            form_login:
+                # login_path: login #qd une pers va vouloir s'auth? qd il sera sur la route connex
+                # check_path: login # les infos sont récupérées sur la route connexion
+                # default_target_path: accueil
+                # enable_csrf: true
+
+
             login_link:
                 check_route: login_check 
                 #quand on arrive sur la route login check la signature de cette connexion va etre l'id

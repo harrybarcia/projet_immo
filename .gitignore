@@ -20,6 +20,6 @@
 ###< phpunit/phpunit ###
 
 public_html
-src/Security/UserAuthenticator.php
+
 test.txt
 test/
